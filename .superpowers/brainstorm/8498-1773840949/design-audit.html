@@ -1,0 +1,174 @@
+<h2>Design Section 2: Adaptive AI Audit Wizard</h2>
+<p class="subtitle">Step-by-step wizard → adaptive branching → AU-contextualized report with ROI focus</p>
+
+<div class="section">
+  <h3>Question Flow Architecture</h3>
+  <div class="mockup">
+    <div class="mockup-header">Adaptive Question Flow</div>
+    <div class="mockup-body" style="background:#FAFAF9; color:#1a1a1a; padding:32px; font-family:sans-serif;">
+      <!-- Base Questions -->
+      <div style="margin-bottom:24px;">
+        <div style="font-size:11px; color:#6366f1; text-transform:uppercase; letter-spacing:2px; font-weight:600; margin-bottom:12px;">Base Questions (Always Asked)</div>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <div style="flex:1; min-width:140px; padding:16px; border:2px solid #6366f1; border-radius:12px; text-align:center;">
+            <div style="font-size:20px; font-weight:800; color:#6366f1;">1</div>
+            <div style="font-size:13px; font-weight:600; margin-top:4px;">Industry</div>
+            <div style="font-size:11px; color:#888; margin-top:4px;">Retail, Healthcare, Construction, Legal, Finance, Professional Services</div>
+          </div>
+          <div style="flex:1; min-width:140px; padding:16px; border:2px solid #6366f1; border-radius:12px; text-align:center;">
+            <div style="font-size:20px; font-weight:800; color:#6366f1;">2</div>
+            <div style="font-size:13px; font-weight:600; margin-top:4px;">Business Description</div>
+            <div style="font-size:11px; color:#888; margin-top:4px;">Short free-text: what does your business do?</div>
+          </div>
+          <div style="flex:1; min-width:140px; padding:16px; border:2px solid #6366f1; border-radius:12px; text-align:center;">
+            <div style="font-size:20px; font-weight:800; color:#6366f1;">3</div>
+            <div style="font-size:13px; font-weight:600; margin-top:4px;">State / Region</div>
+            <div style="font-size:11px; color:#888; margin-top:4px;">NSW, VIC, QLD, WA, SA, TAS, NT, ACT + Metro vs Regional</div>
+          </div>
+          <div style="flex:1; min-width:140px; padding:16px; border:2px solid #6366f1; border-radius:12px; text-align:center;">
+            <div style="font-size:20px; font-weight:800; color:#6366f1;">4</div>
+            <div style="font-size:13px; font-weight:600; margin-top:4px;">Team Size</div>
+            <div style="font-size:11px; color:#888; margin-top:4px;">1-5, 6-20, 21-50, 51-200, 200+</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Branch Arrow -->
+      <div style="text-align:center; padding:8px 0; font-size:24px; color:#6366f1;">↓ branches based on industry + team size ↓</div>
+
+      <!-- Branching Questions -->
+      <div style="margin-bottom:24px;">
+        <div style="font-size:11px; color:#06b6d4; text-transform:uppercase; letter-spacing:2px; font-weight:600; margin-bottom:12px;">Adaptive Questions (2-3 based on answers)</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div style="padding:14px; border:1px solid #e5e5e5; border-left:3px solid #06b6d4; border-radius:8px; background:#fff;">
+            <div style="font-size:12px; font-weight:600;">Biggest operational pain point</div>
+            <div style="font-size:11px; color:#888; margin-top:4px;">Multi-select: Manual data entry, Customer follow-up, Compliance/reporting, Scheduling, Inventory, Invoicing, Other</div>
+          </div>
+          <div style="padding:14px; border:1px solid #e5e5e5; border-left:3px solid #06b6d4; border-radius:8px; background:#fff;">
+            <div style="font-size:12px; font-weight:600;">Current tech maturity</div>
+            <div style="font-size:11px; color:#888; margin-top:4px;">Mostly paper/spreadsheets → Some cloud tools → Integrated systems → Already using some AI</div>
+          </div>
+          <div style="padding:14px; border:1px solid #e5e5e5; border-left:3px solid #06b6d4; border-radius:8px; background:#fff;">
+            <div style="font-size:12px; font-weight:600;">Revenue impact goal</div>
+            <div style="font-size:11px; color:#888; margin-top:4px;">Reduce costs, Increase revenue, Improve customer experience, Scale without hiring, Compliance risk reduction</div>
+          </div>
+          <div style="padding:14px; border:1px solid #e5e5e5; border-left:3px solid #06b6d4; border-radius:8px; background:#fff;">
+            <div style="font-size:12px; font-weight:600;">Industry-specific (conditional)</div>
+            <div style="font-size:11px; color:#888; margin-top:4px;">e.g., Healthcare: "Patient volume per week?" / Retail: "Online vs in-store split?" / Construction: "Active project count?"</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Wizard UX — Step by Step</h3>
+  <div class="mockup">
+    <div class="mockup-header">Wizard Screen Example — Question 1</div>
+    <div class="mockup-body" style="background:#FAFAF9; color:#1a1a1a; padding:0; font-family:sans-serif;">
+      <!-- Progress bar -->
+      <div style="height:4px; background:#e5e5e5;">
+        <div style="height:4px; width:25%; background:linear-gradient(90deg,#6366f1,#06b6d4); border-radius:0 2px 2px 0;"></div>
+      </div>
+      <div style="padding:48px 32px; max-width:480px; margin:0 auto;">
+        <div style="font-size:11px; color:#888; text-transform:uppercase; letter-spacing:2px; margin-bottom:8px;">Step 1 of 4</div>
+        <div style="font-size:24px; font-weight:700; margin-bottom:8px; letter-spacing:-0.5px;">What industry are you in?</div>
+        <div style="font-size:14px; color:#666; margin-bottom:24px;">This helps us tailor insights to your specific market dynamics in Australia.</div>
+        <!-- Options as cards -->
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+          <div style="padding:16px; border:2px solid #e5e5e5; border-radius:10px; cursor:pointer; text-align:center; font-size:14px; font-weight:500;">🏪 Retail</div>
+          <div style="padding:16px; border:2px solid #6366f1; border-radius:10px; cursor:pointer; text-align:center; font-size:14px; font-weight:500; background:#f5f3ff;">🏥 Healthcare</div>
+          <div style="padding:16px; border:2px solid #e5e5e5; border-radius:10px; cursor:pointer; text-align:center; font-size:14px; font-weight:500;">🏗️ Construction</div>
+          <div style="padding:16px; border:2px solid #e5e5e5; border-radius:10px; cursor:pointer; text-align:center; font-size:14px; font-weight:500;">⚖️ Legal</div>
+          <div style="padding:16px; border:2px solid #e5e5e5; border-radius:10px; cursor:pointer; text-align:center; font-size:14px; font-weight:500;">💰 Finance</div>
+          <div style="padding:16px; border:2px solid #e5e5e5; border-radius:10px; cursor:pointer; text-align:center; font-size:14px; font-weight:500;">💼 Professional Services</div>
+        </div>
+        <button style="width:100%; margin-top:24px; padding:14px; background:#6366f1; color:white; border:none; border-radius:10px; font-size:15px; font-weight:600; cursor:pointer;">Continue →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Report Output — AI Uplift Opportunities</h3>
+  <div class="mockup">
+    <div class="mockup-header">Generated Report — Healthcare, VIC, 21-50 staff</div>
+    <div class="mockup-body" style="background:#FAFAF9; color:#1a1a1a; padding:32px; font-family:sans-serif;">
+      <!-- Header -->
+      <div style="border-bottom:2px solid #6366f1; padding-bottom:16px; margin-bottom:24px;">
+        <div style="font-size:11px; color:#6366f1; text-transform:uppercase; letter-spacing:2px; font-weight:600;">Your AI Uplift Report</div>
+        <div style="font-size:22px; font-weight:700; margin-top:4px; letter-spacing:-0.5px;">3 High-Impact AI Opportunities for Your Practice</div>
+        <div style="font-size:13px; color:#888; margin-top:4px;">Healthcare • Victoria • 21-50 team members • AHPRA-regulated</div>
+      </div>
+
+      <!-- Opportunity 1 -->
+      <div style="padding:20px; border:1px solid #e5e5e5; border-radius:12px; margin-bottom:16px; background:#fff;">
+        <div style="display:flex; justify-content:space-between; align-items:start; margin-bottom:12px;">
+          <div>
+            <div style="font-size:16px; font-weight:700;">Patient Intake Automation</div>
+            <div style="font-size:12px; color:#6366f1; font-weight:600; margin-top:2px;">YOUR ROLE: Define intake criteria & approval workflow</div>
+          </div>
+          <div style="background:#f0fdf4; color:#16a34a; padding:6px 12px; border-radius:20px; font-size:12px; font-weight:600;">High Impact</div>
+        </div>
+        <div style="font-size:13px; color:#555; line-height:1.7; margin-bottom:12px;">AI handles form collection, Medicare validation, and pre-appointment questionnaires. Your admin team shifts from data entry to patient care coordination — a shift most VIC practices your size haven't made yet.</div>
+        <div style="display:flex; gap:16px; padding:12px; background:#f8f8f7; border-radius:8px;">
+          <div style="flex:1; text-align:center; border-right:1px solid #e5e5e5;">
+            <div style="font-size:18px; font-weight:700; color:#6366f1;">$85K-$120K</div>
+            <div style="font-size:10px; color:#888; text-transform:uppercase; letter-spacing:1px;">Est. Annual Savings</div>
+          </div>
+          <div style="flex:1; text-align:center; border-right:1px solid #e5e5e5;">
+            <div style="font-size:18px; font-weight:700; color:#06b6d4;">15-20 hrs/wk</div>
+            <div style="font-size:10px; color:#888; text-transform:uppercase; letter-spacing:1px;">Staff Time Freed</div>
+          </div>
+          <div style="flex:1; text-align:center;">
+            <div style="font-size:18px; font-weight:700; color:#0f0f0f;">3-4 weeks</div>
+            <div style="font-size:10px; color:#888; text-transform:uppercase; letter-spacing:1px;">Implementation</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Opportunity 2 (compressed) -->
+      <div style="padding:20px; border:1px solid #e5e5e5; border-radius:12px; margin-bottom:16px; background:#fff;">
+        <div style="display:flex; justify-content:space-between; align-items:start;">
+          <div>
+            <div style="font-size:16px; font-weight:700;">Billing & Claims Follow-Up</div>
+            <div style="font-size:12px; color:#6366f1; font-weight:600; margin-top:2px;">YOUR ROLE: Set follow-up rules & escalation thresholds</div>
+          </div>
+          <div style="background:#f0fdf4; color:#16a34a; padding:6px 12px; border-radius:20px; font-size:12px; font-weight:600;">High Impact</div>
+        </div>
+        <div style="font-size:13px; color:#555; line-height:1.7; margin-top:12px;">Automated Medicare/private health fund claim tracking and patient follow-up. Reduces outstanding receivables by 40-60% — critical for VIC practices where bulk billing margins are thin.</div>
+        <div style="display:flex; gap:16px; padding:12px; background:#f8f8f7; border-radius:8px; margin-top:12px;">
+          <div style="flex:1; text-align:center;"><div style="font-size:16px; font-weight:700; color:#6366f1;">$60K-$90K</div><div style="font-size:10px; color:#888;">Annual Recovery</div></div>
+          <div style="flex:1; text-align:center;"><div style="font-size:16px; font-weight:700; color:#06b6d4;">40-60%</div><div style="font-size:10px; color:#888;">Overdue Reduction</div></div>
+          <div style="flex:1; text-align:center;"><div style="font-size:16px; font-weight:700; color:#0f0f0f;">2-3 weeks</div><div style="font-size:10px; color:#888;">Implementation</div></div>
+        </div>
+      </div>
+
+      <!-- 30/60/90 Roadmap -->
+      <div style="padding:20px; background:#0f0f0f; border-radius:12px; margin-top:24px; color:#fff;">
+        <div style="font-size:14px; font-weight:700; margin-bottom:16px;">Your 30/60/90 Day AI Roadmap</div>
+        <div style="display:flex; gap:12px;">
+          <div style="flex:1; padding:12px; background:rgba(99,102,241,0.15); border-radius:8px; border-left:3px solid #6366f1;">
+            <div style="font-size:11px; font-weight:700; color:#a5b4fc;">DAYS 1-30</div>
+            <div style="font-size:12px; color:#ccc; margin-top:4px;">Patient intake automation + staff training</div>
+          </div>
+          <div style="flex:1; padding:12px; background:rgba(6,182,212,0.15); border-radius:8px; border-left:3px solid #06b6d4;">
+            <div style="font-size:11px; font-weight:700; color:#67e8f9;">DAYS 31-60</div>
+            <div style="font-size:12px; color:#ccc; margin-top:4px;">Billing automation + Medicare integration</div>
+          </div>
+          <div style="flex:1; padding:12px; background:rgba(34,197,94,0.15); border-radius:8px; border-left:3px solid #22c55e;">
+            <div style="font-size:11px; font-weight:700; color:#86efac;">DAYS 61-90</div>
+            <div style="font-size:12px; color:#ccc; margin-top:4px;">Appointment reminders + review & optimize</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div style="text-align:center; margin-top:24px;">
+        <button style="padding:14px 32px; background:#6366f1; color:white; border:none; border-radius:10px; font-size:15px; font-weight:600; cursor:pointer;">Book Your Deep-Dive Session →</button>
+        <div style="font-size:12px; color:#888; margin-top:8px;">30-minute strategy call • No obligation • We'll expand on these findings</div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg: 245 245 245; /* Ash Foam White */
+    --surface-1: 232 235 238; /* Light Slate Wash */
+    --surface-2: 215 220 225;
+    
+    --border-subtle: 215 220 225;
+    --border-strong: 150 160 170;
+    
+    --text-primary: 15 15 15; /* Pitch Black Sand */
+    --text-secondary: 50 60 70; /* Deep Ocean Slate */
+    --text-muted: 90 100 110;
+    
+    --accent-blue: 6 148 148; /* True Teal #069494 */
+    --accent-blue-hover: 5 120 120;
+  }
+  
+  [data-theme='dark'] {
+    --bg: 10 10 10; /* Pitch Black Sand */
+    --surface-1: 35 42 50; /* Slate Ocean */
+    --surface-2: 45 53 62;
+    
+    --border-subtle: 25 25 25;
+    --border-strong: 59 66 76;
+    
+    --text-primary: 240 240 240; /* Ash Foam */
+    --text-secondary: 150 160 170;
+    --text-muted: 100 110 120;
+    
+    --accent-blue: 6 148 148; /* True Teal #069494 */
+    --accent-blue-hover: 5 120 120;
+  }
+
+  html, body {
+    background-color: rgb(var(--bg));
+    color: rgb(var(--text-primary));
+    overflow-x: hidden;
+    /* Disable native smooth scroll as it fights with Lenis */
+    scroll-behavior: auto !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  main {
+    will-change: transform;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-sans);
+    letter-spacing: -0.04em;
+    font-weight: 600;
+  }
+}
+
+@layer utilities {
+  .section-padding {
+    @apply py-20 md:py-32;
+  }
+  
+  .section-container {
+    @apply max-w-7xl mx-auto px-6 md:px-12 w-full;
+  }
+
+  .tech-badge {
+    @apply inline-flex items-center gap-2 px-6 py-2 font-mono text-[11px] uppercase border border-border-strong/50 bg-surface-1/50 backdrop-blur-sm text-text-primary tracking-[0.25em];
+  }
+
+  .glass-card {
+    @apply bg-surface-1/40 backdrop-blur-[8px] border border-white/10 dark:border-white/5;
+  }
+
+  .tech-grid {
+    background-image: radial-gradient(circle at 2px 2px, rgba(128,128,128,0.1) 1px, transparent 0);
+    background-size: 32px 32px;
+  }
+
+}
+
+.skip-to-main {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  padding: 1rem;
+  background: var(--bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-strong);
+  z-index: 100;
+  transition: top 0.2s;
+}
+
+.skip-to-main:focus {
+  top: 0;
+}

@@ -1,0 +1,256 @@
+<h2>Mobile Responsiveness — Visual Breakdown</h2>
+<p class="subtitle">Side-by-side: current mobile issues vs proposed fixes at 375px (iPhone)</p>
+
+<div class="section">
+  <h3>Hero Section</h3>
+  <div class="split">
+    <div class="mockup">
+      <div class="mockup-header">CURRENT — Mobile Hero</div>
+      <div class="mockup-body" style="background:#0a0a0f; color:#fff; padding:0; font-family:sans-serif; width:320px; margin:0 auto; overflow:hidden;">
+        <!-- Simulated particles noise -->
+        <div style="position:relative; padding:64px 24px 48px;">
+          <div style="position:absolute; top:0; left:0; right:0; bottom:0; opacity:0.3; background:radial-gradient(circle at 20% 30%, rgba(167,139,250,0.3) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(6,182,212,0.2) 0%, transparent 50%);"></div>
+          <div style="position:relative;">
+            <div style="font-size:10px; color:#a78bfa; text-transform:uppercase; letter-spacing:2px; margin-bottom:12px;">AI Consulting</div>
+            <div style="font-size:32px; font-weight:800; line-height:1.1; margin-bottom:12px; background:linear-gradient(135deg,#a78bfa,#06b6d4); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">The AI Gap Is Costing Your Business</div>
+            <div style="display:inline-block; background:rgba(167,139,250,0.15); border:1px solid rgba(167,139,250,0.3); border-radius:20px; padding:6px 14px; font-size:13px; margin:8px 0;">Now automating: <span style="color:#a78bfa;">Invoice Processing</span></div>
+            <div style="font-size:13px; color:#888; line-height:1.6; margin-top:12px;">While your competitors automate, manual processes drain your team's time and your bottom line.</div>
+            <div style="display:flex; gap:8px; margin-top:16px;">
+              <button style="padding:10px 16px; background:linear-gradient(135deg,#6366f1,#a78bfa); color:white; border:none; border-radius:8px; font-size:12px;">Get Free AI Audit</button>
+              <button style="padding:10px 16px; background:transparent; color:white; border:1px solid rgba(255,255,255,0.2); border-radius:8px; font-size:12px;">Our Services</button>
+            </div>
+            <!-- Scroll indicator competing -->
+            <div style="text-align:center; margin-top:32px; font-size:11px; color:#666;">Scroll to explore ↓</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mockup">
+      <div class="mockup-header">PROPOSED — Mobile Hero</div>
+      <div class="mockup-body" style="background:#0f0f0f; color:#fff; padding:0; font-family:sans-serif; width:320px; margin:0 auto;">
+        <div style="padding:48px 20px 40px;">
+          <div style="font-size:10px; color:#6366f1; text-transform:uppercase; letter-spacing:2px; font-weight:600; margin-bottom:12px;">AI Consulting</div>
+          <div style="font-size:30px; font-weight:800; line-height:1.15; letter-spacing:-0.5px; color:#fff; margin-bottom:8px;">The AI Gap Is Costing Your Business</div>
+          <div style="font-size:13px; color:#888; line-height:1.6; margin-bottom:6px;">While your competitors automate, manual processes drain your team's time and your bottom line.</div>
+          <div style="font-size:13px; color:#a5b4fc; margin-bottom:20px;">Now automating: <span style="color:#6366f1; font-weight:500;">Invoice Processing</span></div>
+          <button style="width:100%; padding:14px; background:#6366f1; color:white; border:none; border-radius:10px; font-size:15px; font-weight:600; margin-bottom:10px;">Get Your Free AI Audit →</button>
+          <button style="width:100%; padding:14px; background:transparent; color:#ccc; border:1px solid #333; border-radius:10px; font-size:14px;">View Our Services</button>
+          <!-- No scroll indicator on mobile -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:12px; font-size:13px; padding:12px; border-left:3px solid #6366f1; background:rgba(99,102,241,0.05); border-radius:0 8px 8px 0;">
+    <strong>Changes:</strong> No particles/gradients. TypeAnimation text demoted to subtitle (not pill). Full-width stacked CTAs (easier tap targets). Scroll indicator removed. Tighter padding (48px top vs 64px). Clean solid background.
+  </div>
+</div>
+
+<div class="section">
+  <h3>Stats Bar</h3>
+  <div class="split">
+    <div class="mockup">
+      <div class="mockup-header">CURRENT — 2x2 Grid (Cramped)</div>
+      <div class="mockup-body" style="background:#0a0a0f; color:#fff; padding:16px; font-family:sans-serif; width:320px; margin:0 auto;">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+          <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:12px; text-align:center;">
+            <div style="font-size:18px; font-weight:700; color:#a78bfa;">200+</div>
+            <div style="font-size:9px; color:#666; margin-top:2px;">Workflows Automated</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:12px; text-align:center;">
+            <div style="font-size:18px; font-weight:700; color:#06b6d4;">$4.2M</div>
+            <div style="font-size:9px; color:#666; margin-top:2px;">Client Savings</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:12px; text-align:center;">
+            <div style="font-size:18px; font-weight:700; color:#a78bfa;">30</div>
+            <div style="font-size:9px; color:#666; margin-top:2px;">Day Avg Deploy</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:12px; text-align:center;">
+            <div style="font-size:18px; font-weight:700; color:#06b6d4;">98%</div>
+            <div style="font-size:9px; color:#666; margin-top:2px;">Client Satisfaction</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mockup">
+      <div class="mockup-header">PROPOSED — Horizontal Scroll Pills</div>
+      <div class="mockup-body" style="background:#FAFAF9; color:#1a1a1a; padding:16px 0; font-family:sans-serif; width:320px; margin:0 auto; overflow:hidden;">
+        <div style="display:flex; gap:12px; padding:0 20px; overflow-x:auto; scrollbar-width:none;">
+          <div style="flex-shrink:0; padding:14px 20px; background:#fff; border:1px solid #e5e5e5; border-radius:10px; text-align:center; min-width:120px;">
+            <div style="font-size:22px; font-weight:700; color:#0f0f0f;">200+</div>
+            <div style="font-size:11px; color:#888; margin-top:2px;">Workflows</div>
+          </div>
+          <div style="flex-shrink:0; padding:14px 20px; background:#fff; border:1px solid #e5e5e5; border-radius:10px; text-align:center; min-width:120px;">
+            <div style="font-size:22px; font-weight:700; color:#0f0f0f;">$4.2M</div>
+            <div style="font-size:11px; color:#888; margin-top:2px;">Saved</div>
+          </div>
+          <div style="flex-shrink:0; padding:14px 20px; background:#fff; border:1px solid #e5e5e5; border-radius:10px; text-align:center; min-width:120px;">
+            <div style="font-size:22px; font-weight:700; color:#0f0f0f;">30 Days</div>
+            <div style="font-size:11px; color:#888; margin-top:2px;">Avg Deploy</div>
+          </div>
+          <div style="flex-shrink:0; padding:14px 20px; background:#fff; border:1px solid #e5e5e5; border-radius:10px; text-align:center; min-width:120px;">
+            <div style="font-size:22px; font-weight:700; color:#0f0f0f;">98%</div>
+            <div style="font-size:11px; color:#888; margin-top:2px;">Satisfaction</div>
+          </div>
+        </div>
+        <div style="text-align:center; margin-top:8px; font-size:10px; color:#bbb;">← swipe →</div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:12px; font-size:13px; padding:12px; border-left:3px solid #6366f1; background:rgba(99,102,241,0.05); border-radius:0 8px 8px 0;">
+    <strong>Changes:</strong> Horizontal scroll (native swipe gesture) replaces cramped 2x2 grid. Each stat gets breathing room. Light background, solid borders. Larger numbers, cleaner typography.
+  </div>
+</div>
+
+<div class="section">
+  <h3>Process Timeline</h3>
+  <div class="split">
+    <div class="mockup">
+      <div class="mockup-header">CURRENT — Vertical Timeline (Tall)</div>
+      <div class="mockup-body" style="background:#0a0a0f; color:#fff; padding:24px; font-family:sans-serif; width:320px; margin:0 auto;">
+        <div style="border-left:2px solid rgba(167,139,250,0.3); padding-left:20px;">
+          <div style="margin-bottom:24px; position:relative;">
+            <div style="position:absolute; left:-27px; top:0; width:12px; height:12px; border-radius:50%; background:#6366f1;"></div>
+            <div style="font-size:10px; color:#6366f1;">STEP 1</div>
+            <div style="font-size:14px; font-weight:600; margin:4px 0;">Discovery & Audit</div>
+            <div style="font-size:12px; color:#888; line-height:1.5;">We map your workflows and identify automation opportunities.</div>
+          </div>
+          <div style="margin-bottom:24px; position:relative;">
+            <div style="position:absolute; left:-27px; top:0; width:12px; height:12px; border-radius:50%; background:#6366f1;"></div>
+            <div style="font-size:10px; color:#6366f1;">STEP 2</div>
+            <div style="font-size:14px; font-weight:600; margin:4px 0;">Strategy & Design</div>
+            <div style="font-size:12px; color:#888; line-height:1.5;">Custom AI roadmap with ROI projections.</div>
+          </div>
+          <div style="margin-bottom:24px; position:relative;">
+            <div style="position:absolute; left:-27px; top:0; width:12px; height:12px; border-radius:50%; background:#6366f1;"></div>
+            <div style="font-size:10px; color:#6366f1;">STEP 3</div>
+            <div style="font-size:14px; font-weight:600; margin:4px 0;">Build & Integrate</div>
+            <div style="font-size:12px; color:#888; line-height:1.5;">Implement solutions into your existing stack.</div>
+          </div>
+          <div style="position:relative;">
+            <div style="position:absolute; left:-27px; top:0; width:12px; height:12px; border-radius:50%; background:#6366f1;"></div>
+            <div style="font-size:10px; color:#6366f1;">STEP 4</div>
+            <div style="font-size:14px; font-weight:600; margin:4px 0;">Optimise & Scale</div>
+            <div style="font-size:12px; color:#888; line-height:1.5;">Monitor, refine, and expand automations.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mockup">
+      <div class="mockup-header">PROPOSED — Compact Horizontal Stepper</div>
+      <div class="mockup-body" style="background:#FAFAF9; color:#1a1a1a; padding:24px 20px; font-family:sans-serif; width:320px; margin:0 auto;">
+        <!-- Horizontal step indicators -->
+        <div style="display:flex; align-items:center; justify-content:center; gap:4px; margin-bottom:20px;">
+          <div style="width:32px; height:32px; border-radius:50%; background:#6366f1; color:#fff; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700;">1</div>
+          <div style="width:24px; height:2px; background:#6366f1;"></div>
+          <div style="width:32px; height:32px; border-radius:50%; background:#6366f1; color:#fff; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700;">2</div>
+          <div style="width:24px; height:2px; background:#6366f1;"></div>
+          <div style="width:32px; height:32px; border-radius:50%; background:#6366f1; color:#fff; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700;">3</div>
+          <div style="width:24px; height:2px; background:#6366f1;"></div>
+          <div style="width:32px; height:32px; border-radius:50%; background:#6366f1; color:#fff; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700;">4</div>
+        </div>
+        <!-- Compact cards -->
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+          <div style="padding:14px; background:#fff; border:1px solid #e5e5e5; border-radius:10px;">
+            <div style="font-size:11px; color:#6366f1; font-weight:600;">01</div>
+            <div style="font-size:13px; font-weight:700; margin:4px 0;">Discovery</div>
+            <div style="font-size:11px; color:#888; line-height:1.5;">Map workflows, find opportunities</div>
+          </div>
+          <div style="padding:14px; background:#fff; border:1px solid #e5e5e5; border-radius:10px;">
+            <div style="font-size:11px; color:#6366f1; font-weight:600;">02</div>
+            <div style="font-size:13px; font-weight:700; margin:4px 0;">Strategy</div>
+            <div style="font-size:11px; color:#888; line-height:1.5;">AI roadmap + ROI projections</div>
+          </div>
+          <div style="padding:14px; background:#fff; border:1px solid #e5e5e5; border-radius:10px;">
+            <div style="font-size:11px; color:#6366f1; font-weight:600;">03</div>
+            <div style="font-size:13px; font-weight:700; margin:4px 0;">Build</div>
+            <div style="font-size:11px; color:#888; line-height:1.5;">Integrate into your stack</div>
+          </div>
+          <div style="padding:14px; background:#fff; border:1px solid #e5e5e5; border-radius:10px;">
+            <div style="font-size:11px; color:#6366f1; font-weight:600;">04</div>
+            <div style="font-size:13px; font-weight:700; margin:4px 0;">Scale</div>
+            <div style="font-size:11px; color:#888; line-height:1.5;">Monitor, refine, expand</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:12px; font-size:13px; padding:12px; border-left:3px solid #6366f1; background:rgba(99,102,241,0.05); border-radius:0 8px 8px 0;">
+    <strong>Changes:</strong> Vertical timeline → horizontal stepper + 2x2 card grid. Saves ~60% vertical space on mobile. Connected dots show progression. Cards are scannable. No animated vertical line fighting scroll.
+  </div>
+</div>
+
+<div class="section">
+  <h3>AI Audit Wizard — Mobile</h3>
+  <div class="split">
+    <div class="mockup">
+      <div class="mockup-header">Wizard Step — Mobile (375px)</div>
+      <div class="mockup-body" style="background:#FAFAF9; color:#1a1a1a; padding:0; font-family:sans-serif; width:320px; margin:0 auto;">
+        <div style="height:4px; background:#e5e5e5;">
+          <div style="height:4px; width:50%; background:linear-gradient(90deg,#6366f1,#06b6d4); border-radius:0 2px 2px 0;"></div>
+        </div>
+        <div style="padding:32px 20px;">
+          <div style="font-size:10px; color:#888; text-transform:uppercase; letter-spacing:2px; margin-bottom:6px;">Step 2 of 6</div>
+          <div style="font-size:22px; font-weight:700; letter-spacing:-0.5px; margin-bottom:6px;">Tell us about your business</div>
+          <div style="font-size:13px; color:#666; margin-bottom:20px;">A brief description helps us find specific AI opportunities.</div>
+          <textarea style="width:100%; box-sizing:border-box; padding:14px; border:2px solid #e5e5e5; border-radius:10px; font-size:14px; font-family:sans-serif; resize:none; height:100px;" placeholder="e.g., We run a 3-location physiotherapy practice in Melbourne..."></textarea>
+          <div style="font-size:11px; color:#bbb; margin-top:6px; text-align:right;">Brief is fine — 1-2 sentences</div>
+          <button style="width:100%; margin-top:20px; padding:14px; background:#6366f1; color:white; border:none; border-radius:10px; font-size:15px; font-weight:600;">Continue →</button>
+          <button style="width:100%; margin-top:8px; padding:12px; background:transparent; color:#888; border:none; font-size:13px;">← Back</button>
+        </div>
+      </div>
+    </div>
+    <div class="mockup">
+      <div class="mockup-header">Report — Mobile (375px)</div>
+      <div class="mockup-body" style="background:#FAFAF9; color:#1a1a1a; padding:0; font-family:sans-serif; width:320px; margin:0 auto; max-height:400px; overflow-y:auto;">
+        <div style="padding:24px 20px;">
+          <div style="font-size:10px; color:#6366f1; text-transform:uppercase; letter-spacing:2px; font-weight:600;">Your AI Uplift Report</div>
+          <div style="font-size:20px; font-weight:700; margin-top:4px; letter-spacing:-0.5px;">3 High-Impact Opportunities</div>
+          <div style="font-size:12px; color:#888; margin-top:4px; padding-bottom:12px; border-bottom:1px solid #e5e5e5;">Healthcare • VIC • 21-50 staff</div>
+
+          <!-- Opportunity card - stacked ROI -->
+          <div style="padding:16px; border:1px solid #e5e5e5; border-radius:10px; margin-top:16px; background:#fff;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <div style="font-size:15px; font-weight:700;">Patient Intake</div>
+              <div style="background:#f0fdf4; color:#16a34a; padding:4px 10px; border-radius:20px; font-size:10px; font-weight:600;">High Impact</div>
+            </div>
+            <div style="font-size:11px; color:#6366f1; font-weight:600; margin-top:4px;">YOUR ROLE: Define intake criteria</div>
+            <div style="font-size:12px; color:#555; line-height:1.6; margin-top:8px;">AI handles form collection, Medicare validation, and pre-appointment questionnaires.</div>
+            <!-- Stacked metrics for mobile -->
+            <div style="margin-top:12px; display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+              <div style="padding:10px; background:#f8f8f7; border-radius:6px; text-align:center;">
+                <div style="font-size:16px; font-weight:700; color:#6366f1;">$85-120K</div>
+                <div style="font-size:9px; color:#888; text-transform:uppercase;">Annual Savings</div>
+              </div>
+              <div style="padding:10px; background:#f8f8f7; border-radius:6px; text-align:center;">
+                <div style="font-size:16px; font-weight:700; color:#06b6d4;">15-20h/wk</div>
+                <div style="font-size:9px; color:#888; text-transform:uppercase;">Time Freed</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Roadmap stacked -->
+          <div style="padding:16px; background:#0f0f0f; border-radius:10px; margin-top:16px; color:#fff;">
+            <div style="font-size:13px; font-weight:700; margin-bottom:12px;">30/60/90 Day Roadmap</div>
+            <div style="padding:10px; background:rgba(99,102,241,0.15); border-radius:6px; border-left:3px solid #6366f1; margin-bottom:8px;">
+              <div style="font-size:10px; font-weight:700; color:#a5b4fc;">DAYS 1-30</div>
+              <div style="font-size:11px; color:#ccc; margin-top:2px;">Patient intake automation</div>
+            </div>
+            <div style="padding:10px; background:rgba(6,182,212,0.15); border-radius:6px; border-left:3px solid #06b6d4; margin-bottom:8px;">
+              <div style="font-size:10px; font-weight:700; color:#67e8f9;">DAYS 31-60</div>
+              <div style="font-size:11px; color:#ccc; margin-top:2px;">Billing automation</div>
+            </div>
+            <div style="padding:10px; background:rgba(34,197,94,0.15); border-radius:6px; border-left:3px solid #22c55e;">
+              <div style="font-size:10px; font-weight:700; color:#86efac;">DAYS 61-90</div>
+              <div style="font-size:11px; color:#ccc; margin-top:2px;">Optimise & expand</div>
+            </div>
+          </div>
+
+          <button style="width:100%; margin-top:16px; padding:14px; background:#6366f1; color:white; border:none; border-radius:10px; font-size:14px; font-weight:600;">Book Deep-Dive Session →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:12px; font-size:13px; padding:12px; border-left:3px solid #6366f1; background:rgba(99,102,241,0.05); border-radius:0 8px 8px 0;">
+    <strong>Changes:</strong> Full-width inputs with generous touch targets. Back button below Continue. ROI metrics in 2-column grid (not 3 — fits mobile). Roadmap stacks vertically. CTA is full-width and sticky-visible.
+  </div>
+</div>
