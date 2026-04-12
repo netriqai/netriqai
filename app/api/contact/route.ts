@@ -14,8 +14,8 @@ export async function POST(req: Request) {
     
     // PRODUCTION EMAIL RELAY
     const { data: emailData, error } = await resend.emails.send({
-      from: 'NeuralShift Inquiries <onboarding@resend.dev>', // Use a custom domain later from resend.com for scaling
-      to: ['amitindercheema@gmail.com'],
+      from: 'Netriq AI Inquiries <onboarding@resend.dev>', // Use a custom domain later from resend.com for scaling
+      to: ['netriqai@gmail.com'],
       // Note: Full distribution to prabuddh.k@gmail.com requires domain verification at resend.com/domains
       replyTo: data.email,
       subject: `[NEURAL_SYNC] New Inquiry from ${data.name} (${data.company})`,
@@ -40,7 +40,7 @@ export async function POST(req: Request) {
             <p style="margin-bottom: 0;">${data.challenge}</p>
           </div>
           
-          <p style="opacity: 0.5; font-size: 10px; margin-top: 40px; text-transform: uppercase;">Sent intrinsically from NeuralShift platform | ARCHITECTURE_v2.0</p>
+          <p style="opacity: 0.5; font-size: 10px; margin-top: 40px; text-transform: uppercase;">Sent intrinsically from Netriq platform | ARCHITECTURE_v2.0</p>
         </div>
       `,
     });
@@ -52,7 +52,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ 
        status: 'SYNCHRONIZED', 
-       message: 'Transmission successfully relayed via NeuralShift Bridge.',
+       message: 'Transmission successfully relayed via Netriq Bridge.',
        timestamp: new Date().toISOString()
     });
     

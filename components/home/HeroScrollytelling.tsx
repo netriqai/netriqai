@@ -11,7 +11,7 @@ const chapters = [
   {
     eyebrow: 'PREMIER AI AUTOMATION AGENCY',
     heading: 'Rewiring Business\nWith Intelligence.',
-    sub: 'NeuralShift builds enterprise-grade AI automation that handles your operations while you focus on growth.',
+    sub: 'Netriq AI builds enterprise-grade AI automation that handles your operations while you focus on growth.',
     cta: { label: 'Transform Your Workflow', href: '/contact' },
   },
   {
@@ -38,11 +38,9 @@ export default function HeroScrollytelling() {
     offset: ['start start', 'end end'],
   });
 
-  const smoothProgress = useSpring(scrollYProgress, { stiffness: 60, damping: 25 });
-
   // ── Image parallax ──
-  const imageScale = useTransform(smoothProgress, [0, 1], [1, 1.12]);
-  const imageY = useTransform(smoothProgress, [0, 1], ['0%', '-8%']);
+  const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.12]);
+  const imageY = useTransform(scrollYProgress, [0, 1], ['0%', '-8%']);
 
   // ── Overlay darkens as we progress ──
   const overlayOpacity = useTransform(scrollYProgress, [0, 0.2, 0.7, 1], [0.3, 0.55, 0.65, 0.85]);
@@ -64,9 +62,9 @@ export default function HeroScrollytelling() {
   const logosOpacity = useTransform(scrollYProgress, [0.88, 0.95], [0, 1]);
 
   // ── Floating data nodes — parallax each independently ──
-  const node1Y = useTransform(smoothProgress, [0, 1], [0, -40]);
-  const node2Y = useTransform(smoothProgress, [0, 1], [0, 30]);
-  const node3Y = useTransform(smoothProgress, [0, 1], [0, -20]);
+  const node1Y = useTransform(scrollYProgress, [0, 1], [0, -40]);
+  const node2Y = useTransform(scrollYProgress, [0, 1], [0, 30]);
+  const node3Y = useTransform(scrollYProgress, [0, 1], [0, -20]);
 
   // ── Progress dots — declared at top level (no hooks inside .map) ──
   const dot0Opacity = useTransform(scrollYProgress, [0, 0.05, 0.28, 0.33], [0.25, 1, 1, 0.25]);
@@ -83,11 +81,11 @@ export default function HeroScrollytelling() {
         {/* ── BASE IMAGE (parallax zoom) ── */}
         <motion.div
           className="absolute inset-0 w-full h-full"
-          style={{ scale: imageScale, y: imageY }}
+          style={{ scale: imageScale, y: imageY, willChange: "transform" }}
         >
           <Image
             src="/images/neural-profile.png"
-            alt="Neural Intelligence — NeuralShift AI"
+            alt="Neural Intelligence — Netriq AI"
             fill
             priority
             className="object-cover object-center"
@@ -106,7 +104,7 @@ export default function HeroScrollytelling() {
         {/* ── FLOATING DATA NODES ── */}
         {/* Node 1 top-right */}
         <motion.div
-          style={{ y: node1Y }}
+          style={{ y: node1Y, willChange: "transform" }}
           className="absolute top-[16%] right-[8%] z-20 hidden lg:block"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -134,7 +132,7 @@ export default function HeroScrollytelling() {
 
         {/* Node 2 mid-left */}
         <motion.div
-          style={{ y: node2Y }}
+          style={{ y: node2Y, willChange: "transform" }}
           className="absolute top-[42%] left-[6%] z-20 hidden lg:block"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -150,7 +148,7 @@ export default function HeroScrollytelling() {
 
         {/* Node 3 lower-right */}
         <motion.div
-          style={{ y: node3Y }}
+          style={{ y: node3Y, willChange: "transform" }}
           className="absolute bottom-[28%] right-[6%] z-20 hidden lg:block"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

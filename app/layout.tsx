@@ -30,34 +30,33 @@ const robotoMono = Roboto_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: 'NeuralShift AI — AI Automation Consultancy | Melbourne, Australia',
-    template: '%s | NeuralShift AI',
+    default: 'Netriq AI — AI Automation Consulting for SMBs | Melbourne',
+    template: '%s | Netriq AI Consulting',
   },
   description:
-    'NeuralShift AI builds custom AI automation systems for Australian SMBs. We automate operations, sales pipelines, support teams, and back-office workflows. Starting from AUD $2,500.',
+    'Netriq AI is a premium AI automation consultancy specializing in Small and Medium Business (SMB) efficiency. We design and implement custom AI pipelines, sales automation, and intelligent support systems for Australian businesses. Starting from AUD $2,500.',
   keywords: [
-    'AI automation',
-    'AI consultancy',
-    'Melbourne AI',
-    'Australian AI agency',
-    'business automation',
-    'workflow automation',
-    'Make.com',
-    'n8n',
-    'AI implementation',
-    'SMB automation',
-    'AI strategy',
+    'SMB AI automation',
+    'Small business AI consulting',
+    'AI automation agency Australia',
+    'Melbourne AI consultants',
+    'custom AI workflows',
+    'AI for small business efficiency',
+    'business process automation',
+    'Australian AI consultancy',
+    'intelligent automation for SMBs',
+    'AI implementation services',
   ],
-  authors: [{ name: 'NeuralShift AI', url: 'https://search.neuralshiftai.com.au' }],
-  creator: 'NeuralShift AI',
-  publisher: 'NeuralShift AI',
-  metadataBase: new URL('https://search.neuralshiftai.com.au'),
+  authors: [{ name: 'Netriq AI', url: 'https://netriq.com.au' }],
+  creator: 'Netriq AI',
+  publisher: 'Netriq AI',
+  metadataBase: new URL('https://netriq.com.au'),
   openGraph: {
     type: 'website',
     locale: 'en_AU',
-    url: 'https://search.neuralshiftai.com.au',
-    siteName: 'NeuralShift AI',
-    title: 'NeuralShift AI — We Rewire Your Business With AI',
+    url: 'https://netriq.com.au',
+    siteName: 'Netriq AI',
+    title: 'Netriq AI — We Rewire Your Business With AI',
     description:
       "We don't just automate your business. We rewire it. Custom AI automation for Australian SMBs — 200+ workflows built, AUD $4.2M saved for clients.",
     images: [
@@ -65,17 +64,17 @@ export const metadata: Metadata = {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'NeuralShift AI — AI Automation Consultancy Melbourne',
+        alt: 'Netriq AI — AI Automation Consultancy Melbourne',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'NeuralShift AI — AI Automation for Australian SMBs',
+    title: 'Netriq AI — AI Automation for Australian SMBs',
     description:
       "We don't just automate your business. We rewire it. 200+ workflows built. AUD $4.2M saved.",
     images: ['/og-image.png'],
-    creator: '@neuralshiftai',
+    creator: '@netriqai',
   },
   robots: {
     index: true,
@@ -88,12 +87,6 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon-16x16.png',
-    apple: '/apple-touch-icon.png',
-  },
-  manifest: '/site.webmanifest',
 };
 
 export default function RootLayout({
@@ -119,6 +112,34 @@ export default function RootLayout({
           <LenisProvider>
             <IndustrialGrid />
             <Navbar />
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                  "@context": "https://schema.org",
+                  "@type": "ProfessionalService",
+                  "name": "Netriq AI",
+                  "description": "Premium AI Automation Consultancy for Small and Medium Businesses (SMBs) in Australia.",
+                  "url": "https://netriq.com.au",
+                  "logo": "https://netriq.com.au/icon.svg",
+                  "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": "Melbourne",
+                    "addressRegion": "VIC",
+                    "addressCountry": "AU"
+                  },
+                  "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": "-37.8136",
+                    "longitude": "144.9631"
+                  },
+                  "priceRange": "$$$",
+                  "serviceType": "AI Automation, Business Process Optimization, SMB AI Consulting",
+                  "areaServed": "Australia",
+                  "openingHours": "Mo-Fr 09:00-17:00"
+                })
+              }}
+            />
             <main id="main-content">
               {children}
             </main>

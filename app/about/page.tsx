@@ -41,7 +41,7 @@ const team = [
   {
     name: 'Neural Architect 01',
     role: 'Founder & AI Architect',
-    bio: 'Former technical lead at global AI platform teams. Built automation systems processing 50M+ events/day. Founded NeuralShift to give SMBs access to the same technology.',
+    bio: 'Former technical lead at global AI platform teams. Built automation systems processing 50M+ events/day. Founded Netriq AI to give SMBs access to the same technology.',
     gradient: 'from-accent-blue to-white/10',
     initials: 'ARCH',
   },
@@ -96,7 +96,7 @@ export default function AboutPage() {
               <span className="text-accent-blue">The Intelligence Layer.</span>
             </h1>
             <p className="text-text-secondary text-lg md:text-xl max-w-2xl mx-auto leading-relaxed opacity-80 font-sans">
-              NeuralShift AI was founded by engineers who got tired of watching enterprise companies hoard AI advantages while Australian SMBs got left behind.
+              Netriq AI was founded by engineers who got tired of watching enterprise companies hoard AI advantages while Australian SMBs got left behind.
             </p>
           </SectionReveal>
         </div>
@@ -125,7 +125,7 @@ export default function AboutPage() {
                             <Binary size={64} />
                          </div>
                          <p className="font-sans font-bold text-xl text-text-primary leading-relaxed relative z-10 italic">
-                          &ldquo;NeuralShift exists to close that gap. We bring enterprise-grade AI automation at SMB prices, with an obsessive focus on measurable ROI.&rdquo;
+                          &ldquo;Netriq AI exists to close that gap. We bring enterprise-grade AI automation at SMB prices, with an obsessive focus on measurable ROI.&rdquo;
                         </p>
                       </div>
                    </div>
@@ -231,7 +231,7 @@ export default function AboutPage() {
               <span className="text-accent-blue">Will you stay on the right side of it?</span>
             </h2>
             <p className="text-text-secondary text-lg mb-12 max-w-xl mx-auto leading-relaxed opacity-80 font-sans">
-              NeuralShift AI is a partner for those who prioritize efficiency over effort. Book your free neural audit and secure your architectural advantage.
+              Netriq AI is a partner for those who prioritize efficiency over effort. Book your free neural audit and secure your architectural advantage.
             </p>
             <GlowButton href="/contact" variant="primary" size="lg" className="px-12 rounded-full shadow-2xl shadow-accent-blue/20">
               Generate AI ROI Roadmap

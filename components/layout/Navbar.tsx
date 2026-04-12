@@ -8,6 +8,8 @@ import clsx from 'clsx';
 import GlowButton from '@/components/ui/GlowButton';
 import { useTheme } from '@/components/providers/ThemeProvider';
 
+import Logo from '@/components/ui/Logo';
+
 const navLinks = [
   { href: '/', label: 'HOME' },
   { href: '/services', label: 'SERVICES' },
@@ -48,10 +50,13 @@ export default function Navbar() {
         'max-w-7xl mx-auto flex items-center justify-between transition-all duration-500 rounded-full px-8 py-3',
         scrolled ? 'bg-surface-1/60 backdrop-blur-xl border border-white/10 shadow-2xl shadow-black/20' : 'bg-transparent'
       )}>
-        
-        <Link href="/" className="flex items-center gap-2 group">
+
+        <Link href="/" className="flex items-center gap-0 group">
+          <div className="w-8 h-8 text-accent-blue transition-transform duration-300 group-hover:scale-110 -mr-1">
+            <Logo />
+          </div>
           <span className="font-sans font-bold text-xl md:text-2xl text-text-primary tracking-tighter transition-all">
-            NeuralShift<span className="text-accent-blue italic">AI</span>
+            etriq<span className="text-accent-blue italic">AI</span>
           </span>
         </Link>
 
@@ -125,11 +130,11 @@ export default function Navbar() {
             );
           })}
           <div className="flex items-center justify-between pt-2">
-             <span className="text-[10px] text-text-muted font-bold tracking-[0.2em]">APPEARANCE</span>
-             <button onClick={toggleTheme} className="text-xs font-bold text-accent-blue flex items-center gap-2">
-                {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
-                {theme === 'dark' ? 'LIGHT MODE' : 'DARK MODE'}
-             </button>
+            <span className="text-[10px] text-text-muted font-bold tracking-[0.2em]">APPEARANCE</span>
+            <button onClick={toggleTheme} className="text-xs font-bold text-accent-blue flex items-center gap-2">
+              {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
+              {theme === 'dark' ? 'LIGHT MODE' : 'DARK MODE'}
+            </button>
           </div>
           <Link
             href="/contact"

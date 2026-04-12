@@ -21,10 +21,9 @@ export default function Hero() {
   const [visibleCount, setVisibleCount] = useState(0);
   
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ['start start', 'end start'] });
-  const smoothProgress = useSpring(scrollYProgress, { stiffness: 40, damping: 30, restDelta: 0.001 });
   
-  const tunnelZ = useTransform(smoothProgress, [0, 1], [0, 2200]);
-  const textY = useTransform(smoothProgress, [0, 1], [0, -120]);
+  const tunnelZ = useTransform(scrollYProgress, [0, 1], [0, 2200]);
+  const textY = useTransform(scrollYProgress, [0, 1], [0, -120]);
   const textOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
   const tunnelOpacity = useTransform(scrollYProgress, [0.6, 1], [1, 0]);
 
@@ -72,14 +71,8 @@ export default function Hero() {
   // FIXED: Autonomous scan logic that doesn't clear on every render
   useEffect(() => {
     setMounted(true);
+    setVisibleCount(NODE_COUNT); // Instantly render all nodes without causing re-render layout thrashing
     setTimeout(() => setIsOrdered(true), 100);
-    
-    // Gradual reveal
-    const revealInterval = setInterval(() => {
-      setVisibleCount(prev => prev >= NODE_COUNT ? NODE_COUNT : prev + 20);
-    }, 80);
-
-    return () => clearInterval(revealInterval);
   }, []);
 
   // Dedicated Auto-Scan effect
@@ -117,7 +110,7 @@ export default function Hero() {
               animate={{ rotateZ: 360, rotateY: [0, 5, -5, 0] }}
               transition={{ duration: 150, repeat: Infinity, ease: 'linear', rotateY: { duration: 20, repeat: Infinity, ease: "easeInOut" } }}
             >
-              <div className="absolute top-1/2 left-1/2 w-[600px] h-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px] bg-[rgb(var(--accent-blue))] opacity-10" style={{ transform: `translateZ(${-TUNNEL_DEPTH}px)` }} />
+              <div className="absolute top-1/2 left-1/2 w-[600px] h-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(var(--accent-blue),0.15)_0%,transparent_70%)] will-change-transform" style={{ transform: `translateZ(${-TUNNEL_DEPTH}px)` }} />
               
               {nodes.slice(0, visibleCount).map((node) => (
                 <TunnelNode 
@@ -153,12 +146,12 @@ export default function Hero() {
            </motion.div>
            
            <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 1.2 }} className="font-sans font-black text-text-primary tracking-tighter leading-[0.95] mb-8 pointer-events-auto" style={{ fontSize: 'clamp(44px, 8vw, 110px)' }}>
-             Rewiring Business.<br />
-             <span className="text-[rgb(var(--accent-blue))]">With Intelligence.</span>
+             The AI Consultants<br />
+             <span className="text-[rgb(var(--accent-blue))]">for Australian SMBs.</span>
            </motion.h1>
            
            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 1.4 }} className="text-text-muted text-lg md:text-xl font-sans leading-relaxed max-w-2xl mb-12">
-             Enterprise-grade AI automation that handles your operations while you focus on growth — engineering every workflow with surgical precision.
+             Providing premium AI automation consulting for small and medium businesses — engineering custom workflows that handle your operations with surgical precision.
            </motion.p>
            
            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 1.6 }} className="flex flex-col sm:flex-row items-center gap-4 md:gap-5 w-full sm:w-auto px-4 md:px-0 pointer-events-auto">

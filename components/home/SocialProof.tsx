@@ -27,7 +27,7 @@ export default function SocialProof() {
           <div className="relative inline-block">
             <span className="text-accent-blue text-5xl md:text-7xl font-serif opacity-10 absolute -top-12 -left-8 select-none">&quot;</span>
             <blockquote className="text-2xl md:text-4xl font-sans font-bold leading-[1.1] text-text-primary mb-12 tracking-tight relative z-10">
-              A 60% reduction in manual tracking errors within the first month. The system paid for itself before the end of the first quarter. NeuralShift is the gold standard for Australian Small and Medium Businesses.
+              A 60% reduction in manual tracking errors within the first month. The system paid for itself before the end of the first quarter. Netriq AI is the gold standard for Australian Small and Medium Businesses.
             </blockquote>
             <div className="flex flex-col items-center gap-4">
               <div className="w-12 h-12 rounded-full bg-accent-blue/10 border border-accent-blue/20 flex items-center justify-center text-[10px] font-bold text-accent-blue shadow-inner">SM</div>

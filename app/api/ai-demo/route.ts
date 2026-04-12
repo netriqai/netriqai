@@ -52,7 +52,7 @@ const roiRanges: Record<string, string> = {
   '200+': '$150K+ annual savings per opportunity',
 };
 
-const SYSTEM_PROMPT = `You are an AI automation consultant at NeuralShift AI, a premium Australian AI consultancy specialising in SMBs.
+const SYSTEM_PROMPT = `You are an AI automation consultant at Netriq AI, a premium Australian AI consultancy specialising in SMBs.
 
 You must respond ONLY with valid JSON matching this exact schema (no markdown, no code fences):
 {

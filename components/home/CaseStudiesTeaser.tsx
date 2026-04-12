@@ -57,7 +57,7 @@ export default function CaseStudiesTeaser() {
             <span className="text-accent-blue opacity-90">Through Intelligence.</span>
           </h2>
           <p className="text-text-secondary text-lg md:text-xl leading-relaxed opacity-80">
-            Real businesses. Real neural pipelines. Real money saved. Here is what happens when NeuralShift bridge the gap between AI and operations.
+            Real businesses. Real neural pipelines. Real money saved. Here is what happens when Netriq AI bridge the gap between AI and operations.
           </p>
         </div>
 

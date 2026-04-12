@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Linkedin, Twitter, Github } from 'lucide-react';
+import Logo from '@/components/ui/Logo';
 
 const footerLinks = {
   navigation: [
@@ -26,9 +27,12 @@ export default function Footer() {
 
           {/* Brand & Mission */}
           <div className="md:col-span-2">
-            <Link href="/" className="flex items-center gap-2 mb-8 group">
-              <span className="font-sans font-bold text-xl text-text-primary tracking-tighter">
-                NeuralShift<span className="text-accent-blue italic">AI</span>
+            <Link href="/" className="flex items-center gap-0 mb-8 group">
+              <div className="w-12 h-12 text-accent-blue transition-transform duration-300 group-hover:scale-110 -mr-2">
+                <Logo />
+              </div>
+              <span className="font-sans font-bold text-3xl text-text-primary tracking-tighter">
+                etriq<span className="text-accent-blue italic">AI</span>
               </span>
             </Link>
             <p className="text-text-secondary text-base leading-relaxed max-w-sm mb-10 opacity-70">
@@ -80,7 +84,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="pt-10 border-t border-border-strong/20 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="text-[10px] font-bold tracking-[0.1em] text-text-muted">
-            &copy; {new Date().getFullYear()} NEURALSHIFT AI. BASED IN MELBOURNE, AU.
+            &copy; {new Date().getFullYear()} NETRIQ AI. BASED IN MELBOURNE, AU.
           </div>
           <div className="flex gap-8">
             <Link href="/privacy" className="text-[10px] font-bold tracking-[0.1em] text-text-muted hover:text-text-primary transition-colors">PRIVACY POLICY</Link>

@@ -36,7 +36,7 @@ const caseStudies: CaseStudy[] = [
       'Built a multi-channel appointment reminder system (SMS + email + WhatsApp) with intelligent timing based on appointment type and patient history. Added automated billing follow-up sequences with one-click payment links.',
     result: 'AUD $180,000 saved per year. No-show rate dropped from 23% to 8%. Two admin staff redeployed to patient-facing roles. Billing collections improved by 34% in Month 1.',
     tools: ['Make.com', 'Twilio', 'HubSpot', 'Cliniko'],
-    quote: 'We thought we needed to hire another admin. NeuralShift showed us we needed automation. The ROI was obvious within 30 days.',
+    quote: 'We thought we needed to hire another admin. Netriq AI showed us we needed automation. The ROI was obvious within 30 days.',
     quoteAuthor: 'Practice Manager, Melbourne Clinic',
   },
   {
@@ -96,7 +96,7 @@ const caseStudies: CaseStudy[] = [
       'Built automated monthly report generation pulling from portfolio management systems, adding AI-generated narrative commentary personalised to each client. Automated compliance checklist completion and AFSL documentation.',
     result: 'Each advisor can now service 120+ clients (up from 25). Report generation: 3 hours → 8 minutes. Compliance documentation 95% automated. Firm revenue up 4× with same headcount.',
     tools: ['Make.com', 'OpenAI', 'Xplan', 'Salesforce', 'DocuSign'],
-    quote: 'We went from 25 to 120 clients per advisor without hiring anyone. The business fundamentally changed. NeuralShift basically gave us our growth path.',
+    quote: 'We went from 25 to 120 clients per advisor without hiring anyone. The business fundamentally changed. Netriq AI basically gave us our growth path.',
     quoteAuthor: 'CEO, Melbourne Financial Planning',
   },
   {
