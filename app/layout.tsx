@@ -87,6 +87,9 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  alternates: {
+    canonical: 'https://netriq.com.au',
+  },
 };
 
 export default function RootLayout({
@@ -115,29 +118,117 @@ export default function RootLayout({
             <script
               type="application/ld+json"
               dangerouslySetInnerHTML={{
-                __html: JSON.stringify({
-                  "@context": "https://schema.org",
-                  "@type": "ProfessionalService",
-                  "name": "Netriq AI",
-                  "description": "Premium AI Automation Consultancy for Small and Medium Businesses (SMBs) in Australia.",
-                  "url": "https://netriq.com.au",
-                  "logo": "https://netriq.com.au/icon.svg",
-                  "address": {
-                    "@type": "PostalAddress",
-                    "addressLocality": "Melbourne",
-                    "addressRegion": "VIC",
-                    "addressCountry": "AU"
+                __html: JSON.stringify([
+                  {
+                    "@context": "https://schema.org",
+                    "@type": "WebSite",
+                    "name": "Netriq AI",
+                    "url": "https://netriq.com.au",
+                    "description": "AI automation consulting for Australian small and medium businesses.",
+                    "potentialAction": {
+                      "@type": "SearchAction",
+                      "target": {
+                        "@type": "EntryPoint",
+                        "urlTemplate": "https://netriq.com.au/search?q={search_term_string}"
+                      },
+                      "query-input": "required name=search_term_string"
+                    }
                   },
-                  "geo": {
-                    "@type": "GeoCoordinates",
-                    "latitude": "-37.8136",
-                    "longitude": "144.9631"
-                  },
-                  "priceRange": "$$$",
-                  "serviceType": "AI Automation, Business Process Optimization, SMB AI Consulting",
-                  "areaServed": "Australia",
-                  "openingHours": "Mo-Fr 09:00-17:00"
-                })
+                  {
+                    "@context": "https://schema.org",
+                    "@type": ["LocalBusiness", "ProfessionalService"],
+                    "name": "Netriq AI",
+                    "description": "Netriq AI is a premium AI automation consultancy for Australian small and medium businesses (SMBs). We design custom AI pipelines, sales automation, and intelligent support systems. Services start at AUD $2,500.",
+                    "url": "https://netriq.com.au",
+                    "logo": "https://netriq.com.au/icon.svg",
+                    "image": "https://netriq.com.au/og-image.png",
+                    "telephone": "",
+                    "email": "hello@netriq.com.au",
+                    "address": {
+                      "@type": "PostalAddress",
+                      "addressLocality": "Melbourne",
+                      "addressRegion": "VIC",
+                      "addressCountry": "AU"
+                    },
+                    "geo": {
+                      "@type": "GeoCoordinates",
+                      "latitude": "-37.8136",
+                      "longitude": "144.9631"
+                    },
+                    "areaServed": [
+                      { "@type": "Country", "name": "Australia" },
+                      { "@type": "State", "name": "Victoria" },
+                      { "@type": "City", "name": "Melbourne" }
+                    ],
+                    "serviceArea": {
+                      "@type": "GeoShape",
+                      "name": "Australia-wide"
+                    },
+                    "knowsAbout": [
+                      "AI Automation",
+                      "Business Process Automation",
+                      "Machine Learning Implementation",
+                      "Make.com Workflows",
+                      "n8n Automation",
+                      "OpenAI API Integration",
+                      "CRM Automation",
+                      "Sales Automation",
+                      "Customer Support AI",
+                      "Small Business AI Consulting"
+                    ],
+                    "hasOfferCatalog": {
+                      "@type": "OfferCatalog",
+                      "name": "Netriq AI Services",
+                      "itemListElement": [
+                        {
+                          "@type": "Offer",
+                          "name": "AI Discovery Audit",
+                          "description": "Deep-dive workflow mapping to identify AI ROI potential. Includes 30+ page report and 90-day roadmap.",
+                          "price": "2500",
+                          "priceCurrency": "AUD"
+                        },
+                        {
+                          "@type": "Offer",
+                          "name": "Done-For-You AI Implementation",
+                          "description": "Custom AI automation build, API integrations, and secure installation into your existing business tools.",
+                          "price": "8000",
+                          "priceCurrency": "AUD"
+                        },
+                        {
+                          "@type": "Offer",
+                          "name": "Ongoing AI Support Retainer",
+                          "description": "24/7 monitoring, continuous upgrades, guaranteed 99.9% uptime, monthly ROI reports.",
+                          "price": "1500",
+                          "priceCurrency": "AUD",
+                          "priceSpecification": {
+                            "@type": "UnitPriceSpecification",
+                            "price": "1500",
+                            "priceCurrency": "AUD",
+                            "unitCode": "MON"
+                          }
+                        },
+                        {
+                          "@type": "Offer",
+                          "name": "AI Team Training",
+                          "description": "Staff training workshops, practical AI tool guides, and post-workshop resource packs.",
+                          "price": "3000",
+                          "priceCurrency": "AUD"
+                        }
+                      ]
+                    },
+                    "aggregateRating": {
+                      "@type": "AggregateRating",
+                      "ratingValue": "5",
+                      "ratingCount": "12",
+                      "bestRating": "5"
+                    },
+                    "priceRange": "$$$",
+                    "openingHours": "Mo-Fr 09:00-17:00",
+                    "sameAs": [
+                      "https://www.linkedin.com/company/netriqai"
+                    ]
+                  }
+                ])
               }}
             />
             <main id="main-content">

@@ -46,7 +46,7 @@
   }
 
   main {
-    will-change: transform;
+    /* Removed will-change: transform — was promoting entire page to GPU layer */
   }
 
   h1, h2, h3, h4, h5, h6 {

@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useEffect, useState, useMemo } from 'react';
-import { motion, useScroll, useTransform, useSpring, LazyMotion, domAnimation, AnimatePresence } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, LazyMotion, domAnimation, AnimatePresence, useReducedMotion, useAnimationControls } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 
@@ -19,6 +19,8 @@ export default function Hero() {
   const [mounted, setMounted] = useState(false);
   const [isOrdered, setIsOrdered] = useState(false);
   const [visibleCount, setVisibleCount] = useState(0);
+  const prefersReducedMotion = useReducedMotion();
+  const rotationControls = useAnimationControls();
   
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ['start start', 'end start'] });
   
@@ -71,9 +73,24 @@ export default function Hero() {
   // FIXED: Autonomous scan logic that doesn't clear on every render
   useEffect(() => {
     setMounted(true);
-    setVisibleCount(NODE_COUNT); // Instantly render all nodes without causing re-render layout thrashing
+    setVisibleCount(NODE_COUNT);
     setTimeout(() => setIsOrdered(true), 100);
   }, []);
+
+  // Pause continuous rotation animation when tab is backgrounded
+  useEffect(() => {
+    const handleVisibility = () => {
+      if (document.hidden) {
+        rotationControls.stop();
+      } else {
+        rotationControls.start({ rotateZ: 360, rotateY: [0, 5, -5, 0],
+          transition: { duration: 150, repeat: Infinity, ease: 'linear', rotateY: { duration: 20, repeat: Infinity, ease: 'easeInOut' } } 
+        });
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+    return () => document.removeEventListener('visibilitychange', handleVisibility);
+  }, [rotationControls]);
 
   // Dedicated Auto-Scan effect
   useEffect(() => {
@@ -95,7 +112,7 @@ export default function Hero() {
       <div className="sticky top-0 h-screen w-full overflow-hidden [perspective:1200px]">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(var(--accent-blue),0.06)_0%,transparent_60%)] pointer-events-none" />
         
-        {mounted && (
+        {mounted && !prefersReducedMotion && (
           <motion.div 
             className="absolute inset-0 will-change-[transform,opacity]" 
             style={{ 
@@ -107,8 +124,11 @@ export default function Hero() {
             <motion.div
               className="absolute inset-0 will-change-transform"
               style={{ transformStyle: 'preserve-3d' }}
-              animate={{ rotateZ: 360, rotateY: [0, 5, -5, 0] }}
-              transition={{ duration: 150, repeat: Infinity, ease: 'linear', rotateY: { duration: 20, repeat: Infinity, ease: "easeInOut" } }}
+              animate={rotationControls}
+              initial={{ rotateZ: 0, rotateY: 0 }}
+              onViewportEnter={() => rotationControls.start({ rotateZ: 360, rotateY: [0, 5, -5, 0],
+                transition: { duration: 150, repeat: Infinity, ease: 'linear', rotateY: { duration: 20, repeat: Infinity, ease: 'easeInOut' } } 
+              })}
             >
               <div className="absolute top-1/2 left-1/2 w-[600px] h-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(var(--accent-blue),0.15)_0%,transparent_70%)] will-change-transform" style={{ transform: `translateZ(${-TUNNEL_DEPTH}px)` }} />
               

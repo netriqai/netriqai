@@ -36,6 +36,9 @@ class SignalParticle {
 export default function IndustrialGrid({ className }: IndustrialGridProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const offscreenCanvasRef = useRef<HTMLCanvasElement | null>(null);
+  const isIdleRef = useRef(false);
+  const lastMouseMoveRef = useRef(0);
+  const animationFrameId = useRef<number>(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -44,10 +47,10 @@ export default function IndustrialGrid({ className }: IndustrialGridProps) {
     const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });
     if (!ctx) return;
 
-    let animationFrameId: number;
+    let isRunning = true;
     let mouse = { x: -1000, y: -1000 };
     let particles: SignalParticle[] = [];
-    const gridSize = 100; // Slightly tighter grid for denser circuitry
+    const gridSize = 100;
     let colorRGB = '6, 148, 148';
     let dpr = 1;
 
@@ -348,15 +351,19 @@ export default function IndustrialGrid({ className }: IndustrialGridProps) {
 
     const handleVisibilityChange = () => {
       if (document.hidden) {
-        cancelAnimationFrame(animationFrameId);
+        isRunning = false;
+        cancelAnimationFrame(animationFrameId.current);
       } else {
-        animationFrameId = requestAnimationFrame(draw);
+        isRunning = true;
+        animationFrameId.current = requestAnimationFrame(draw);
       }
     };
 
     const handleMouseMove = (e: MouseEvent) => {
       mouse.x = e.clientX * dpr;
       mouse.y = e.clientY * dpr;
+      lastMouseMoveRef.current = Date.now();
+      isIdleRef.current = false;
     };
 
     window.addEventListener('resize', resize);
@@ -368,9 +375,19 @@ export default function IndustrialGrid({ className }: IndustrialGridProps) {
     resize();
 
     const draw = () => {
-      // Determine if we need a redraw (if particles exist or mouse is in viewport)
+      if (!isRunning || document.hidden) {
+        animationFrameId.current = requestAnimationFrame(draw);
+        return;
+      }
+
+      // Idle detection: if no mouse movement in 3s and no particles, skip redraw
+      const timeSinceMouseMove = Date.now() - lastMouseMoveRef.current;
+      if (timeSinceMouseMove > 3000 && particles.length === 0) {
+        isIdleRef.current = true;
+      }
+
       const isMouseInWindow = mouse.x >= 0 && mouse.x <= canvas.width && mouse.y >= 0 && mouse.y <= canvas.height;
-      const shouldDraw = particles.length > 0 || isMouseInWindow;
+      const shouldDraw = particles.length > 0 || (isMouseInWindow && !isIdleRef.current);
       
       if (shouldDraw) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -381,6 +398,7 @@ export default function IndustrialGrid({ className }: IndustrialGridProps) {
 
         // Signal Emissions - Throttled for smoother background performance
         if (particles.length < 12 && Math.random() < 0.02) {
+          isIdleRef.current = false;
           particles.push(new SignalParticle(canvas.width, canvas.height, gridSize, dpr));
         }
 
@@ -393,20 +411,20 @@ export default function IndustrialGrid({ className }: IndustrialGridProps) {
           const pulse = 0.5 + 0.5 * Math.sin(Date.now() / 150 + p.life);
           const opacity = fade * 0.3 * pulse; 
 
+          // NOTE: shadowBlur removed — was a very expensive per-frame GPU op.
+          // Glow effect is achieved instead via CSS drop-shadow filter on the canvas element.
           ctx.fillStyle = `rgba(${colorRGB}, ${opacity})`;
-          ctx.shadowColor = `rgba(${colorRGB}, ${opacity * 1.2})`;
-          ctx.shadowBlur = 4 * dpr; 
           
           ctx.beginPath();
-          let pLength = (12 + Math.random() * 15) * dpr;
+          const pLength = (12 + Math.random() * 15) * dpr;
           
           if (p.dir === 'h') {
             const tailX = p.speed > 0 ? p.x - pLength : p.x + pLength;
-            let startX = Math.min(p.x, tailX);
+            const startX = Math.min(p.x, tailX);
             ctx.roundRect(startX, p.y - 1 * dpr, pLength, 2 * dpr, 1.5 * dpr);
           } else {
             const tailY = p.speed > 0 ? p.y - pLength : p.y + pLength;
-            let startY = Math.min(p.y, tailY);
+            const startY = Math.min(p.y, tailY);
             ctx.roundRect(p.x - 1 * dpr, startY, 2 * dpr, pLength, 1.5 * dpr);
           }
           ctx.fill();
@@ -418,29 +436,32 @@ export default function IndustrialGrid({ className }: IndustrialGridProps) {
         ctx.restore();
 
         // Mouse Hover Interference - Subtle radial reveal
-        if (isMouseInWindow) {
+        if (isMouseInWindow && !isIdleRef.current) {
           const grad = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 350 * dpr);
           grad.addColorStop(0, `rgba(${colorRGB}, 0.05)`);
           grad.addColorStop(1, 'transparent');
           ctx.fillStyle = grad;
           ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
-      } else if (offscreenCanvasRef.current) {
+      } else if (offscreenCanvasRef.current && !isIdleRef.current) {
         // Static frame drawing (one-time if no movement)
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(offscreenCanvasRef.current, 0, 0);
+        isIdleRef.current = true; // Mark as drawn, stop redrawing
       }
 
-      animationFrameId = requestAnimationFrame(draw);
+      animationFrameId.current = requestAnimationFrame(draw);
     };
 
     draw();
 
     return () => {
+      isRunning = false;
       window.removeEventListener('resize', resize);
       window.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       themeObs.disconnect();
-      cancelAnimationFrame(animationFrameId);
+      cancelAnimationFrame(animationFrameId.current);
     };
   }, []);
 
@@ -450,7 +471,7 @@ export default function IndustrialGrid({ className }: IndustrialGridProps) {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(var(--accent-blue),0.04)_0%,transparent_70%)] pointer-events-none" />
       <canvas 
         ref={canvasRef} 
-        className={`fixed inset-0 pointer-events-none z-0 transition-opacity duration-1000 opacity-25 dark:opacity-45 dark:mix-blend-screen will-change-transform ${className}`} 
+        className={`fixed inset-0 pointer-events-none z-0 transition-opacity duration-1000 opacity-30 dark:opacity-50 dark:mix-blend-screen will-change-transform ${className}`} 
         style={{ backfaceVisibility: 'hidden' }}
       />
     </>

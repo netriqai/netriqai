@@ -1,0 +1,23 @@
+<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 270-degree arc opening towards bottom-right - smaller radius -->
+  <path
+    d="M26 16 A 10 10 0 1 1 16 6"
+    stroke="#2563EB"
+    stroke-width="4"
+    fill="none"
+    stroke-linecap=""
+  />
+  <!-- Pizza slice shape: a sector of an annulus - adjusted for smaller circle -->
+  <path
+    d="M 16,12 L 16,6 A 10,10 0 0 1 26,16 L 20,16 A 4,4 0 0 0 16,12 Z"
+    fill="#C04000"
+    stroke="none"
+  />
+  <!-- Center circle -->
+  <circle
+    cx="16"
+    cy="16"
+    r="4"
+    fill="#60A5FA"
+  />
+</svg>

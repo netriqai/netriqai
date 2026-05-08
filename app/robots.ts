@@ -8,8 +8,20 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
         disallow: ['/api/', '/_next/', '/private/'],
       },
+      // Allow major AI/LLM crawlers — critical for GEO (Generative Engine Optimisation)
       {
-        userAgent: ['GPTBot', 'ChatGPT-User', 'Claude-Web', 'Google-Extended'],
+        userAgent: [
+          'GPTBot',           // OpenAI / ChatGPT
+          'ChatGPT-User',     // ChatGPT browsing
+          'Claude-Web',       // Anthropic Claude
+          'ClaudeBot',        // Anthropic Claude bot
+          'Google-Extended',  // Google Gemini
+          'PerplexityBot',    // Perplexity AI
+          'YouBot',           // You.com
+          'Bingbot',          // Microsoft Copilot indexing
+          'meta-externalagent', // Meta AI
+          'cohere-ai',        // Cohere AI
+        ],
         allow: '/',
       },
     ],

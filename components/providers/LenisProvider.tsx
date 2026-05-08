@@ -24,28 +24,14 @@ export default function LenisProvider({ children }: LenisProviderProps) {
   // Mobile browsers restore scroll after layout paint, so we need multiple attempts
   useEffect(() => {
     const scrollToTop = () => {
-      window.scrollTo(0, 0);
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0; // Safari fallback
       lenisRef.current?.scrollTo(0, { immediate: true });
     };
 
-    // Immediate
-    scrollToTop();
-
-    // After next frame (covers most desktop browsers)
-    const raf1 = requestAnimationFrame(scrollToTop);
-
-    // After layout paint (covers mobile Chrome/Samsung)
-    const t1 = setTimeout(scrollToTop, 0);
-
-    // After mobile browser scroll restoration (covers iOS Safari)
-    const t2 = setTimeout(scrollToTop, 100);
+    // Single requestAnimationFrame is enough for most modern browsers
+    const rafId = requestAnimationFrame(scrollToTop);
 
     return () => {
-      cancelAnimationFrame(raf1);
-      clearTimeout(t1);
-      clearTimeout(t2);
+      cancelAnimationFrame(rafId);
     };
   }, [pathname]);
 
@@ -53,12 +39,13 @@ export default function LenisProvider({ children }: LenisProviderProps) {
     window.scrollTo(0, 0);
 
     const lenis = new Lenis({
-      duration: 0.8, // Faster, more responsive scroll
-      lerp: 0.1,    // Tighter interpolation
+      duration: 0.6, // Snappier scroll glide
+      lerp: 0.12,    // Faster follow-through
       orientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1,
+      wheelMultiplier: 1.1, // Slight boost for easier scrolling
       touchMultiplier: 1.5,
+      syncTouch: true,      // Match touch/trackpad movement exactly
       autoResize: true,
     });
 
