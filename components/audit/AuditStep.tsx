@@ -20,7 +20,7 @@ export default function AuditStep({
 }: AuditStepProps) {
   const headingRef = useRef<HTMLHeadingElement>(null);
 
-  useEffect(() => { headingRef.current?.focus(); }, [question.id]);
+  useEffect(() => { headingRef.current?.focus({ preventScroll: true }); }, [question.id]);
 
   useEffect(() => {
     if (isFirst) return;

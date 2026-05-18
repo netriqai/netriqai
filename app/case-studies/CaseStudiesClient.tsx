@@ -11,6 +11,7 @@ import clsx from 'clsx';
 import HRFinanceLogo from '@/components/logos/HRFinanceLogo';
 import TaxBudLogo from '@/components/logos/TaxBudLogo';
 import FinvueLogo from '@/components/logos/FinvueLogo';
+import ASRInteriorsLogo from '@/components/logos/ASRInteriorsLogo';
 
 type Industry = 'All' | 'Retail' | 'Healthcare' | 'Professional Services' | 'Legal' | 'Construction' | 'Finance';
 
@@ -32,6 +33,7 @@ const clientLogoMap: Record<string, React.ReactNode> = {
   'hrfinance.com.au': <HRFinanceLogo />,
   'taxbud.com.au': <TaxBudLogo />,
   'finvue.com.au': <FinvueLogo />,
+  'asrinteriors.com.au': <ASRInteriorsLogo />,
 };
 
 const featuredClients = [
@@ -55,6 +57,13 @@ const featuredClients = [
     url: 'https://finvue.com.au',
     description: 'Wealth Management Platform',
     results: 'Data Aggregation & Reporting'
+  },
+  {
+    name: 'ASR Interiors',
+    domain: 'asrinteriors.com.au',
+    url: 'https://www.asrinteriors.com.au/',
+    description: 'Luxury Interior Design & Renovation',
+    results: 'Client Pipeline Automation'
   },
 ];
 
@@ -182,7 +191,7 @@ export default function CaseStudiesClient() {
             <h2 className="text-2xl md:text-4xl font-sans font-bold text-text-primary tracking-tight">Active Deployments.</h2>
           </SectionReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredClients.map((client, i) => (
               <SectionReveal key={client.domain} delay={i * 100}>
                 <a 
