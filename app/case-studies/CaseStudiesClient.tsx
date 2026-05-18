@@ -191,7 +191,7 @@ export default function CaseStudiesClient() {
             <h2 className="text-2xl md:text-4xl font-sans font-bold text-text-primary tracking-tight">Active Deployments.</h2>
           </SectionReveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {featuredClients.map((client, i) => (
               <SectionReveal key={client.domain} delay={i * 100}>
                 <a 
