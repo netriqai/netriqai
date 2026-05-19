@@ -5,6 +5,7 @@ import { TrendingUp, Zap, MapPin, ArrowRight, ExternalLink, ShieldCheck } from '
 import GlowButton from '@/components/ui/GlowButton';
 import SectionReveal from '@/components/ui/SectionReveal';
 import NeuralBackground from '@/components/ui/NeuralBackground';
+import { useRef } from 'react';
 import clsx from 'clsx';
 
 // Logo Components
@@ -253,96 +254,94 @@ export default function CaseStudiesClient() {
         </div>
       </section>
 
-      {/* Case studies grid */}
-      <section className="py-24 md:py-32 bg-surface-2/30">
-        <div className="section-container">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-            {filtered.map((cs, i) => (
-              <SectionReveal key={`${cs.industry}-${cs.location}`} delay={i * 100}>
-                <div className="group bg-surface-1 border border-border-strong p-8 md:p-12 rounded-[32px] relative overflow-hidden transition-all duration-500 hover:border-[rgb(var(--accent-blue))]/40 shadow-xl">
-                  {/* Decorative Industrial Grid Overlay */}
-                  <div className="absolute inset-0 opacity-[0.02] pointer-events-none group-hover:opacity-[0.05] transition-opacity" 
-                       style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
-                  
-                  {/* Header */}
-                  <div className="flex justify-between items-start mb-12 relative z-10">
-                    <div className="flex flex-col gap-2">
-                       <span className="text-[10px] font-black tracking-[0.4em] text-[rgb(var(--accent-blue))] uppercase">
-                        {cs.industry}_SECTOR
-                       </span>
-                      <div className="flex items-center gap-2 text-text-muted text-[10px] font-mono tracking-widest uppercase opacity-60">
-                         <MapPin size={12} className="text-[rgb(var(--accent-blue))]" />
-                         {cs.location}
-                      </div>
-                    </div>
-                    <div className="p-4 bg-[rgba(var(--accent-blue),0.1)] border border-[rgba(var(--accent-blue),0.2)] rounded-2xl group-hover:bg-[rgb(var(--accent-blue))] group-hover:text-background transition-all duration-500">
-                       <TrendingUp size={24} />
+      {/* Case studies — horizontal scroll carousel */}
+      <section className="py-16 md:py-24 bg-surface-2/30 overflow-hidden">
+        <SectionReveal className="section-container mb-6">
+          <p className="text-[9px] font-black text-text-muted/50 tracking-[0.3em] uppercase font-mono">SCROLL TO EXPLORE →</p>
+        </SectionReveal>
+
+        {/* Scroll track — full bleed so cards peek at edges */}
+        <div
+          className="flex gap-5 overflow-x-auto scrollbar-hide pb-4 px-6 md:px-[max(24px,calc((100vw-1280px)/2+24px))]"
+          style={{ scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch' }}
+        >
+          {filtered.map((cs, i) => (
+            <div
+              key={`${cs.industry}-${cs.location}`}
+              className="group flex-none w-[340px] md:w-[420px] bg-surface-1/80 dark:bg-surface-1/40 backdrop-blur-md border border-border-strong rounded-[28px] relative overflow-hidden transition-all duration-500 hover:bg-surface-1 hover:dark:bg-surface-1/65 hover:border-[rgb(var(--accent-blue))]/40 hover:shadow-2xl hover:shadow-[rgba(var(--accent-blue),0.05)]"
+              style={{ scrollSnapAlign: 'start' }}
+            >
+              {/* Plain glass spotlight overlay on hover */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[rgba(var(--accent-blue),0.05)] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+
+              <div className="relative z-10 p-7 flex flex-col h-full">
+
+                {/* Card header */}
+                <div className="flex justify-between items-start mb-6">
+                  <div className="flex flex-col gap-1.5">
+                    <span className="text-[9px] font-black tracking-[0.35em] text-[rgb(var(--accent-blue))] uppercase">
+                      {cs.industry}_SECTOR
+                    </span>
+                    <div className="flex items-center gap-1.5 text-text-muted text-[9px] font-mono tracking-widest uppercase opacity-60">
+                      <MapPin size={10} className="text-[rgb(var(--accent-blue))]" />
+                      {cs.location}
                     </div>
                   </div>
-
-                  {/* Headline & Metric */}
-                  <div className="mb-12 relative z-10">
-                    <div className="flex flex-col gap-1 mb-8">
-                       <div className="flex items-baseline gap-3">
-                          <span className="text-5xl md:text-7xl font-sans font-black text-text-primary tracking-tighter group-hover:text-[rgb(var(--accent-blue))] transition-colors">
-                            {cs.metric}
-                          </span>
-                          <span className="w-2 h-2 rounded-full bg-[rgb(var(--accent-blue))] mb-4 animate-pulse shadow-[0_0_10px_rgb(var(--accent-blue))]" />
-                       </div>
-                       <span className="text-text-muted text-[10px] font-mono tracking-[0.4em] uppercase opacity-50">{cs.metricLabel}</span>
-                    </div>
-                    <h2 className="text-2xl md:text-3xl font-sans font-black text-text-primary leading-[1.1] tracking-tight uppercase group-hover:translate-x-1 transition-transform">
-                      {cs.headline}
-                    </h2>
-                  </div>
-
-                  {/* Challenge / Solution / Result - Layout Shift */}
-                  <div className="grid grid-cols-1 gap-10 mb-12 relative z-10">
-                    <div className="p-6 rounded-2xl bg-surface-2 border border-border-strong/50 group-hover:border-[rgb(var(--accent-blue))]/20 transition-all">
-                      <p className="text-[9px] font-black text-[rgb(var(--accent-blue))] tracking-[0.3em] uppercase mb-3">System Bottleneck</p>
-                      <p className="text-text-muted text-sm leading-relaxed opacity-80 font-sans">{cs.challenge}</p>
-                    </div>
-                    
-                    <div className="grid grid-cols-1 gap-8 px-2">
-                      <div>
-                        <p className="text-[9px] font-black text-[rgb(var(--accent-blue))] tracking-[0.3em] uppercase mb-3">Neural Implementation</p>
-                        <p className="text-text-muted text-sm leading-relaxed opacity-80 font-sans">{cs.solution}</p>
-                      </div>
-                      
-                      <div className="pt-6 border-t border-border-subtle">
-                        <p className="text-[9px] font-black text-[rgb(var(--accent-blue))] tracking-[0.3em] uppercase mb-3">Verified Output</p>
-                        <p className="text-text-primary text-lg leading-snug font-black font-sans uppercase tracking-tight">{cs.result}</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Tools - Chips */}
-                  <div className="flex flex-wrap gap-2 mb-12 relative z-10">
-                    {cs.tools.map((tool) => (
-                      <span
-                        key={tool}
-                        className="text-[9px] font-black tracking-widest px-4 py-2 rounded-lg bg-background text-text-muted border border-border-strong group-hover:border-[rgb(var(--accent-blue))]/30 transition-colors uppercase"
-                      >
-                        {tool}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Quote - Inset Module */}
-                  <div className="p-8 md:p-10 rounded-[24px] bg-background border border-border-strong relative z-10 group-hover:bg-surface-1 transition-colors shadow-inner">
-                    <blockquote className="text-text-primary text-base md:text-lg leading-relaxed mb-6 font-sans font-bold opacity-90">
-                      &ldquo;{cs.quote}&rdquo;
-                    </blockquote>
-                    <div className="flex items-center gap-4">
-                       <span className="text-[10px] font-black tracking-[0.3em] text-[rgb(var(--accent-blue))] uppercase">AUTHENTICATED_FEEDBACK</span>
-                       <div className="flex-1 h-[1px] bg-border-strong" />
-                       <p className="text-text-muted text-[10px] font-mono tracking-widest uppercase truncate max-w-[150px]">{cs.quoteAuthor}</p>
-                    </div>
+                  <div className="p-3 bg-[rgba(var(--accent-blue),0.1)] border border-[rgba(var(--accent-blue),0.2)] rounded-xl group-hover:bg-[rgb(var(--accent-blue))] group-hover:text-background transition-all duration-500">
+                    <TrendingUp size={18} />
                   </div>
                 </div>
-              </SectionReveal>
-            ))}
-          </div>
+
+                {/* Metric */}
+                <div className="mb-5">
+                  <div className="flex items-baseline gap-2 mb-1">
+                    <span className="text-4xl md:text-5xl font-sans font-black text-text-primary tracking-tighter group-hover:text-[rgb(var(--accent-blue))] transition-colors">
+                      {cs.metric}
+                    </span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-[rgb(var(--accent-blue))] animate-pulse shadow-[0_0_8px_rgb(var(--accent-blue))]" />
+                  </div>
+                  <span className="text-text-muted text-[9px] font-mono tracking-[0.35em] uppercase opacity-50">{cs.metricLabel}</span>
+                </div>
+
+                {/* Headline */}
+                <h2 className="text-base font-sans font-black text-text-primary leading-[1.2] tracking-tight uppercase mb-5 group-hover:translate-x-0.5 transition-transform">
+                  {cs.headline}
+                </h2>
+
+                {/* Challenge */}
+                <div className="p-4 rounded-xl bg-surface-2 border border-border-strong/40 mb-4">
+                  <p className="text-[8px] font-black text-[rgb(var(--accent-blue))] tracking-[0.3em] uppercase mb-2">Bottleneck</p>
+                  <p className="text-text-muted text-xs leading-relaxed opacity-80 line-clamp-3">{cs.challenge}</p>
+                </div>
+
+                {/* Result */}
+                <div className="p-4 rounded-xl border border-[rgba(var(--accent-blue),0.15)] bg-[rgba(var(--accent-blue),0.03)] mb-5">
+                  <p className="text-[8px] font-black text-[rgb(var(--accent-blue))] tracking-[0.3em] uppercase mb-2">Verified Output</p>
+                  <p className="text-text-primary text-xs font-black uppercase tracking-tight leading-snug">{cs.result}</p>
+                </div>
+
+                {/* Tools */}
+                <div className="flex flex-wrap gap-1.5 mb-5">
+                  {cs.tools.map((tool) => (
+                    <span
+                      key={tool}
+                      className="text-[8px] font-black tracking-widest px-3 py-1.5 rounded-lg bg-background text-text-muted border border-border-strong group-hover:border-[rgb(var(--accent-blue))]/30 transition-colors uppercase"
+                    >
+                      {tool}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Quote */}
+                <div className="mt-auto p-5 rounded-[18px] bg-background border border-border-strong">
+                  <blockquote className="text-text-primary text-xs leading-relaxed mb-3 font-sans font-bold opacity-90 line-clamp-3">
+                    &ldquo;{cs.quote}&rdquo;
+                  </blockquote>
+                  <p className="text-text-muted text-[9px] font-mono tracking-widest uppercase opacity-60 truncate">{cs.quoteAuthor}</p>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
