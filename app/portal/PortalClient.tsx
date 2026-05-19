@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   FileText, Search, Plus, Filter, Download, CreditCard, CheckCircle2, 
   ArrowRight, X, Clock, HelpCircle, ShieldCheck, MapPin, DollarSign,
-  TrendingUp, Award, Layers, Sparkles
+  TrendingUp, Award, Layers, Sparkles, KeyRound, Lock, LogOut, Check
 } from 'lucide-react';
 import GlowButton from '@/components/ui/GlowButton';
 import SectionReveal from '@/components/ui/SectionReveal';
@@ -79,6 +79,11 @@ const initialInvoices: Invoice[] = [
 ];
 
 export default function PortalClient() {
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean | null>(null);
+  const [adminPasscode, setAdminPasscode] = useState('');
+  const [authError, setAuthError] = useState(false);
+  const [authSuccess, setAuthSuccess] = useState(false);
+
   const [invoices, setInvoices] = useState<Invoice[]>(initialInvoices);
   const [selectedInvoice, setSelectedInvoice] = useState<Invoice | null>(null);
   const [activeFilter, setActiveFilter] = useState<'all' | 'paid' | 'unpaid' | 'overdue'>('all');
@@ -97,6 +102,36 @@ export default function PortalClient() {
   const [cardCvv, setCardCvv] = useState('');
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
+
+  // Check auth on load
+  useEffect(() => {
+    const isAuth = localStorage.getItem('netriq_admin_auth') === 'true';
+    setIsAdminAuthenticated(isAuth);
+  }, []);
+
+  // Handle Admin Authentication Submit
+  const handleAuthSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (adminPasscode === 'NETRIQ-ADMIN-2026') {
+      setAuthSuccess(true);
+      setAuthError(false);
+      setTimeout(() => {
+        localStorage.setItem('netriq_admin_auth', 'true');
+        setIsAdminAuthenticated(true);
+        setAuthSuccess(false);
+        setAdminPasscode('');
+      }, 1000);
+    } else {
+      setAuthError(true);
+      setTimeout(() => setAuthError(false), 600);
+    }
+  };
+
+  // Sign out / Lock panel
+  const handleLockPanel = () => {
+    localStorage.removeItem('netriq_admin_auth');
+    setIsAdminAuthenticated(false);
+  };
 
   // Stats Summary
   const stats = useMemo(() => {
@@ -182,6 +217,110 @@ export default function PortalClient() {
     }, 1500);
   };
 
+  // Wait for initial auth read to prevent UI flash
+  if (isAdminAuthenticated === null) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center relative">
+        <NeuralBackground />
+        <div className="absolute inset-0 tech-grid opacity-[0.06] pointer-events-none" />
+        <div className="w-8 h-8 border-4 border-[rgb(var(--accent-blue))] border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  // Render Lock/Auth Screen if not authorized
+  if (!isAdminAuthenticated) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center p-6 relative overflow-hidden">
+        <NeuralBackground />
+        <div className="absolute inset-0 tech-grid opacity-[0.06] pointer-events-none" />
+        
+        {/* Decorative elements */}
+        <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-[rgba(6,148,148,0.04)] rounded-full blur-[80px] pointer-events-none" />
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-[rgba(6,148,148,0.04)] rounded-full blur-[80px] pointer-events-none" />
+
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className={clsx(
+            "w-full max-w-md bg-surface-1/45 backdrop-blur-xl border rounded-[32px] overflow-hidden shadow-2xl p-8 relative transition-all duration-300",
+            authError ? "border-rose-500/50 shadow-rose-500/10 shake-animation" : "border-border-strong/40",
+            authSuccess && "border-[rgb(var(--accent-blue))]/50 shadow-[rgba(6,148,148,0.1)]"
+          )}
+        >
+          {/* Header lock badge */}
+          <div className="flex justify-center mb-6">
+            <div className={clsx(
+              "w-14 h-14 rounded-2xl flex items-center justify-center border transition-all duration-500",
+              authSuccess 
+                ? "bg-[rgba(6,148,148,0.15)] border-[rgb(var(--accent-blue))]/40 text-[rgb(var(--accent-blue))]" 
+                : "bg-surface-1/60 border-border-strong/30 text-text-muted"
+            )}>
+              {authSuccess ? <Check className="animate-scale" size={24} /> : <Lock size={22} />}
+            </div>
+          </div>
+
+          <div className="text-center mb-8">
+            <span className="text-[9px] font-black tracking-[0.3em] text-[rgb(var(--accent-blue))] uppercase font-mono">SECURE ACCESS INVOICE CORE</span>
+            <h2 className="text-2xl font-sans font-black text-text-primary uppercase tracking-tight mt-1">Admin Panel Lock</h2>
+            <p className="text-text-secondary text-xs mt-2 opacity-80 max-w-[280px] mx-auto leading-relaxed">
+              This financial ledger is encrypted. Enter your administration credential key to proceed.
+            </p>
+          </div>
+
+          <form onSubmit={handleAuthSubmit} className="space-y-4">
+            <div className="flex flex-col gap-2">
+              <label className="text-[9px] font-black text-text-muted/80 uppercase tracking-widest font-mono">Admin Authorization Key</label>
+              <div className="relative">
+                <KeyRound size={14} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted/60" />
+                <input
+                  type="password"
+                  required
+                  placeholder="Enter Passkey..."
+                  value={adminPasscode}
+                  onChange={(e) => setAdminPasscode(e.target.value)}
+                  className="w-full pl-10 pr-4 py-3 bg-background/50 border border-border-strong/30 rounded-xl text-xs text-text-primary focus:outline-none focus:border-[rgb(var(--accent-blue))] font-sans tracking-widest"
+                />
+              </div>
+            </div>
+
+            {/* Error messaging */}
+            <AnimatePresence>
+              {authError && (
+                <motion.div 
+                  initial={{ opacity: 0, y: -5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -5 }}
+                  className="text-rose-500 font-sans font-bold text-[9px] tracking-wider uppercase text-center"
+                >
+                  ⚠️ Authentication failed. Incorrect passkey code.
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            <button
+              type="submit"
+              disabled={authSuccess}
+              className="w-full py-3.5 rounded-xl bg-[rgb(var(--accent-blue))] hover:bg-[rgb(var(--accent-blue-hover))] disabled:bg-[rgb(var(--accent-blue))]/60 text-white text-xs font-black uppercase tracking-widest transition-all shadow-glow flex items-center justify-center gap-2"
+            >
+              {authSuccess ? 'Decrypting Ledger...' : 'Access Administration'} <ArrowRight size={14} />
+            </button>
+          </form>
+
+          {/* Sandbox assist note */}
+          <div className="mt-8 pt-6 border-t border-border-strong/20 text-center">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-2/40 border border-border-strong/20 text-[9px] text-text-muted font-sans mx-auto">
+              <Sparkles size={11} className="text-[rgb(var(--accent-blue))]" />
+              <span>Sandbox Access Key: <strong className="font-mono text-text-primary">NETRIQ-ADMIN-2026</strong></span>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    );
+  }
+
+  // Render Authorized Admin View
   return (
     <div className="min-h-screen bg-background pt-24 overflow-hidden relative">
       <NeuralBackground />
@@ -190,6 +329,22 @@ export default function PortalClient() {
       {/* Background radial soft light */}
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[rgba(6,148,148,0.05)] rounded-full blur-[100px] pointer-events-none" />
 
+      {/* Admin Credentials Ribbon Header */}
+      <div className="bg-[rgba(6,148,148,0.1)] border-b border-[rgba(6,148,148,0.25)] py-2.5 px-6 backdrop-blur-md relative z-20">
+        <div className="max-w-7xl mx-auto flex justify-between items-center text-[9px] font-black uppercase tracking-[0.2em] font-mono text-[rgb(var(--accent-blue))]">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-[rgb(var(--accent-blue))] animate-ping" />
+            <span>ROOT DECRYPTED SYSTEM: [ADMIN PANEL ACTIVE]</span>
+          </div>
+          <button 
+            onClick={handleLockPanel}
+            className="flex items-center gap-1.5 px-3 py-1 bg-surface-1 border border-border-strong/20 rounded-md hover:bg-rose-500 hover:text-white hover:border-transparent transition-all duration-300 text-text-muted"
+          >
+            <LogOut size={10} /> LOCK PANEL
+          </button>
+        </div>
+      </div>
+
       <main className="section-container relative z-10 py-12">
         
         {/* Header Branding Panel */}
@@ -197,14 +352,14 @@ export default function PortalClient() {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
             <div>
               <div className="tech-badge rounded-full mb-4">
-                CLIENT OPERATIONS INTERFACE
+                ADMINISTRATION & BALANCES SYSTEM
               </div>
               <h1 className="text-4xl md:text-6xl font-sans font-black tracking-tight text-text-primary uppercase leading-[0.95] mb-4">
                 Invoice <br/>
                 <span className="text-[rgb(var(--accent-blue))]">Management.</span>
               </h1>
               <p className="text-text-secondary text-base md:text-lg max-w-xl opacity-80 leading-relaxed font-sans">
-                Review and settle project accounts, track deployment bills, and mock project invoicing inside our real-time sandbox panel.
+                Admin panel overview: Review and settle project accounts, track deployment bills, and mock project invoicing inside our real-time sandbox panel.
               </p>
             </div>
             
