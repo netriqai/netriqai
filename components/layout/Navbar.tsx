@@ -15,7 +15,6 @@ const navLinks = [
   { href: '/services', label: 'SERVICES' },
   { href: '/case-studies', label: 'CASE STUDIES' },
   { href: '/about', label: 'ABOUT' },
-  { href: '/portal', label: 'PORTAL' },
   { href: '/contact', label: 'CONTACT' },
 ];
 
@@ -25,6 +24,8 @@ export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
+
+  if (pathname === '/admin') return null;
 
   useEffect(() => {
     setMounted(true);

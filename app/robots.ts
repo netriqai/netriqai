@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/_next/', '/private/', '/portal'],
+        disallow: ['/api/', '/_next/', '/private/', '/admin'],
       },
       // Allow major AI/LLM crawlers — critical for GEO (Generative Engine Optimisation)
       {
@@ -23,7 +23,7 @@ export default function robots(): MetadataRoute.Robots {
           'cohere-ai',        // Cohere AI
         ],
         allow: '/',
-        disallow: ['/portal'],
+        disallow: ['/admin'],
       },
     ],
     sitemap: 'https://netriq.com.au/sitemap.xml',

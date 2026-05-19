@@ -8,7 +8,6 @@ import ThemeProvider from '@/components/providers/ThemeProvider';
 import IndustrialGrid from '@/components/ui/IndustrialGrid';
 import ScrollToTop from '@/components/ui/ScrollToTop';
 
-export const runtime = 'edge';
 
 export const viewport: Viewport = {
   width: 'device-width',

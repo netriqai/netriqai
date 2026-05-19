@@ -1,0 +1,36 @@
+{
+  "customers": [
+    {
+      "name": "H&R Finance Pty Ltd",
+      "email": "hrfinancewebsite@gmail.com",
+      "abn": "622 709 095",
+      "address": "214 Frontier Avenue AINTREE VIC 3336",
+      "activeProjects": [
+        "H&R Website Redesign and Implementation"
+      ],
+      "id": "cust_1779192656940"
+    }
+  ],
+  "invoices": [
+    {
+      "customerId": "cust_1779192656940",
+      "project": "H&R Website Redesign and Implementation",
+      "date": "2026-05-19",
+      "dueDate": "2026-06-02",
+      "items": [
+        {
+          "description": "H&R Website Redesign",
+          "quantity": 1,
+          "rate": 1000,
+          "amount": 1000
+        }
+      ],
+      "status": "unpaid",
+      "gstIncluded": true,
+      "id": "NTQ-2026-04",
+      "subtotal": 909.0909090909091,
+      "gst": 90.9090909090909,
+      "total": 1000
+    }
+  ]
+}

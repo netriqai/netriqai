@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import ContactClient from './ContactClient';
 
 export const metadata: Metadata = {
@@ -26,5 +27,9 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  return <ContactClient />;
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-background flex items-center justify-center"><p className="text-text-muted text-xs uppercase tracking-widest font-mono">Loading Neural Audit Gate...</p></div>}>
+      <ContactClient />
+    </Suspense>
+  );
 }

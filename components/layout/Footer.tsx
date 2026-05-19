@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Linkedin, Twitter, Github } from 'lucide-react';
 import Logo from '@/components/ui/Logo';
 
@@ -17,6 +20,9 @@ const footerLinks = {
 };
 
 export default function Footer() {
+  const pathname = usePathname();
+  if (pathname === '/admin') return null;
+
   return (
     <footer className="bg-background border-t border-border-strong/50 py-20 px-6 md:px-12 relative overflow-hidden">
       {/* Subtle Glow */}

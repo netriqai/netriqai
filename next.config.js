@@ -1,8 +1,14 @@
+const path = require('path');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
   compress: true, // Enable gzip/brotli compression
   transpilePackages: ['lucide-react', 'framer-motion', 'lenis'],
+  // Pin workspace root to suppress multi-lockfile warning
+  outputFileTracingRoot: path.join(__dirname),
+  // Ensure Node.js native modules (fs, path) work in server routes without bundling
+  serverExternalPackages: ['@supabase/supabase-js'],
   images: {
     // Serve modern image formats for significant bandwidth savings
     formats: ['image/avif', 'image/webp'],
