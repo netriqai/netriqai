@@ -22,7 +22,7 @@ interface Customer {
   email: string;
   abn: string;
   address: string;
-  activeProjects: string[];
+  phone: string;
 }
 
 interface InvoiceItem {
@@ -94,7 +94,7 @@ export default function AdminClient() {
   const [newCustEmail, setNewCustEmail] = useState('');
   const [newCustAbn, setNewCustAbn] = useState('');
   const [newCustAddress, setNewCustAddress] = useState('');
-  const [newCustProjects, setNewCustProjects] = useState('');
+  const [newCustPhone, setNewCustPhone] = useState('');
 
   // Edit Customer Modal State
   const [editingCustomer, setEditingCustomer] = useState<Customer | null>(null);
@@ -102,7 +102,7 @@ export default function AdminClient() {
   const [editCustEmail, setEditCustEmail] = useState('');
   const [editCustAbn, setEditCustAbn] = useState('');
   const [editCustAddress, setEditCustAddress] = useState('');
-  const [editCustProjects, setEditCustProjects] = useState('');
+  const [editCustPhone, setEditCustPhone] = useState('');
 
   // Payment Modal State
   const [payingInvoice, setPayingInvoice] = useState<Invoice | null>(null);
@@ -155,14 +155,9 @@ export default function AdminClient() {
   // Set default customer selected project
   useEffect(() => {
     if (selectedCustomerId) {
-      const cust = customers.find(c => c.id === selectedCustomerId);
-      if (cust && cust.activeProjects.length > 0) {
-        setSelectedProject(cust.activeProjects[0]);
-      } else {
-        setSelectedProject('Custom neural automation pipeline');
-      }
+      setSelectedProject('Custom Project Scope');
     }
-  }, [selectedCustomerId, customers]);
+  }, [selectedCustomerId]);
 
   // Handle Supabase Authentication Submit
   const handleAuthSubmit = async (e: React.FormEvent) => {
@@ -285,9 +280,6 @@ export default function AdminClient() {
 
     try {
       const token = localStorage.getItem('netriq_admin_token') || '';
-      const activeProjects = newCustProjects
-        ? newCustProjects.split(',').map(p => p.trim()).filter(p => p.length > 0)
-        : [];
       
       const res = await fetch('/api/admin', {
         method: 'POST',
@@ -301,7 +293,7 @@ export default function AdminClient() {
           email: newCustEmail,
           abn: newCustAbn,
           address: newCustAddress,
-          activeProjects
+          phone: newCustPhone
         })
       });
       
@@ -317,7 +309,7 @@ export default function AdminClient() {
         setNewCustEmail('');
         setNewCustAbn('');
         setNewCustAddress('');
-        setNewCustProjects('');
+        setNewCustPhone('');
         fetchDbData();
       }
     } catch (err) {
@@ -331,7 +323,7 @@ export default function AdminClient() {
     setEditCustEmail(cust.email);
     setEditCustAbn(cust.abn);
     setEditCustAddress(cust.address);
-    setEditCustProjects(cust.activeProjects.join(', '));
+    setEditCustPhone(cust.phone || '');
   };
 
   const handleUpdateCustomer = async (e: React.FormEvent) => {
@@ -340,9 +332,6 @@ export default function AdminClient() {
 
     try {
       const token = localStorage.getItem('netriq_admin_token') || '';
-      const activeProjects = editCustProjects
-        ? editCustProjects.split(',').map(p => p.trim()).filter(p => p.length > 0)
-        : [];
 
       const res = await fetch('/api/admin', {
         method: 'POST',
@@ -357,7 +346,7 @@ export default function AdminClient() {
           email: editCustEmail,
           abn: editCustAbn,
           address: editCustAddress,
-          activeProjects
+          phone: editCustPhone
         })
       });
 
@@ -1289,7 +1278,7 @@ export default function AdminClient() {
                       <th className="py-5 px-6 text-[9px] font-black tracking-widest text-text-muted/60 uppercase font-mono">Billing Email</th>
                       <th className="py-5 px-6 text-[9px] font-black tracking-widest text-text-muted/60 uppercase font-mono">ABN</th>
                       <th className="py-5 px-6 text-[9px] font-black tracking-widest text-text-muted/60 uppercase font-mono">Billing Address</th>
-                      <th className="py-5 px-6 text-[9px] font-black tracking-widest text-text-muted/60 uppercase font-mono">Active Projects</th>
+                      <th className="py-5 px-6 text-[9px] font-black tracking-widest text-text-muted/60 uppercase font-mono">Phone Number</th>
                       <th className="py-5 px-6 text-[9px] font-black tracking-widest text-text-muted/60 uppercase font-mono text-center">Actions</th>
                     </tr>
                   </thead>
@@ -1342,18 +1331,9 @@ export default function AdminClient() {
                             {cust.address || '—'}
                           </td>
 
-                          {/* Projects */}
-                          <td className="py-5 px-6 text-xs font-bold text-text-primary font-sans">
-                            <div className="flex flex-wrap gap-1.5">
-                              {cust.activeProjects.map((proj, pIdx) => (
-                                <span key={pIdx} className="inline-flex px-2 py-0.5 rounded bg-surface-1 border border-border-strong/20 text-[9px] text-[rgb(var(--accent-blue))] uppercase">
-                                  {proj}
-                                </span>
-                              ))}
-                              {cust.activeProjects.length === 0 && (
-                                <span className="text-[10px] text-text-muted/50 italic">No project active</span>
-                              )}
-                            </div>
+                          {/* Phone Number */}
+                          <td className="py-5 px-6 text-xs text-text-primary/90 font-mono">
+                            {cust.phone || '—'}
                           </td>
 
                           {/* Actions */}
@@ -1362,9 +1342,7 @@ export default function AdminClient() {
                               <button
                                 onClick={() => {
                                   setSelectedCustomerId(cust.id);
-                                  if (cust.activeProjects.length > 0) {
-                                    setSelectedProject(cust.activeProjects[0]);
-                                  }
+                                  setSelectedProject('Custom Project Scope');
                                   setIsCreatingInvoice(true);
                                 }}
                                 className="text-[8px] font-black uppercase tracking-widest px-2.5 py-2 rounded-lg bg-[rgb(var(--accent-blue))] text-white hover:bg-[rgb(var(--accent-blue-hover))] transition-colors shadow-glow-sm font-sans"
@@ -1570,14 +1548,14 @@ export default function AdminClient() {
                   />
                 </div>
 
-                {/* Active Projects */}
+                {/* Phone Number */}
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-[9px] font-black text-text-muted/80 uppercase tracking-widest font-mono">Initial Projects (Comma-separated)</label>
+                  <label className="text-[9px] font-black text-text-muted/80 uppercase tracking-widest font-mono">Phone Number</label>
                   <input
                     type="text"
-                    placeholder="Office Automation Design, API Sync Support"
-                    value={newCustProjects}
-                    onChange={(e) => setNewCustProjects(e.target.value)}
+                    placeholder="+61 412 345 678"
+                    value={newCustPhone}
+                    onChange={(e) => setNewCustPhone(e.target.value)}
                     className="w-full px-4 py-3 bg-background border border-border-strong/30 rounded-xl text-xs text-text-primary focus:outline-none focus:border-[rgb(var(--accent-blue))] font-sans"
                   />
                 </div>
@@ -1687,13 +1665,13 @@ export default function AdminClient() {
                   />
                 </div>
 
-                {/* Projects */}
+                {/* Phone Number */}
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-[9px] font-black text-text-muted/80 uppercase tracking-widest font-mono">Active Projects (Comma-separated)</label>
+                  <label className="text-[9px] font-black text-text-muted/80 uppercase tracking-widest font-mono">Phone Number</label>
                   <input
                     type="text"
-                    value={editCustProjects}
-                    onChange={(e) => setEditCustProjects(e.target.value)}
+                    value={editCustPhone}
+                    onChange={(e) => setEditCustPhone(e.target.value)}
                     className="w-full px-4 py-3 bg-background border border-border-strong/30 rounded-xl text-xs text-text-primary focus:outline-none focus:border-[rgb(var(--accent-blue))] font-sans"
                   />
                 </div>
@@ -1776,7 +1754,7 @@ export default function AdminClient() {
                     </select>
                   </div>
 
-                  {/* Project scope select based on customer activeProjects */}
+                  {/* Project scope select */}
                   <div className="flex flex-col gap-2">
                     <label className="text-[9px] font-black text-text-muted/80 uppercase tracking-widest font-mono">Project Scope</label>
                     <select 
@@ -1784,9 +1762,7 @@ export default function AdminClient() {
                       onChange={(e) => setSelectedProject(e.target.value)}
                       className="w-full px-4 py-3 bg-background border border-border-strong/30 rounded-xl text-xs text-text-primary focus:outline-none focus:border-[rgb(var(--accent-blue))] font-sans"
                     >
-                      {customers.find(c => c.id === selectedCustomerId)?.activeProjects.map((p, pIdx) => (
-                        <option key={pIdx} value={p}>{p}</option>
-                      )) || <option value="Custom Project Scope">Custom Project Scope</option>}
+                      <option value="Custom Project Scope">Custom Project Scope</option>
                       <option value="Custom Neural Automation Setup">Custom Neural Automation Setup</option>
                       <option value="Ongoing Operational Engineering Retainer">Ongoing Operational Engineering Retainer</option>
                     </select>

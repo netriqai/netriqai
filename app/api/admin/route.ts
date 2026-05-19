@@ -59,7 +59,7 @@ export async function POST(request: Request) {
     // --- CUSTOMER CRUD ---
 
     if (action === 'create_customer') {
-      const { name, email, abn, address, activeProjects } = body;
+      const { name, email, abn, address, phone } = body;
       if (!name || !email) {
         return NextResponse.json({ success: false, error: 'Name and email are required fields.' }, { status: 400 });
       }
@@ -68,13 +68,13 @@ export async function POST(request: Request) {
         email,
         abn: abn || '',
         address: address || '',
-        activeProjects: activeProjects || []
+        phone: phone || ''
       }, isSandbox, token);
       return NextResponse.json({ success: true, customer });
     }
 
     if (action === 'update_customer') {
-      const { id, name, email, abn, address, activeProjects } = body;
+      const { id, name, email, abn, address, phone } = body;
       if (!id) {
         return NextResponse.json({ success: false, error: 'Customer ID is required.' }, { status: 400 });
       }
@@ -83,7 +83,7 @@ export async function POST(request: Request) {
         email,
         abn,
         address,
-        activeProjects
+        phone
       }, isSandbox, token);
       return NextResponse.json({ success: true, customer });
     }

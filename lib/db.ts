@@ -11,7 +11,7 @@ export interface Customer {
   email: string;
   abn: string;
   address: string;
-  activeProjects: string[];
+  phone: string;
 }
 
 export interface InvoiceItem {
@@ -69,10 +69,7 @@ const defaultCustomers: Customer[] = [
     email: "billing@asrinteriors.com.au",
     abn: "12 345 678 910",
     address: "Level 14, 385 Bourke St, Melbourne VIC 3000",
-    activeProjects: [
-      "Aura Office Space Renovation Design",
-      "Subcontractor AI Verification Engine"
-    ]
+    phone: "+61 3 9654 1234"
   },
   {
     id: "cust_002",
@@ -80,9 +77,7 @@ const defaultCustomers: Customer[] = [
     email: "finance@taxbud.com.au",
     abn: "98 765 432 109",
     address: "45 William St, Melbourne VIC 3000",
-    activeProjects: [
-      "Tax Document OCR Pipeline Integration"
-    ]
+    phone: "+61 2 8234 5678"
   },
   {
     id: "cust_003",
@@ -90,9 +85,7 @@ const defaultCustomers: Customer[] = [
     email: "accounts@finvue.io",
     abn: "45 678 123 098",
     address: "Collins Square, 727 Collins St, Melbourne VIC 3008",
-    activeProjects: [
-      "Wealth Projection Core Optimization Retainer"
-    ]
+    phone: "+61 412 345 678"
   }
 ];
 
@@ -211,11 +204,15 @@ export async function getCustomers(isSandbox?: boolean, token?: string): Promise
       email: row.email,
       abn: row.abn,
       address: row.address,
-      activeProjects: Array.isArray(row.active_projects)
-        ? row.active_projects
-        : Array.isArray(row.activeProjects)
-        ? row.activeProjects
-        : JSON.parse(row.active_projects || '[]')
+      phone: row.phone || row.phone_number || (
+        Array.isArray(row.active_projects) && row.active_projects.length > 0
+          ? row.active_projects[0]
+          : Array.isArray(row.activeProjects) && row.activeProjects.length > 0
+          ? row.activeProjects[0]
+          : (typeof row.active_projects === 'string' && row.active_projects.startsWith('['))
+          ? JSON.parse(row.active_projects || '[]')?.[0] || ''
+          : row.active_projects || ''
+      ) || ''
     }));
   } catch (err) {
     console.error('Failed to get customers from Supabase:', err);
@@ -294,7 +291,7 @@ export async function addCustomer(customer: Omit<Customer, 'id'>, isSandbox?: bo
         email: newCustomer.email,
         abn: newCustomer.abn,
         address: newCustomer.address,
-        active_projects: newCustomer.activeProjects
+        active_projects: [newCustomer.phone]
       });
       if (error) {
         console.error('Supabase customer insertion error response:', error);
@@ -395,7 +392,7 @@ export async function updateCustomer(id: string, customer: Partial<Customer>, is
       if (customer.email !== undefined) updateData.email = customer.email;
       if (customer.abn !== undefined) updateData.abn = customer.abn;
       if (customer.address !== undefined) updateData.address = customer.address;
-      if (customer.activeProjects !== undefined) updateData.active_projects = customer.activeProjects;
+      if (customer.phone !== undefined) updateData.active_projects = [customer.phone];
 
       await client.from('customers').update(updateData).eq('id', id);
     } catch (err) {
@@ -574,7 +571,7 @@ export async function seedDummyDatabase(isSandbox?: boolean, token?: string): Pr
           email: cust.email,
           abn: cust.abn,
           address: cust.address,
-          active_projects: cust.activeProjects
+          active_projects: [cust.phone]
         });
       }
       for (const inv of defaultInvoices) {
