@@ -75,10 +75,10 @@ const caseStudies: CaseStudy[] = [
     metric: '67%',
     metricLabel: 'fewer missed appointments',
     challenge:
-      'A 15-practitioner clinic was losing AUD $28k/month to no-shows and unpaid invoices. Three full-time admin staff spent 60% of their time on manual phone reminders and chasing overdue accounts.',
+      'A 15-practitioner clinic was losing hours each week to no-shows and unpaid invoices. Three full-time admin staff spent 60% of their time on manual phone reminders and chasing overdue accounts.',
     solution:
       'Built a multi-channel appointment reminder system (SMS + email + WhatsApp) with intelligent timing based on appointment type and patient history. Added automated billing follow-up sequences with one-click payment links.',
-    result: 'AUD $180,000 saved per year. No-show rate dropped from 23% to 8%. Two admin staff redeployed to patient-facing roles. Billing collections improved by 34% in Month 1.',
+    result: 'No-show rate dropped from 23% to 8%. 24+ hours per week of manual admin eliminated. Two admin staff redeployed to patient-facing roles. Billing collections improved by 34% in Month 1.',
     tools: ['Make.com', 'Twilio', 'HubSpot', 'Cliniko'],
     quote: 'We thought we needed to hire another admin. Netriq AI showed us we needed automation. The ROI was obvious within 30 days.',
     quoteAuthor: 'Practice Manager, Melbourne Clinic',
@@ -87,13 +87,13 @@ const caseStudies: CaseStudy[] = [
     industry: 'Retail',
     location: 'Sydney, NSW',
     headline: 'AI inventory forecasting + supplier automation',
-    metric: 'AUD $240k',
-    metricLabel: 'saved in Year 1',
+    metric: '60%',
+    metricLabel: 'reduction in overstock',
     challenge:
-      "A 3-location retail chain with 2,000+ SKUs was experiencing monthly stockouts costing AUD $15k+ and overstock tying up AUD $400k in working capital. Manual ordering took 12 hours/week.",
+      "A 3-location retail chain with 2,000+ SKUs was experiencing persistent stockouts and overstock tying up significant working capital. Manual ordering took 12 hours/week.",
     solution:
       'Deployed AI demand forecasting model using 3 years of sales data, seasonal patterns, and local event calendars. Automated supplier purchase orders triggered at smart reorder points. Full Shopify + Xero integration.',
-    result: '99.2% stock availability across all locations. Overstock reduced by 60%. AUD $240k net saving in Year 1. Manual ordering time dropped from 12 hrs to 45 minutes per week.',
+    result: '99.2% stock availability across all locations. Overstock reduced by 60%. Manual ordering time cut by 93% (dropped from 12 hours to 45 minutes per week).',
     tools: ['n8n', 'OpenAI', 'Shopify', 'Xero', 'Airtable'],
     quote: 'Our stockout problem is completely solved. The system ordered exactly the right stock for the Easter long weekend before I even thought to check.',
     quoteAuthor: 'Head of Operations, Sydney Retail Chain',
@@ -108,7 +108,7 @@ const caseStudies: CaseStudy[] = [
       'A 12-partner law firm was onboarding new clients in 4–6 weeks. Partners spent 30–40% of their time on admin, document chasing, and data entry. Billing for this admin time was inconsistent.',
     solution:
       'Built an end-to-end client intake system with AI document extraction, automated conflict checks, digital engagement letter generation, and CRM auto-population. DocuSign integrated for seamless e-signature.',
-    result: 'Client onboarding reduced from 6 weeks to 10 business days. 85% reduction in admin time per partner (8 hours/week saved per partner). AUD $95k additional billable time recovered in Year 1.',
+    result: 'Client onboarding reduced from 6 weeks to 10 business days. 85% reduction in admin time per partner (8+ hours/week saved per partner). 92% of client intake automated.',
     tools: ['Relevance AI', 'Make.com', 'Clio', 'DocuSign', 'Notion'],
     quote: "I was skeptical. I'm a lawyer — I thought AI couldn't handle legal documents properly. I was completely wrong. It's more accurate than manual data entry.",
     quoteAuthor: 'Managing Partner, Brisbane Law Firm',
@@ -123,7 +123,7 @@ const caseStudies: CaseStudy[] = [
       'A civil construction company with 20+ active projects was drowning in admin. Project managers spent Fridays writing progress reports. Subcontractor compliance documents were tracked in spreadsheets and frequently out of date.',
     solution:
       'Automated daily progress report compilation from field photos, time tracking apps, and site notes using AI narrative generation. Built a subcontractor compliance portal with automatic expiry alerts and document verification.',
-    result: 'Reporting time cut from 6 hours/week to 90 minutes per project manager. 100% subcontractor compliance rate achieved. AUD $95k in admin savings. Zero compliance incidents since launch.',
+    result: 'Reporting time cut from 6 hours/week to 90 minutes per project manager. 100% subcontractor compliance rate achieved. 75% reduction in reporting overhead. Zero compliance incidents since launch.',
     tools: ['n8n', 'OpenAI', 'Airtable', 'Procore', 'MYOB'],
     quote: 'Friday used to be report day. Now it\'s actually productive. And we haven\'t had a compliance breach since the system went live 14 months ago.',
     quoteAuthor: 'Operations Director, Perth Civil',

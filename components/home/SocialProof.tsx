@@ -3,7 +3,7 @@
 const stats = [
   { value: '50+', label: 'Installations' },
   { value: '99.9%', label: 'Uptime' },
-  { value: '4.2M', label: 'AUD Saved' },
+  { value: '8.2k+', label: 'Hours Saved' },
   { value: '2.1M', label: 'Rows Processed' },
 ];
 

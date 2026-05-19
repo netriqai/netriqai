@@ -6,7 +6,7 @@ import AnimatedCounter from '@/components/ui/AnimatedCounter';
 
 const stats = [
   { value: 247, label: 'Workflows Executed', prefix: '' },
-  { value: 4.2, label: 'Capital Recouped', prefix: 'AUD $' },
+  { value: 8200, label: 'Hours Reclaimed', prefix: '', suffix: '+' },
   { value: 99.9, label: 'System Uptime', prefix: '', suffix: '%' },
   { value: 30, label: 'Days to Deploy', prefix: '' },
 ];

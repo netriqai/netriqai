@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'AI Automation Success Stories — Netriq AI',
     description:
-      'Concrete evidence of neural automation driving ROI for Australian SMBs. 3x faster onboarding, 67% fewer no-shows, and AUD $240k+ in yearly savings.',
+      'Concrete evidence of neural automation driving ROI for Australian SMBs. 3x faster onboarding, 67% fewer no-shows, and 80%+ operational efficiency gains.',
     url: 'https://netriq.com.au/case-studies',
   },
   alternates: {
