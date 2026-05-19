@@ -29,13 +29,14 @@ if [ ! -f .env.yaml ]; then
     exit 1
 fi
 
-# Deploy to Cloud Run
+# Deploy to Cloud Run with secrets securely loaded from Secret Manager
 gcloud run deploy $SERVICE_NAME \
     --source . \
     --region $REGION \
     --allow-unauthenticated \
     --memory 512Mi \
     --env-vars-file .env.yaml \
+    --set-secrets="RESEND_API_KEY=resend-api-key:latest,SUPABASE_KEY=supabase-key:latest,SUPABASE_SERVICE_KEY=supabase-service-key:latest" \
     --project $PROJECT_ID
 
 echo "✅ Deployment complete!"
