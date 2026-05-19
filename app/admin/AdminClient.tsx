@@ -55,7 +55,7 @@ export default function AdminClient() {
   const [authSuccess, setAuthSuccess] = useState(false);
 
   // Tabs
-  const [activeTab, setActiveTab] = useState<'invoices' | 'customers'>('invoices');
+  const [activeTab, setActiveTab] = useState<'invoices' | 'customers'>('customers');
 
   // DB State
   const [customers, setCustomers] = useState<Customer[]>([]);
@@ -1041,18 +1041,6 @@ export default function AdminClient() {
         <SectionReveal delay={130}>
           <div className="flex gap-4 mb-6 border-b border-border-strong/20 pb-4">
             <button
-              onClick={() => { setActiveTab('invoices'); setSearchQuery(''); }}
-              className={clsx(
-                "pb-2 text-xs font-black uppercase tracking-widest transition-all duration-300 flex items-center gap-2 relative",
-                activeTab === 'invoices' ? "text-text-primary font-sans" : "text-text-muted hover:text-text-primary font-sans"
-              )}
-            >
-              <FileText size={14} /> Invoice Records
-              {activeTab === 'invoices' && (
-                <motion.div layoutId="activeTabIndicator" className="absolute bottom-[-17px] left-0 right-0 h-[2px] bg-[rgb(var(--accent-blue))]" />
-              )}
-            </button>
-            <button
               onClick={() => { setActiveTab('customers'); setSearchQuery(''); }}
               className={clsx(
                 "pb-2 text-xs font-black uppercase tracking-widest transition-all duration-300 flex items-center gap-2 relative",
@@ -1061,6 +1049,18 @@ export default function AdminClient() {
             >
               <Users size={14} /> Customer Ledger
               {activeTab === 'customers' && (
+                <motion.div layoutId="activeTabIndicator" className="absolute bottom-[-17px] left-0 right-0 h-[2px] bg-[rgb(var(--accent-blue))]" />
+              )}
+            </button>
+            <button
+              onClick={() => { setActiveTab('invoices'); setSearchQuery(''); }}
+              className={clsx(
+                "pb-2 text-xs font-black uppercase tracking-widest transition-all duration-300 flex items-center gap-2 relative",
+                activeTab === 'invoices' ? "text-text-primary font-sans" : "text-text-muted hover:text-text-primary font-sans"
+              )}
+            >
+              <FileText size={14} /> Invoice Records
+              {activeTab === 'invoices' && (
                 <motion.div layoutId="activeTabIndicator" className="absolute bottom-[-17px] left-0 right-0 h-[2px] bg-[rgb(var(--accent-blue))]" />
               )}
             </button>
