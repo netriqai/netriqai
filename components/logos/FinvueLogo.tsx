@@ -13,7 +13,7 @@ const FinvueLogo: React.FC<FinvueLogoProps> = ({ className }) => {
                     <path
                         d="M26 16 A 10 10 0 1 1 16 6"
                         stroke="#2563EB"
-                        stroke-width="4"
+                        strokeWidth="4"
                         fill="none"
                     />
                     <path
