@@ -152,7 +152,7 @@ export default function ContactClient() {
                     </div>
                     <div>
                       <h2 className="text-2xl font-sans font-bold text-text-primary tracking-tight">Reserve Consultation</h2>
-                      <p className="text-[10px] font-bold text-text-muted tracking-[0.2em] uppercase">60 MINS • VIDEO SYNC • $0.00 COST</p>
+                      <p className="text-[10px] font-bold text-text-muted tracking-[0.2em] uppercase">30 MINS • VIDEO SYNC • $0.00 COST</p>
                     </div>
                   </div>
 
@@ -166,13 +166,13 @@ export default function ContactClient() {
                       Sync directly with our neural architects to map your operational bottlenecks.
                     </p>
                     <GlowButton
-                      href="https://calendly.com"
+                      href="https://calendar.google.com/calendar/appointments/schedules"
                       variant="primary"
                       size="md"
                       external
                       className="px-8 rounded-full shadow-xl shadow-accent-blue/20"
                     >
-                      Book via Calendly
+                      Book via Google Calendar
                       <ArrowRight size={16} />
                     </GlowButton>
                   </div>
