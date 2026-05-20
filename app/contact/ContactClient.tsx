@@ -159,7 +159,7 @@ export default function ContactClient() {
                   </div>
 
                   <div className="w-full rounded-2xl flex flex-col items-center justify-center py-20 px-10 text-center border border-white/5 bg-background/40 backdrop-blur-sm relative z-10 group overflow-hidden" style={{ minHeight: '350px' }}>
-                    <div className="absolute inset-0 bg-gradient-to-br from-accent-blue/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-accent-blue/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
                     <Calendar size={48} className="text-accent-blue/30 mb-6 group-hover:scale-110 group-hover:text-accent-blue transition-all" />
                     <p className="font-sans font-bold text-text-primary text-lg mb-3">
                       Interactive Scheduler
@@ -172,7 +172,7 @@ export default function ContactClient() {
                       variant="primary"
                       size="md"
                       external
-                      className="px-8 rounded-full shadow-xl shadow-accent-blue/20"
+                      className="px-8 rounded-full shadow-xl shadow-accent-blue/20 relative z-20"
                     >
                       Book via Google Calendar
                       <ArrowRight size={16} />
