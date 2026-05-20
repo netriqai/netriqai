@@ -72,6 +72,8 @@ export default function ContactClient() {
   const searchParams = useSearchParams();
   const preselectedService = searchParams.get('service');
 
+  const googleCalendarUrl = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_URL || 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=AI+Discovery+Consultation+with+Netriq+AI&add=netriqai@gmail.com';
+
   const {
     register,
     handleSubmit,
@@ -166,7 +168,7 @@ export default function ContactClient() {
                       Sync directly with our neural architects to map your operational bottlenecks.
                     </p>
                     <GlowButton
-                      href="https://calendar.google.com/calendar/appointments/schedules"
+                      href={googleCalendarUrl}
                       variant="primary"
                       size="md"
                       external
