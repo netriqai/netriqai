@@ -181,7 +181,7 @@ export default function RootLayout({
                       "itemListElement": [
                         {
                           "@type": "Offer",
-                          "name": "AI Discovery Audit",
+                          "name": "AI Discovery Consultation",
                           "description": "Deep-dive workflow mapping to identify AI ROI potential. Includes 30+ page report and 90-day roadmap.",
                           "price": "2500",
                           "priceCurrency": "AUD"

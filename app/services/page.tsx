@@ -4,12 +4,12 @@ import ServicesClient from './ServicesClient';
 export const metadata: Metadata = {
   title: 'AI Automation Services & Pricing — Netriq AI Melbourne',
   description:
-    'Explore Netriq AI\'s full service range: AI Discovery Audit (AUD $2,500), Done-For-You Implementation (AUD $8,000), Ongoing Support Retainer (AUD $1,500/mo), and Team Training (AUD $3,000). Serving Australian SMBs.',
+    'Explore Netriq AI\'s full service range: AI Discovery Consultation (AUD $2,500), Done-For-You Implementation (AUD $8,000), Ongoing Support Retainer (AUD $1,500/mo), and Team Training (AUD $3,000). Serving Australian SMBs.',
   keywords: [
     'AI automation pricing Australia',
     'AI consulting services Melbourne',
     'SMB AI implementation cost',
-    'AI discovery audit',
+    'AI discovery consultation',
     'business automation retainer',
     'AI team training Australia',
     'Make.com automation services',
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'AI Automation Services — Netriq AI | From AUD $2,500',
     description:
-      'Custom AI automation for Australian SMBs. Discovery Audit, Done-For-You Builds, Ongoing Support & Team Training. Transparent pricing, measurable ROI.',
+      'Custom AI automation for Australian SMBs. Discovery Consultation, Done-For-You Builds, Ongoing Support & Team Training. Transparent pricing, measurable ROI.',
     url: 'https://netriq.com.au/services',
   },
   alternates: {
@@ -70,7 +70,7 @@ const faqSchema = {
       name: 'How much does AI automation consulting cost in Australia?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Netriq AI services start at AUD $2,500 for an AI Discovery Audit. Done-For-You implementations start at AUD $8,000. Ongoing support retainers start at AUD $1,500 per month. Team training starts at AUD $3,000.',
+        text: 'Netriq AI services start at AUD $2,500 for an AI Discovery Consultation. Done-For-You implementations start at AUD $8,000. Ongoing support retainers start at AUD $1,500 per month. Team training starts at AUD $3,000.',
       },
     },
   ],

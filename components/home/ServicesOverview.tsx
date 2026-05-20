@@ -11,7 +11,7 @@ const services = [
   {
     icon: Terminal,
     code: 'Service 01',
-    name: 'AI Discovery Audit',
+    name: 'AI Discovery Consultation',
     tagline: 'Deep-dive workflow mapping to identify return on investment potential.',
     description: 'We analyze how your team works today. We identify bottlenecks and map out exactly where AI can save you time and money.',
     price: 'AUD $2,500',

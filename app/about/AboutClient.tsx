@@ -51,7 +51,7 @@ export default function AboutClient() {
       <section className="relative py-32 md:py-48 overflow-hidden">
         <NeuralBackground />
         <div className="absolute inset-0 tech-grid opacity-[0.1] z-0" />
-        
+
         <div className="section-container relative z-10 text-center">
           <SectionReveal>
             <div className="tech-badge rounded-full px-6 py-2 border-accent-blue/20 bg-accent-blue/5 mb-8 inline-flex">
@@ -61,7 +61,7 @@ export default function AboutClient() {
               className="font-sans font-bold text-text-primary mb-8 leading-[0.95] tracking-tight"
               style={{ fontSize: 'clamp(40px, 7vw, 84px)' }}
             >
-              We Build <br/>
+              We Build <br />
               <span className="text-accent-blue">The Intelligence Layer.</span>
             </h1>
             <p className="text-text-secondary text-lg md:text-xl max-w-2xl mx-auto leading-relaxed opacity-80 font-sans">
@@ -75,58 +75,58 @@ export default function AboutClient() {
       <section className="py-32">
         <div className="section-container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-32 items-center">
-             <SectionReveal>
-                <div className="relative">
-                   <div className="absolute -top-10 -left-10 w-40 h-40 bg-accent-blue/10 rounded-full blur-[60px] pointer-events-none" />
-                   <h2 className="text-3xl md:text-5xl font-sans font-bold text-text-primary tracking-tight leading-tight mb-8">
-                     Democratizing <br/>
-                     <span className="text-accent-blue">Industrial Logic.</span>
-                   </h2>
-                   <div className="space-y-6 text-lg text-text-secondary leading-relaxed font-sans opacity-80">
-                      <p>
-                        Large enterprises have had dedicated AI teams for years. They&apos;ve automated their invoicing, their customer support, their sales outreach, their compliance reporting. They&apos;re running leaner, faster, and cheaper than ever before.
-                      </p>
-                      <p>
-                        Meanwhile, most Australian SMBs are still manually copying data between systems and chasing invoices by phone. This isn&apos;t a technology problem. It&apos;s an access problem.
-                      </p>
-                      <div className="p-8 rounded-3xl bg-accent-blue/5 border border-accent-blue/10 relative overflow-hidden group">
-                         <div className="absolute top-0 right-0 p-4 opacity-10 text-accent-blue group-hover:scale-110 group-hover:opacity-20 transition-all">
-                            <Binary size={64} />
-                         </div>
-                         <p className="font-sans font-bold text-xl text-text-primary leading-relaxed relative z-10 italic">
-                          &ldquo;Netriq AI exists to close that gap. We bring enterprise-grade AI automation at SMB prices, with an obsessive focus on measurable ROI.&rdquo;
-                        </p>
-                      </div>
-                   </div>
+            <SectionReveal>
+              <div className="relative">
+                <div className="absolute -top-10 -left-10 w-40 h-40 bg-accent-blue/10 rounded-full blur-[60px] pointer-events-none" />
+                <h2 className="text-3xl md:text-5xl font-sans font-bold text-text-primary tracking-tight leading-tight mb-8">
+                  Democratizing <br />
+                  <span className="text-accent-blue">Industrial Logic.</span>
+                </h2>
+                <div className="space-y-6 text-lg text-text-secondary leading-relaxed font-sans opacity-80">
+                  <p>
+                    Large enterprises have had dedicated AI teams for years. They&apos;ve automated their invoicing, their customer support, their sales outreach, their compliance reporting. They&apos;re running leaner, faster, and cheaper than ever before.
+                  </p>
+                  <p>
+                    Meanwhile, most Australian SMBs are still manually copying data between systems and chasing invoices by phone. This isn&apos;t a technology problem. It&apos;s an access problem.
+                  </p>
+                  <div className="p-8 rounded-3xl bg-accent-blue/5 border border-accent-blue/10 relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 p-4 opacity-10 text-accent-blue group-hover:scale-110 group-hover:opacity-20 transition-all">
+                      <Binary size={64} />
+                    </div>
+                    <p className="font-sans font-bold text-xl text-text-primary leading-relaxed relative z-10 italic">
+                      &ldquo;Netriq AI exists to close that gap. We bring enterprise-grade AI automation at SMB prices, with an obsessive focus on measurable ROI.&rdquo;
+                    </p>
+                  </div>
                 </div>
-             </SectionReveal>
+              </div>
+            </SectionReveal>
 
-             <SectionReveal delay={150}>
-                <div className="glass-card p-10 md:p-14 rounded-3xl relative overflow-hidden transition-all duration-500 shadow-2xl">
-                   <div className="absolute top-0 right-0 w-64 h-64 bg-accent-blue/5 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
-                   
-                   <div className="mb-12">
-                      <div className="w-16 h-16 rounded-2xl bg-accent-blue/10 flex items-center justify-center text-accent-blue mb-8 shadow-glow-sm">
-                         <Cpu size={32} />
-                      </div>
-                      <h3 className="text-2xl font-sans font-bold text-text-primary tracking-tight mb-6 underline decoration-accent-blue/30 decoration-4 underline-offset-8">Why We Build.</h3>
-                      <p className="text-text-secondary text-base leading-relaxed font-sans opacity-70">
-                        Our technical leadership comes from decades of experience at top-tier platforms, where they saw that AI leverage was only accessible to the top 1%. We exist to bring that power to the broader community.
-                      </p>
-                   </div>
+            <SectionReveal delay={150}>
+              <div className="glass-card p-10 md:p-14 rounded-3xl relative overflow-hidden transition-all duration-500 shadow-2xl">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-accent-blue/5 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
-                   <div className="space-y-6">
-                      <div className="flex items-center gap-4 group">
-                         <div className="w-12 h-12 rounded-xl bg-surface-2 border border-border-strong/40 flex items-center justify-center text-text-muted group-hover:border-accent-blue group-hover:text-accent-blue transition-all font-sans font-bold text-sm">200+</div>
-                         <div className="text-[10px] font-bold tracking-[0.2em] text-text-muted uppercase">Workflows Shipped</div>
-                      </div>
-                      <div className="flex items-center gap-4 group">
-                         <div className="w-12 h-12 rounded-xl bg-surface-2 border border-border-strong/40 flex items-center justify-center text-text-muted group-hover:border-accent-blue group-hover:text-accent-blue transition-all font-sans font-bold text-sm">4.2M</div>
-                         <div className="text-[10px] font-bold tracking-[0.2em] text-text-muted uppercase">Projected Client Savings (AUD)</div>
-                      </div>
-                   </div>
+                <div className="mb-12">
+                  <div className="w-16 h-16 rounded-2xl bg-accent-blue/10 flex items-center justify-center text-accent-blue mb-8 shadow-glow-sm">
+                    <Cpu size={32} />
+                  </div>
+                  <h3 className="text-2xl font-sans font-bold text-text-primary tracking-tight mb-6 underline decoration-accent-blue/30 decoration-4 underline-offset-8">Why We Build.</h3>
+                  <p className="text-text-secondary text-base leading-relaxed font-sans opacity-70">
+                    Our technical leadership comes from decades of experience at top-tier platforms, where they saw that AI leverage was only accessible to the top 1%. We exist to bring that power to the broader community.
+                  </p>
                 </div>
-             </SectionReveal>
+
+                <div className="space-y-6">
+                  <div className="flex items-center gap-4 group">
+                    <div className="w-12 h-12 rounded-xl bg-surface-2 border border-border-strong/40 flex items-center justify-center text-text-muted group-hover:border-accent-blue group-hover:text-accent-blue transition-all font-sans font-bold text-sm">200+</div>
+                    <div className="text-[10px] font-bold tracking-[0.2em] text-text-muted uppercase">Workflows Shipped</div>
+                  </div>
+                  <div className="flex items-center gap-4 group">
+                    <div className="w-12 h-12 rounded-xl bg-surface-2 border border-border-strong/40 flex items-center justify-center text-text-muted group-hover:border-accent-blue group-hover:text-accent-blue transition-all font-sans font-bold text-sm">4.2M</div>
+                    <div className="text-[10px] font-bold tracking-[0.2em] text-text-muted uppercase">Projected Client Savings (AUD)</div>
+                  </div>
+                </div>
+              </div>
+            </SectionReveal>
           </div>
         </div>
       </section>
@@ -139,7 +139,7 @@ export default function AboutClient() {
               Operational <span className="text-accent-blue">Integrity.</span>
             </h2>
           </SectionReveal>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, i) => (
               <SectionReveal key={value.title} delay={i * 100}>
@@ -175,7 +175,7 @@ export default function AboutClient() {
       {/* CTA Final */}
       <section className="py-40 bg-background relative overflow-hidden text-center border-t border-border-strong/20">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-accent-blue/5 rounded-full blur-[160px] pointer-events-none" />
-        
+
         <div className="section-container relative z-10">
           <SectionReveal>
             <div className="tech-badge rounded-full mb-8">IDENTITY VERIFICATION COMPLETE</div>
@@ -183,11 +183,11 @@ export default function AboutClient() {
               className="font-sans font-bold text-text-primary mb-8 tracking-tight"
               style={{ fontSize: 'clamp(28px, 4.5vw, 48px)' }}
             >
-              The gap is closing. <br/> 
+              The gap is closing. <br />
               <span className="text-accent-blue">Will you stay on the right side of it?</span>
             </h2>
             <p className="text-text-secondary text-lg mb-12 max-w-xl mx-auto leading-relaxed opacity-80 font-sans">
-              Netriq AI is a partner for those who prioritize efficiency over effort. Book your free neural audit and secure your architectural advantage.
+              Netriq AI is a partner for those who prioritize efficiency over effort. Book your free consultation and secure your architectural advantage.
             </p>
             <GlowButton href="/contact" variant="primary" size="lg" className="px-12 rounded-full shadow-2xl shadow-accent-blue/20">
               Generate AI ROI Roadmap

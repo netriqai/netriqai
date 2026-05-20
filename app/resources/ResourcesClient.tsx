@@ -77,11 +77,11 @@ const blogPosts: BlogPost[] = [
     color: '#4ADE80',
   },
   {
-    slug: 'what-is-an-ai-audit',
+    slug: 'what-is-an-ai-consultation',
     category: 'Getting Started',
-    title: 'What Is an AI Audit and Why Every SMB Needs One Before Implementing AI',
+    title: 'What Is an AI Consultation and Why Every SMB Needs One Before Implementing AI',
     excerpt:
-      'Most businesses that fail at AI implementation didn\'t do a proper discovery phase. Here\'s what an AI audit actually involves, what it costs, and what you get out of it.',
+      'Most businesses that fail at AI implementation didn\'t do a proper discovery phase. Here\'s what an AI consultation actually involves, what it costs, and what you get out of it.',
     readTime: '6 min read',
     date: 'December 18, 2025',
     color: '#6366F1',

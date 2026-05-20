@@ -24,7 +24,7 @@ const services = [
       'Prioritised 90-day roadmap',
     ],
     badge: null,
-    cta: 'Book Audit',
+    cta: 'Book Consultation',
   },
   {
     id: 'implementation',
@@ -109,7 +109,7 @@ export default function ServicesClient() {
       <section className="relative py-32 md:py-48 overflow-hidden">
         <NeuralBackground />
         <div className="absolute inset-0 tech-grid opacity-[0.1] z-0" />
-        
+
         <div className="section-container relative z-10 text-center">
           <SectionReveal>
             <div className="tech-badge rounded-full px-6 py-2 border-accent-blue/20 bg-accent-blue/5 mb-8 inline-flex">
@@ -119,7 +119,7 @@ export default function ServicesClient() {
               className="font-sans font-bold text-text-primary mb-8 leading-[0.95] tracking-tight"
               style={{ fontSize: 'clamp(44px, 7vw, 90px)' }}
             >
-              Neural <br/>
+              Neural <br />
               <span className="text-accent-blue">Architecture.</span>
             </h1>
             <p className="text-text-secondary text-lg md:text-xl max-w-2xl mx-auto leading-relaxed opacity-80 font-sans">
@@ -135,7 +135,7 @@ export default function ServicesClient() {
           <div className="flex flex-col lg:flex-row gap-4 h-auto lg:h-[700px]">
             {services.map((service, i) => {
               const isActive = hoveredId === service.id;
-              
+
               return (
                 <motion.div
                   key={service.id}
@@ -143,8 +143,8 @@ export default function ServicesClient() {
                   onMouseEnter={() => setHoveredId(service.id)}
                   className={clsx(
                     "relative overflow-hidden transition-all duration-700 rounded-[32px] border",
-                    isActive 
-                      ? "lg:flex-[2.5] bg-accent-blue/10 border-accent-blue/40 shadow-glow-sm" 
+                    isActive
+                      ? "lg:flex-[2.5] bg-accent-blue/10 border-accent-blue/40 shadow-glow-sm"
                       : "lg:flex-[1] bg-white dark:bg-surface-1 border-border-strong/30 opacity-100",
                     "group cursor-pointer h-[500px] lg:h-full backdrop-blur-xl"
                   )}
@@ -154,7 +154,7 @@ export default function ServicesClient() {
                     "absolute inset-0 bg-gradient-to-br from-accent-blue/10 via-transparent to-transparent transition-opacity duration-1000",
                     isActive ? "opacity-100" : "opacity-0"
                   )} />
-                  
+
                   {service.badge && (
                     <div className="absolute top-8 right-8 px-4 py-1.5 bg-accent-blue text-white text-[8px] font-black tracking-[0.3em] uppercase rounded-full shadow-2xl z-20">
                       {service.badge}
@@ -166,14 +166,14 @@ export default function ServicesClient() {
                     <div className="flex items-center justify-between mb-8 lg:mb-12">
                       <div className={clsx(
                         "w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-500 border",
-                        isActive 
-                          ? "bg-accent-blue border-accent-blue text-white shadow-glow-sm scale-110" 
+                        isActive
+                          ? "bg-accent-blue border-accent-blue text-white shadow-glow-sm scale-110"
                           : "bg-surface-2 border-border-strong/40 text-accent-blue opacity-100 group-hover:bg-accent-blue/10"
                       )}>
                         <service.icon size={24} />
                       </div>
                       <span className="text-[9px] font-black tracking-[0.4em] text-text-muted opacity-50 uppercase whitespace-nowrap font-mono">
-                        MODULAR_0{i+1}
+                        MODULAR_0{i + 1}
                       </span>
                     </div>
 
@@ -185,7 +185,7 @@ export default function ServicesClient() {
                       )}>
                         {service.name}
                       </h2>
-                      
+
                       <p className={clsx(
                         "text-text-secondary text-base lg:text-lg leading-relaxed mb-8 transition-all duration-500 font-sans",
                         isActive ? "opacity-100 max-w-lg" : "opacity-80 line-clamp-2"
@@ -200,19 +200,19 @@ export default function ServicesClient() {
                       )}>
                         {/* Features Grid */}
                         <ul className="grid grid-cols-1 gap-4 bg-background/50 p-6 rounded-2xl border border-border-strong/20">
-                           {service.features.map((feature) => (
-                             <li key={feature} className="flex items-center gap-3 text-sm text-text-primary font-bold font-sans">
-                               <div className="w-1.5 h-1.5 rounded-full bg-accent-blue shadow-[0_0_8px_rgb(var(--accent-blue))]" />
-                               {feature}
-                             </li>
-                           ))}
+                          {service.features.map((feature) => (
+                            <li key={feature} className="flex items-center gap-3 text-sm text-text-primary font-bold font-sans">
+                              <div className="w-1.5 h-1.5 rounded-full bg-accent-blue shadow-[0_0_8px_rgb(var(--accent-blue))]" />
+                              {feature}
+                            </li>
+                          ))}
                         </ul>
 
                         <div className="mt-auto">
-                           <GlowButton href={`/contact?service=${service.id}`} variant="primary" size="lg" className="w-full lg:w-auto px-10 rounded-xl shadow-2xl shadow-accent-blue/20 uppercase tracking-widest text-[9px]">
-                              ENQUIRE
-                              <ArrowRight size={18} />
-                           </GlowButton>
+                          <GlowButton href={`/contact?service=${service.id}`} variant="primary" size="lg" className="w-full lg:w-auto px-10 rounded-xl shadow-2xl shadow-accent-blue/20 uppercase tracking-widest text-[9px]">
+                            ENQUIRE
+                            <ArrowRight size={18} />
+                          </GlowButton>
                         </div>
                       </div>
                     </div>
@@ -221,9 +221,9 @@ export default function ServicesClient() {
                   {/* Vertical Side Identity */}
                   {!isActive && (
                     <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none">
-                       <div className="rotate-90 origin-bottom-right whitespace-nowrap text-[8px] font-black tracking-[0.8em] text-text-muted/10 uppercase font-mono hidden lg:block">
-                          System Spec 0{i+1}
-                       </div>
+                      <div className="rotate-90 origin-bottom-right whitespace-nowrap text-[8px] font-black tracking-[0.8em] text-text-muted/10 uppercase font-mono hidden lg:block">
+                        System Spec 0{i + 1}
+                      </div>
                     </div>
                   )}
                 </motion.div>
@@ -283,7 +283,7 @@ export default function ServicesClient() {
           <SectionReveal>
             <div className="tech-badge rounded-full mb-8">INITIATE DIAGNOSTIC</div>
             <h2 className="text-4xl md:text-6xl font-sans font-bold text-text-primary tracking-tight mb-8">
-              Optimization <br/>
+              Optimization <br />
               <span className="text-accent-blue">starts with clarity.</span>
             </h2>
             <GlowButton href="/contact" variant="primary" size="lg" className="rounded-full shadow-2xl shadow-accent-blue/20 px-12">

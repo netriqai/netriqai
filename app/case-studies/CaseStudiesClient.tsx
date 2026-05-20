@@ -363,7 +363,7 @@ export default function CaseStudiesClient() {
               <span className="text-[rgb(var(--accent-blue))]">Engineered.</span>
             </h2>
             <p className="text-text-muted text-xl mb-12 max-w-xl mx-auto leading-relaxed opacity-80 font-sans">
-              Request a precision audit of your operational bottlenecks. We deliver the implementation roadmap before you commit a single dollar.
+              Request a precision consultation of your operational bottlenecks. We deliver the implementation roadmap before you commit a single dollar.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 px-4">
               <GlowButton href="/contact" variant="primary" size="lg" className="w-full sm:w-auto rounded-[16px] px-12 group uppercase tracking-widest">
