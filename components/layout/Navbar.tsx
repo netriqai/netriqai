@@ -92,7 +92,7 @@ export default function Navbar() {
             {!mounted ? <Sun size={18} /> : (theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />)}
           </button>
           <GlowButton href="/contact" variant="primary" size="sm" className="rounded-full px-6">
-            START AUDIT
+            GET STARTED
           </GlowButton>
         </div>
 
