@@ -13,45 +13,6 @@
     </linearGradient>
   </defs>
 
-  <style>
-    @keyframes eyeBreathing {
-      0%, 100% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.08);
-      }
-    }
-    @keyframes pupilPulse {
-      0%, 100% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(0.9);
-      }
-    }
-    @keyframes highlightFloat {
-      0%, 100% {
-        transform: translate(0px, 0px);
-      }
-      50% {
-        transform: translate(1.5px, -1.5px);
-      }
-    }
-    .iris-element {
-      transform-origin: 100px 100px;
-      animation: eyeBreathing 5s ease-in-out infinite;
-    }
-    .pupil-element {
-      transform-origin: 100px 100px;
-      animation: pupilPulse 5s ease-in-out infinite;
-    }
-    .highlight-element {
-      transform-origin: 107px 93px;
-      animation: highlightFloat 5s ease-in-out infinite;
-    }
-  </style>
-
   <!-- The Architectural 'N' Base (Black instead of White) -->
   <path fill="#000000" d="M 40,20 
                           L 80,20 
@@ -62,12 +23,43 @@
                           L 80,100 
                           L 40,180 Z" mask="url(#cutout)" />
 
-  <!-- The Cybernetic Iris (Animated) -->
-  <circle class="iris-element" cx="100" cy="100" r="36" fill="url(#irisGrad)" />
+  <!-- The Cybernetic Iris (Animated via native SMIL) -->
+  <circle cx="100" cy="100" r="36" fill="url(#irisGrad)">
+    <animate 
+      attributeName="r" 
+      values="36;39;36" 
+      dur="4s" 
+      repeatCount="indefinite" 
+      calcMode="spline" 
+      keySplines="0.4 0 0.2 1; 0.4 0 0.2 1" />
+  </circle>
 
-  <!-- The Dark Pupil (Animated) -->
-  <circle class="pupil-element" cx="100" cy="100" r="14" fill="#162124" />
+  <!-- The Dark Pupil (Animated via native SMIL) -->
+  <circle cx="100" cy="100" r="14" fill="#162124">
+    <animate 
+      attributeName="r" 
+      values="14;12.5;14" 
+      dur="4s" 
+      repeatCount="indefinite" 
+      calcMode="spline" 
+      keySplines="0.4 0 0.2 1; 0.4 0 0.2 1" />
+  </circle>
 
-  <!-- The Luminous Highlight offset to the top-right (Animated) -->
-  <circle class="highlight-element" cx="107" cy="93" r="4.5" fill="#FFFFFF" />
+  <!-- The Luminous Highlight offset to the top-right (Animated via native SMIL) -->
+  <circle cx="107" cy="93" r="4.5" fill="#FFFFFF">
+    <animate 
+      attributeName="cx" 
+      values="107;108.5;107" 
+      dur="4s" 
+      repeatCount="indefinite" 
+      calcMode="spline" 
+      keySplines="0.4 0 0.2 1; 0.4 0 0.2 1" />
+    <animate 
+      attributeName="cy" 
+      values="93;91.5;93" 
+      dur="4s" 
+      repeatCount="indefinite" 
+      calcMode="spline" 
+      keySplines="0.4 0 0.2 1; 0.4 0 0.2 1" />
+  </circle>
 </svg>
