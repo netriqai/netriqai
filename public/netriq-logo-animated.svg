@@ -1,65 +1,80 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="250" height="250">
   <defs>
-    <!-- Mask to create the perfectly circular structural cutout through the 'N' -->
+    <!-- Perfectly centered mask to create the circular structural cutout through the 'N' -->
     <mask id="cutout">
-      <rect width="200" height="200" fill="white" />
-      <circle cx="100" cy="100" r="48" fill="black" />
+      <rect x="-100" y="-100" width="200" height="200" fill="white" />
+      <circle cx="0" cy="0" r="48" fill="black" />
     </mask>
 
     <!-- Vibrant cyan to deep teal gradient for the eye iris -->
-    <linearGradient id="irisGrad" x1="10%" y1="10%" x2="90%" y2="90%">
+    <linearGradient id="irisGrad" x1="-100%" y1="-100%" x2="100%" y2="100%" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#4BF0CD" />
       <stop offset="100%" stop-color="#14A083" />
     </linearGradient>
   </defs>
 
-  <!-- The Architectural 'N' Base (Black instead of White) -->
-  <path fill="#000000" d="M 40,20 
-                          L 80,20 
-                          L 120,100 
-                          L 160,20 
-                          L 160,180 
-                          L 120,180 
-                          L 80,100 
-                          L 40,180 Z" mask="url(#cutout)" />
+  <!-- Root group translated to center (100, 100) to enable perfect scaling animations around the eye -->
+  <g transform="translate(100, 100)">
+    
+    <!-- The Architectural 'N' Base -->
+    <!-- Animates scale from 1.08 (expanded to edges) to 1.0 (squeezed in towards the eye) -->
+    <g>
+      <path fill="#000000" d="M -60,-80 
+                              L -20,-80 
+                              L 20,0 
+                              L 60,-80 
+                              L 60,80 
+                              L 20,80 
+                              L -20,0 
+                              L -60,80 Z" mask="url(#cutout)" />
+      <animateTransform 
+        attributeName="transform" 
+        type="scale" 
+        values="1.08;1;1.08" 
+        dur="4s" 
+        repeatCount="indefinite" 
+        calcMode="spline" 
+        keySplines="0.4 0 0.2 1; 0.4 0 0.2 1" />
+    </g>
 
-  <!-- The Cybernetic Iris (Animated via native SMIL) -->
-  <circle cx="100" cy="100" r="36" fill="url(#irisGrad)">
-    <animate 
-      attributeName="r" 
-      values="36;39;36" 
-      dur="4s" 
-      repeatCount="indefinite" 
-      calcMode="spline" 
-      keySplines="0.4 0 0.2 1; 0.4 0 0.2 1" />
-  </circle>
+    <!-- The Cybernetic Iris (Animated via native SMIL) -->
+    <circle cx="0" cy="0" r="36" fill="url(#irisGrad)">
+      <animate 
+        attributeName="r" 
+        values="36;39;36" 
+        dur="4s" 
+        repeatCount="indefinite" 
+        calcMode="spline" 
+        keySplines="0.4 0 0.2 1; 0.4 0 0.2 1" />
+    </circle>
 
-  <!-- The Dark Pupil (Animated via native SMIL) -->
-  <circle cx="100" cy="100" r="14" fill="#162124">
-    <animate 
-      attributeName="r" 
-      values="14;12.5;14" 
-      dur="4s" 
-      repeatCount="indefinite" 
-      calcMode="spline" 
-      keySplines="0.4 0 0.2 1; 0.4 0 0.2 1" />
-  </circle>
+    <!-- The Dark Pupil (Animated via native SMIL) -->
+    <circle cx="0" cy="0" r="14" fill="#162124">
+      <animate 
+        attributeName="r" 
+        values="14;12.5;14" 
+        dur="4s" 
+        repeatCount="indefinite" 
+        calcMode="spline" 
+        keySplines="0.4 0 0.2 1; 0.4 0 0.2 1" />
+    </circle>
 
-  <!-- The Luminous Highlight offset to the top-right (Animated via native SMIL) -->
-  <circle cx="107" cy="93" r="4.5" fill="#FFFFFF">
-    <animate 
-      attributeName="cx" 
-      values="107;108.5;107" 
-      dur="4s" 
-      repeatCount="indefinite" 
-      calcMode="spline" 
-      keySplines="0.4 0 0.2 1; 0.4 0 0.2 1" />
-    <animate 
-      attributeName="cy" 
-      values="93;91.5;93" 
-      dur="4s" 
-      repeatCount="indefinite" 
-      calcMode="spline" 
-      keySplines="0.4 0 0.2 1; 0.4 0 0.2 1" />
-  </circle>
+    <!-- The Luminous Highlight offset to the top-right (Animated via native SMIL) -->
+    <circle cx="7" cy="-7" r="4.5" fill="#FFFFFF">
+      <animate 
+        attributeName="cx" 
+        values="7;8.5;7" 
+        dur="4s" 
+        repeatCount="indefinite" 
+        calcMode="spline" 
+        keySplines="0.4 0 0.2 1; 0.4 0 0.2 1" />
+      <animate 
+        attributeName="cy" 
+        values="-7;-8.5;-7" 
+        dur="4s" 
+        repeatCount="indefinite" 
+        calcMode="spline" 
+        keySplines="0.4 0 0.2 1; 0.4 0 0.2 1" />
+    </circle>
+  </g>
 </svg>
