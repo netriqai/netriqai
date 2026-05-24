@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="brand-logo-svg">
+  <!-- Group for custom sizing/scaling -->
+  <g class="logo-emblem">
+    <!-- Left Brain Hemisphere (Espresso Brown) -->
+    <!-- Outer brain border line -->
+    <path d="M 50,12 C 34,12 20,22 20,40 C 20,48 24,54 20,62 C 16,70 24,88 50,88" 
+          fill="none" stroke="#6b4c3b" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+    
+    <!-- Internal neural paths / folds -->
+    <!-- Fold 1 (frontal lobe region) -->
+    <path d="M 50,22 C 36,22 30,30 36,36 C 42,40 46,34 50,34" 
+          fill="none" stroke="#6b4c3b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+    <circle cx="36" cy="36" r="2.5" fill="#d97706" />
+
+    <!-- Fold 2 (temporal/cerebrum region) -->
+    <path d="M 50,46 C 26,44 24,56 34,58 C 42,60 44,52 50,52" 
+          fill="none" stroke="#6b4c3b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+    <circle cx="34" cy="58" r="2.5" fill="#d97706" />
+
+    <!-- Fold 3 (occipital/cerebellum region) -->
+    <path d="M 50,66 C 28,68 30,80 42,78 C 46,77 45,72 50,72" 
+          fill="none" stroke="#6b4c3b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+    <circle cx="42" cy="78" r="2.5" fill="#d97706" />
+
+    <!-- Fold 4 (stem center) -->
+    <path d="M 50,80 C 40,80 42,70 36,70" 
+          fill="none" stroke="#6b4c3b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    <circle cx="36" cy="70" r="2" fill="#f59e0b" />
+
+    <!-- Right Sunflower Hemisphere (Fully Bloomed) -->
+    <defs>
+      <!-- Base Petal shape pointing right and rotated -->
+      <!-- A smooth organic petal pointing along vector (0, -40) from center (50, 50) -->
+      <path id="logo-petal-back" d="M 50,50 C 50,22 43,10 50,2 C 57,10 50,22 50,50 Z" fill="#d97706" />
+      <path id="logo-petal-front" d="M 50,50 C 50,26 45,14 50,6 C 55,14 50,26 50,50 Z" fill="#f59e0b" />
+    </defs>
+
+    <!-- Petal group rotated at offsets spanning 0 to 180 degrees (right side only) -->
+    <g class="logo-petals">
+      <!-- Back Petals (rotated from 0 to 180 deg) -->
+      <use href="#logo-petal-back" transform="rotate(22.5, 50, 50)" />
+      <use href="#logo-petal-back" transform="rotate(45, 50, 50)" />
+      <use href="#logo-petal-back" transform="rotate(67.5, 50, 50)" />
+      <use href="#logo-petal-back" transform="rotate(90, 50, 50)" />
+      <use href="#logo-petal-back" transform="rotate(112.5, 50, 50)" />
+      <use href="#logo-petal-back" transform="rotate(135, 50, 50)" />
+      <use href="#logo-petal-back" transform="rotate(157.5, 50, 50)" />
+
+      <!-- Front Petals (overlapping) -->
+      <use href="#logo-petal-front" transform="rotate(11.25, 50, 50)" />
+      <use href="#logo-petal-front" transform="rotate(33.75, 50, 50)" />
+      <use href="#logo-petal-front" transform="rotate(56.25, 50, 50)" />
+      <use href="#logo-petal-front" transform="rotate(78.75, 50, 50)" />
+      <use href="#logo-petal-front" transform="rotate(101.25, 50, 50)" />
+      <use href="#logo-petal-front" transform="rotate(123.75, 50, 50)" />
+      <use href="#logo-petal-front" transform="rotate(146.25, 50, 50)" />
+      <use href="#logo-petal-front" transform="rotate(168.75, 50, 50)" />
+    </g>
+
+    <!-- Half Sunflower Center Seed-Disk -->
+    <!-- Main Center (Semi-circle on right) -->
+    <path d="M 50,30 A 20,20 0 0,1 50,70 Z" fill="#6b4c3b" />
+    <!-- Glowing outline edge -->
+    <path d="M 50,32 A 18,18 0 0,1 50,68" fill="none" stroke="#854d0e" stroke-width="1.5" opacity="0.4" />
+    <!-- Dotted texture inside half seed-disk -->
+    <path d="M 50,36 A 14,14 0 0,1 50,64" fill="none" stroke="#52392b" stroke-width="2" stroke-dasharray="3,4" />
+    <path d="M 50,42 A 8,8 0 0,1 50,58" fill="none" stroke="#52392b" stroke-width="1.5" stroke-dasharray="2,3" />
+
+    <!-- Center boundary divider stem line -->
+    <line x1="50" y1="12" x2="50" y2="88" stroke="#6b4c3b" stroke-width="3" stroke-linecap="round" />
+  </g>
+</svg>
