@@ -848,7 +848,7 @@ export default function EducationClient() {
   };
 
   return (
-    <div className="min-h-screen bg-background tech-grid pb-24 pt-28">
+    <div data-theme="dark" className="min-h-screen bg-background tech-grid pb-24 pt-28">
       {/* Dynamic Toast Alerts */}
       {/* XP Toast */}
       {xpToast.show && (
