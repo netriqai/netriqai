@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
-import { BookOpen, Clock, ArrowRight, CheckCircle, Download, Mail } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { BookOpen, Clock, ArrowRight, CheckCircle, Download, Mail, Search } from 'lucide-react';
 import GlowButton from '@/components/ui/GlowButton';
 import SectionReveal from '@/components/ui/SectionReveal';
+import Link from 'next/link';
 
 interface BlogPost {
   slug: string;
@@ -15,88 +16,7 @@ interface BlogPost {
   color: string;
 }
 
-const blogPosts: BlogPost[] = [
-  {
-    slug: 'automate-customer-support-ai',
-    category: 'AI Strategy',
-    title: 'How to Automate Your Customer Support with AI (Without Losing the Human Touch)',
-    excerpt:
-      'Most AI support implementations fail not because the tech is bad, but because the handoff logic is wrong. Here\'s how to build a support system that\'s faster AND more human.',
-    readTime: '8 min read',
-    date: 'March 10, 2026',
-    color: '#6366F1',
-  },
-  {
-    slug: 'ai-automation-healthcare-clinics',
-    category: 'Healthcare',
-    title: 'The Complete Guide to AI Automation for Australian Healthcare Clinics',
-    excerpt:
-      'From patient reminders to billing follow-up to compliance documentation — a practical playbook for clinic owners who want to stop losing money to manual admin.',
-    readTime: '12 min read',
-    date: 'February 28, 2026',
-    color: '#06B6D4',
-  },
-  {
-    slug: 'n8n-vs-make-vs-zapier',
-    category: 'Tool Comparison',
-    title: 'n8n vs Make.com vs Zapier: Which Automation Tool Is Right for Your SMB?',
-    excerpt:
-      'An honest comparison from someone who\'s built 200+ workflows on all three platforms. Price, features, complexity, and the scenarios where each one wins.',
-    readTime: '10 min read',
-    date: 'February 14, 2026',
-    color: '#4ADE80',
-  },
-  {
-    slug: 'melbourne-law-firm-document-ai',
-    category: 'Case Study',
-    title: 'How We Saved a Melbourne Law Firm AUD $95k with Document AI',
-    excerpt:
-      'A step-by-step breakdown of exactly how we automated client onboarding and document processing for a 12-partner firm — and what we\'d do differently next time.',
-    readTime: '7 min read',
-    date: 'January 30, 2026',
-    color: '#6366F1',
-  },
-  {
-    slug: '5-ecommerce-workflows-2026',
-    category: 'E-commerce',
-    title: 'The 5 Workflows Every E-commerce Business Should Automate in 2026',
-    excerpt:
-      'Inventory forecasting, cart abandonment, support ticket deflection, supplier ordering, and returns processing. These five automations compound into massive savings.',
-    readTime: '9 min read',
-    date: 'January 15, 2026',
-    color: '#06B6D4',
-  },
-  {
-    slug: 'ai-for-construction-tradies',
-    category: 'Construction',
-    title: 'AI for Tradies: How Construction Companies Are Cutting Admin Time by 40%',
-    excerpt:
-      'Project reporting, subcontractor compliance, invoice processing, and quote generation. The construction sector is surprisingly ripe for automation — here\'s where to start.',
-    readTime: '8 min read',
-    date: 'January 5, 2026',
-    color: '#4ADE80',
-  },
-  {
-    slug: 'what-is-an-ai-consultation',
-    category: 'Getting Started',
-    title: 'What Is an AI Consultation and Why Every SMB Needs One Before Implementing AI',
-    excerpt:
-      'Most businesses that fail at AI implementation didn\'t do a proper discovery phase. Here\'s what an AI consultation actually involves, what it costs, and what you get out of it.',
-    readTime: '6 min read',
-    date: 'December 18, 2025',
-    color: '#6366F1',
-  },
-  {
-    slug: 'prompt-engineering-business',
-    category: 'AI Skills',
-    title: 'Prompt Engineering for Business: A Practical Guide for Non-Technical Teams',
-    excerpt:
-      'You don\'t need to be an engineer to write effective prompts. Learn the frameworks that turn vague AI outputs into precise, usable business content — with real examples.',
-    readTime: '11 min read',
-    date: 'December 5, 2025',
-    color: '#06B6D4',
-  },
-];
+// Dynamically loaded from /api/blogs now
 
 function BlogCard({ post }: { post: BlogPost }) {
   return (
@@ -120,12 +40,13 @@ function BlogCard({ post }: { post: BlogPost }) {
 
       <div className="flex items-center justify-between mt-auto pt-6 border-t border-border-subtle relative z-10">
         <span className="text-text-muted text-[10px] font-mono uppercase opacity-50">{post.date}</span>
-        <button
+        <Link
+          href={`/resources/${post.slug}`}
           className="flex items-center gap-2 text-xs font-black text-text-primary uppercase tracking-widest group-hover:text-[rgb(var(--accent-blue))] transition-all duration-300"
           aria-label={`Read ${post.title}`}
         >
           Access Module <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-        </button>
+        </Link>
       </div>
     </div>
   );
@@ -134,6 +55,43 @@ function BlogCard({ post }: { post: BlogPost }) {
 export default function ResourcesClient() {
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [newsletterSubmitted, setNewsletterSubmitted] = useState(false);
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('ALL');
+
+  const categories = ['ALL', ...Array.from(new Set(blogPosts.map((p) => p.category)))];
+
+  const filteredPosts = blogPosts.filter((post) => {
+    const matchesSearch =
+      post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.category.toLowerCase().includes(searchQuery.toLowerCase());
+
+    const matchesCategory =
+      selectedCategory === 'ALL' ||
+      post.category.toUpperCase() === selectedCategory.toUpperCase();
+
+    return matchesSearch && matchesCategory;
+  });
+
+  useEffect(() => {
+    async function fetchBlogs() {
+      try {
+        setLoading(true);
+        const res = await fetch('/api/blogs');
+        const data = await res.json();
+        if (data.success) {
+          setBlogPosts(data.posts || []);
+        }
+      } catch (err) {
+        console.error('Failed to load articles:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchBlogs();
+  }, []);
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -171,13 +129,82 @@ export default function ResourcesClient() {
       {/* Resource Tiles */}
       <section className="py-24 bg-surface-2/30">
         <div className="section-container">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {blogPosts.map((post, i) => (
-              <SectionReveal key={post.slug} delay={i * 100}>
-                <BlogCard post={post} />
-              </SectionReveal>
-            ))}
-          </div>
+          {loading ? (
+            <div className="flex flex-col items-center justify-center py-20">
+              <div className="w-10 h-10 border-4 border-[rgb(var(--accent-blue))] border-t-transparent rounded-full animate-spin mb-4" />
+              <p className="text-text-muted text-xs font-mono uppercase tracking-widest">Loading knowledge base...</p>
+            </div>
+          ) : blogPosts.length === 0 ? (
+            <div className="text-center py-20 border border-border-strong rounded-[24px] bg-surface-1">
+              <p className="text-text-muted text-sm uppercase font-mono tracking-widest">No articles found in index.</p>
+            </div>
+          ) : (
+            <>
+              {/* Search Bar & Category Pills */}
+              <div className="mb-16 max-w-2xl mx-auto">
+                <div className="relative group">
+                  <div className="absolute inset-y-0 left-0 pl-6 flex items-center pointer-events-none text-text-muted group-focus-within:text-[rgb(var(--accent-blue))] transition-colors">
+                    <Search size={18} />
+                  </div>
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="SEARCH PLAYBOOKS, STRATEGIES, OR TOOLS..."
+                    className="w-full pl-14 pr-12 py-5 rounded-2xl text-text-primary text-xs font-mono placeholder:text-text-muted/30 outline-none transition-all duration-300 focus:ring-2 focus:ring-[rgb(var(--accent-blue))]/40 bg-surface-1 border border-border-strong uppercase tracking-wider focus:border-[rgb(var(--accent-blue))]"
+                  />
+                  {searchQuery && (
+                    <button
+                      onClick={() => setSearchQuery('')}
+                      className="absolute inset-y-0 right-0 pr-6 flex items-center text-text-muted hover:text-text-primary text-[10px] font-mono tracking-widest uppercase transition-colors"
+                    >
+                      CLEAR
+                    </button>
+                  )}
+                </div>
+
+                <div className="flex flex-wrap gap-2.5 mt-6 justify-center">
+                  {categories.map((cat) => (
+                    <button
+                      key={cat}
+                      onClick={() => setSelectedCategory(cat)}
+                      className={`text-[9px] font-bold tracking-[0.2em] font-sans px-5 py-2.5 rounded-full transition-all duration-300 border uppercase ${
+                        selectedCategory === cat
+                          ? "bg-[rgb(var(--accent-blue))] border-[rgb(var(--accent-blue))] text-white shadow-glow-sm"
+                          : "bg-surface-2/40 border-border-strong/50 text-text-muted hover:border-[rgb(var(--accent-blue))]/40 hover:text-text-primary hover:bg-[rgba(var(--accent-blue),0.05)]"
+                      }`}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Grid of Results */}
+              {filteredPosts.length === 0 ? (
+                <div className="text-center py-20 border border-border-strong rounded-[24px] bg-surface-1 max-w-2xl mx-auto">
+                  <p className="text-text-muted text-sm uppercase font-mono tracking-widest mb-4">No matching guides found.</p>
+                  <button
+                    onClick={() => {
+                      setSearchQuery('');
+                      setSelectedCategory('ALL');
+                    }}
+                    className="text-[10px] font-mono text-[rgb(var(--accent-blue))] hover:underline uppercase tracking-widest font-black"
+                  >
+                    Reset all filters
+                  </button>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {filteredPosts.map((post, i) => (
+                    <SectionReveal key={post.slug} delay={i * 100}>
+                      <BlogCard post={post} />
+                    </SectionReveal>
+                  ))}
+                </div>
+              )}
+            </>
+          )}
         </div>
       </section>
 

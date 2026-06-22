@@ -46,6 +46,26 @@ interface Invoice {
   customer?: Customer;
 }
 
+interface BlogPost {
+  slug: string;
+  category: string;
+  title: string;
+  excerpt: string;
+  readTime: string;
+  date: string;
+  color: string;
+  content: string;
+  sourceUrl?: string;
+  sourceName?: string;
+}
+
+interface NewsSource {
+  id: string;
+  name: string;
+  feedUrl: string;
+  enabled: boolean;
+}
+
 export default function AdminClient() {
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean | null>(null);
   const [adminEmail, setAdminEmail] = useState('netriqai@gmail.com');
@@ -55,7 +75,7 @@ export default function AdminClient() {
   const [authSuccess, setAuthSuccess] = useState(false);
 
   // Tabs
-  const [activeTab, setActiveTab] = useState<'invoices' | 'customers'>('customers');
+  const [activeTab, setActiveTab] = useState<'invoices' | 'customers' | 'blogs'>('customers');
 
   // DB State
   const [customers, setCustomers] = useState<Customer[]>([]);
@@ -112,6 +132,33 @@ export default function AdminClient() {
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
 
+  // AI Blog Engine State
+  const [blogs, setBlogs] = useState<BlogPost[]>([]);
+  const [sources, setSources] = useState<NewsSource[]>([]);
+  const [syncingBlogs, setSyncingBlogs] = useState(false);
+  const [syncResult, setSyncResult] = useState('');
+  const [isAddingSource, setIsAddingSource] = useState(false);
+  const [newSourceName, setNewSourceName] = useState('');
+  const [newSourceUrl, setNewSourceUrl] = useState('');
+  const [viewingBlog, setViewingBlog] = useState<BlogPost | null>(null);
+
+  // Blog Edit / Create Modal State
+  const [editingBlog, setEditingBlog] = useState<BlogPost | null>(null);
+  const [editBlogTitle, setEditBlogTitle] = useState('');
+  const [editBlogCategory, setEditBlogCategory] = useState('AI Strategy');
+  const [editBlogExcerpt, setEditBlogExcerpt] = useState('');
+  const [editBlogReadTime, setEditBlogReadTime] = useState('5 min read');
+  const [editBlogColor, setEditBlogColor] = useState('#6366F1');
+  const [editBlogContent, setEditBlogContent] = useState('');
+
+  const [isCreatingBlog, setIsCreatingBlog] = useState(false);
+  const [newBlogTitle, setNewBlogTitle] = useState('');
+  const [newBlogCategory, setNewBlogCategory] = useState('AI Strategy');
+  const [newBlogExcerpt, setNewBlogExcerpt] = useState('');
+  const [newBlogReadTime, setNewBlogReadTime] = useState('5 min read');
+  const [newBlogColor, setNewBlogColor] = useState('#6366F1');
+  const [newBlogContent, setNewBlogContent] = useState('');
+
   // Check auth on load
   useEffect(() => {
     const isAuth = localStorage.getItem('netriq_admin_auth') === 'true';
@@ -139,10 +186,244 @@ export default function AdminClient() {
         setCustomers(data.customers || []);
         setInvoices(data.invoices || []);
       }
+
+      await fetchBlogData();
     } catch (err) {
       console.error('Error fetching admin db state:', err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchBlogData = async () => {
+    try {
+      const token = localStorage.getItem('netriq_admin_token') || '';
+      const res = await fetch('/api/admin/blogs', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      if (res.status === 401) {
+        handleLockPanel();
+        return;
+      }
+      const data = await res.json();
+      if (data.success) {
+        setBlogs(data.blogs || []);
+        setSources(data.sources || []);
+      }
+    } catch (err) {
+      console.error('Error fetching blogs and sources:', err);
+    }
+  };
+
+  const handleAddSource = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newSourceName || !newSourceUrl) return;
+
+    try {
+      const token = localStorage.getItem('netriq_admin_token') || '';
+      const res = await fetch('/api/admin/blogs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          action: 'add_source',
+          name: newSourceName,
+          feedUrl: newSourceUrl
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSources(data.sources || []);
+        setIsAddingSource(false);
+        setNewSourceName('');
+        setNewSourceUrl('');
+      } else {
+        alert(data.error || 'Failed to add source.');
+      }
+    } catch (err) {
+      console.error('Error adding news source:', err);
+    }
+  };
+
+  const handleToggleSource = async (id: string) => {
+    try {
+      const token = localStorage.getItem('netriq_admin_token') || '';
+      const res = await fetch('/api/admin/blogs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          action: 'toggle_source',
+          id
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSources(data.sources || []);
+      }
+    } catch (err) {
+      console.error('Error toggling news source:', err);
+    }
+  };
+
+  const handleDeleteSource = async (id: string, name: string) => {
+    if (!window.confirm(`Are you sure you want to remove the source "${name}"?`)) return;
+
+    try {
+      const token = localStorage.getItem('netriq_admin_token') || '';
+      const res = await fetch('/api/admin/blogs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          action: 'delete_source',
+          id
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSources(data.sources || []);
+      }
+    } catch (err) {
+      console.error('Error deleting news source:', err);
+    }
+  };
+
+  const handleDeleteBlog = async (slug: string, title: string) => {
+    if (!window.confirm(`Are you sure you want to delete the blog post "${title}"?`)) return;
+
+    try {
+      const token = localStorage.getItem('netriq_admin_token') || '';
+      const res = await fetch('/api/admin/blogs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          action: 'delete_blog',
+          slug
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setBlogs(data.blogs || []);
+      }
+    } catch (err) {
+      console.error('Error deleting blog:', err);
+    }
+  };
+
+  const handleSyncNews = async () => {
+    try {
+      setSyncingBlogs(true);
+      setSyncResult('Connecting to news channels and generating articles...');
+      const res = await fetch('/api/cron/fetch-ai-news?bypass=true&secret=netriq-news-secret-key');
+      const data = await res.json();
+      if (data.success) {
+        setSyncResult(`Sync completed! Processed ${data.processed} news entries. Added ${data.added} new articles.`);
+        fetchBlogData();
+        setTimeout(() => setSyncResult(''), 8000);
+      } else {
+        setSyncResult(`Sync failed: ${data.error || 'Unknown error'}`);
+      }
+    } catch (err) {
+      setSyncResult('Network connection timed out or failed.');
+    } finally {
+      setSyncingBlogs(false);
+    }
+  };
+
+  const handleStartEditBlog = (blog: BlogPost) => {
+    setEditingBlog(blog);
+    setEditBlogTitle(blog.title);
+    setEditBlogCategory(blog.category);
+    setEditBlogExcerpt(blog.excerpt);
+    setEditBlogReadTime(blog.readTime);
+    setEditBlogColor(blog.color);
+    setEditBlogContent(blog.content);
+  };
+
+  const handleUpdateBlog = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingBlog) return;
+
+    try {
+      const token = localStorage.getItem('netriq_admin_token') || '';
+      const res = await fetch('/api/admin/blogs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          action: 'update_blog',
+          slug: editingBlog.slug,
+          title: editBlogTitle,
+          category: editBlogCategory,
+          excerpt: editBlogExcerpt,
+          readTime: editBlogReadTime,
+          color: editBlogColor,
+          content: editBlogContent
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setBlogs(data.blogs || []);
+        setEditingBlog(null);
+      } else {
+        alert(data.error || 'Failed to update blog post.');
+      }
+    } catch (err) {
+      console.error('Error updating blog post:', err);
+    }
+  };
+
+  const handleCreateBlog = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newBlogTitle || !newBlogContent) return;
+
+    try {
+      const token = localStorage.getItem('netriq_admin_token') || '';
+      const res = await fetch('/api/admin/blogs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          action: 'add_blog',
+          title: newBlogTitle,
+          category: newBlogCategory,
+          excerpt: newBlogExcerpt,
+          readTime: newBlogReadTime,
+          color: newBlogColor,
+          content: newBlogContent
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setBlogs(data.blogs || []);
+        setIsCreatingBlog(false);
+        setNewBlogTitle('');
+        setNewBlogCategory('AI Strategy');
+        setNewBlogExcerpt('');
+        setNewBlogReadTime('5 min read');
+        setNewBlogColor('#6366F1');
+        setNewBlogContent('');
+      } else {
+        alert(data.error || 'Failed to create blog post.');
+      }
+    } catch (err) {
+      console.error('Error creating blog post:', err);
     }
   };
 
@@ -1064,6 +1345,18 @@ export default function AdminClient() {
                 <motion.div layoutId="activeTabIndicator" className="absolute bottom-[-17px] left-0 right-0 h-[2px] bg-[rgb(var(--accent-blue))]" />
               )}
             </button>
+            <button
+              onClick={() => { setActiveTab('blogs'); setSearchQuery(''); }}
+              className={clsx(
+                "pb-2 text-xs font-black uppercase tracking-widest transition-all duration-300 flex items-center gap-2 relative",
+                activeTab === 'blogs' ? "text-text-primary font-sans" : "text-text-muted hover:text-text-primary font-sans"
+              )}
+            >
+              <Sparkles size={14} /> AI Blog Engine
+              {activeTab === 'blogs' && (
+                <motion.div layoutId="activeTabIndicator" className="absolute bottom-[-17px] left-0 right-0 h-[2px] bg-[rgb(var(--accent-blue))]" />
+              )}
+            </button>
           </div>
         </SectionReveal>
 
@@ -1091,6 +1384,10 @@ export default function AdminClient() {
                       {filter}
                     </button>
                   ))
+                ) : activeTab === 'blogs' ? (
+                  <div className="px-5 py-2 text-[9px] font-mono font-black text-text-muted uppercase tracking-widest flex items-center gap-1.5">
+                    <Sparkles size={12} /> AI News Engine & Synchronization
+                  </div>
                 ) : (
                   <div className="px-5 py-2 text-[9px] font-mono font-black text-text-muted uppercase tracking-widest flex items-center gap-1.5">
                     <Building size={12} /> Managed Client Accounts
@@ -1103,7 +1400,7 @@ export default function AdminClient() {
                 <Search size={14} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted/60" />
                 <input
                   type="text"
-                  placeholder={activeTab === 'invoices' ? "Search project bills..." : "Search clients, emails..."}
+                  placeholder={activeTab === 'invoices' ? "Search project bills..." : activeTab === 'blogs' ? "Search articles..." : "Search clients, emails..."}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full pl-10 pr-4 py-3 bg-background/40 border border-border-strong/30 rounded-2xl text-xs font-sans text-text-primary focus:outline-none focus:border-[rgb(var(--accent-blue))]/60 transition-colors"
@@ -1115,7 +1412,7 @@ export default function AdminClient() {
             {loading ? (
               <div className="py-24 text-center">
                 <div className="w-8 h-8 border-4 border-[rgb(var(--accent-blue))] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-                <p className="text-xs text-text-muted font-sans uppercase tracking-widest font-mono">Synchronizing state with Supabase...</p>
+                <p className="text-xs text-text-muted font-sans uppercase tracking-widest font-mono">Synchronizing state...</p>
               </div>
             ) : activeTab === 'invoices' ? (
               /* Invoice records list */
@@ -1255,6 +1552,196 @@ export default function AdminClient() {
                     )}
                   </tbody>
                 </table>
+              </div>
+            ) : activeTab === 'blogs' ? (
+              /* AI Blog Engine tab content */
+              <div className="p-6 md:p-8">
+                {/* Header panel for Syncing */}
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 p-6 rounded-2xl bg-background/50 border border-border-strong/30 mb-8">
+                  <div>
+                    <h3 className="text-base font-sans font-black text-text-primary uppercase tracking-tight flex items-center gap-2">
+                      <Sparkles size={16} className="text-[rgb(var(--accent-blue))]" />
+                      AI News Aggregation & Generation Engine
+                    </h3>
+                    <p className="text-text-muted text-xs opacity-80 mt-1 max-w-xl">
+                      Trigger the automated synchronizer to scan active news channels for new articles, filter duplicates, and run Claude 3.5 Sonnet to publish professional summaries.
+                    </p>
+                  </div>
+                  
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full md:w-auto">
+                    <button
+                      onClick={handleSyncNews}
+                      disabled={syncingBlogs}
+                      className={clsx(
+                        "px-6 py-3.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all text-center flex items-center justify-center gap-2",
+                        syncingBlogs 
+                          ? "bg-surface-2 text-text-muted cursor-not-allowed border border-border-strong" 
+                          : "bg-[rgb(var(--accent-blue))] hover:bg-[rgb(var(--accent-blue-hover))] text-white shadow-glow-sm"
+                      )}
+                    >
+                      <RefreshCw size={14} className={clsx(syncingBlogs && "animate-spin")} />
+                      {syncingBlogs ? 'Syncing Feeds...' : 'Sync Feeds Now'}
+                    </button>
+                  </div>
+                </div>
+
+                {syncResult && (
+                  <div className="mb-8 p-4 rounded-xl border border-[rgb(var(--accent-blue))]/20 bg-[rgba(var(--accent-blue),0.03)] text-[10px] font-mono text-[rgb(var(--accent-blue))] uppercase tracking-wider flex items-center gap-2 animate-pulse">
+                    <CheckCircle2 size={14} />
+                    {syncResult}
+                  </div>
+                )}
+
+                {/* Grid for Left: Sources, Right: Articles */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                  {/* Left: Sources Config (5 cols) */}
+                  <div className="lg:col-span-5 space-y-6">
+                    <div className="flex justify-between items-center pb-2 border-b border-border-strong/20">
+                      <h4 className="text-xs font-mono font-black text-text-primary uppercase tracking-widest">Active Channels</h4>
+                      <button
+                        onClick={() => setIsAddingSource(true)}
+                        className="text-[9px] font-black uppercase tracking-widest text-[rgb(var(--accent-blue))] hover:underline flex items-center gap-1"
+                      >
+                        <Plus size={12} /> Add Source
+                      </button>
+                    </div>
+
+                    <div className="space-y-4">
+                      {sources.map(source => (
+                        <div key={source.id} className="p-5 rounded-2xl bg-background/40 border border-border-strong/30 flex justify-between items-start gap-4 hover:border-border-strong/70 transition-colors">
+                          <div className="space-y-2 flex-1 min-w-0">
+                            <div className="flex items-center gap-2.5 flex-wrap">
+                              <span className="text-xs font-sans font-black text-text-primary uppercase tracking-tight truncate">
+                                {source.name}
+                              </span>
+                              <span className={clsx(
+                                "text-[8px] font-mono px-2 py-0.5 rounded-full uppercase tracking-wider",
+                                source.enabled 
+                                  ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+                                  : "bg-rose-500/10 text-rose-400 border border-rose-500/20"
+                              )}>
+                                {source.enabled ? 'Active' : 'Disabled'}
+                              </span>
+                            </div>
+                            <p className="text-[10px] font-mono text-text-muted truncate opacity-70">
+                              {source.feedUrl}
+                            </p>
+                          </div>
+
+                          <div className="flex items-center gap-1.5 shrink-0">
+                            <button
+                              onClick={() => handleToggleSource(source.id)}
+                              className={clsx(
+                                "px-3 py-1.5 rounded-lg border text-[9px] font-black uppercase tracking-widest transition-colors font-sans",
+                                source.enabled 
+                                  ? "border-amber-500/30 text-amber-500 hover:bg-amber-500/10"
+                                  : "border-emerald-500/30 text-emerald-500 hover:bg-emerald-500/10"
+                              )}
+                            >
+                              {source.enabled ? 'Disable' : 'Enable'}
+                            </button>
+                            <button
+                              onClick={() => handleDeleteSource(source.id, source.name)}
+                              className="p-1.5 rounded-lg border border-rose-500/30 text-rose-500 hover:bg-rose-500/10 transition-colors"
+                            >
+                              <Trash2 size={12} />
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+
+                      {sources.length === 0 && (
+                        <p className="text-xs text-text-muted/60 text-center py-6 font-sans">
+                          No news source channels configured. Add one to start syncing.
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Right: Articles Manager (7 cols) */}
+                  <div className="lg:col-span-7 space-y-6">
+                    <div className="pb-2 border-b border-border-strong/20 flex justify-between items-center">
+                      <h4 className="text-xs font-mono font-black text-text-primary uppercase tracking-widest">
+                        Seeded & Synced Article Modules ({blogs.length})
+                      </h4>
+                      <button
+                        onClick={() => setIsCreatingBlog(true)}
+                        className="text-[9px] font-black uppercase tracking-widest text-[rgb(var(--accent-blue))] hover:underline flex items-center gap-1"
+                      >
+                        <Plus size={12} /> Create Article
+                      </button>
+                    </div>
+ 
+                    <div className="overflow-hidden border border-border-strong/30 rounded-2xl bg-background/20">
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-left border-collapse">
+                          <thead>
+                            <tr className="border-b border-border-strong/20 bg-background/40">
+                              <th className="py-3 px-4 text-[9px] font-mono font-black text-text-muted uppercase tracking-widest">Title</th>
+                              <th className="py-3 px-4 text-[9px] font-mono font-black text-text-muted uppercase tracking-widest">Category</th>
+                              <th className="py-3 px-4 text-[9px] font-mono font-black text-text-muted uppercase tracking-widest">Source</th>
+                              <th className="py-3 px-4 text-[9px] font-mono font-black text-text-muted uppercase tracking-widest text-right">Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {blogs.filter(blog => 
+                              blog.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                              blog.category.toLowerCase().includes(searchQuery.toLowerCase())
+                            ).map(blog => (
+                              <tr key={blog.slug} className="border-b border-border-strong/10 hover:bg-background/20 transition-colors">
+                                <td className="py-4 px-4">
+                                  <div className="text-xs font-sans font-bold text-text-primary line-clamp-1 max-w-[200px]" title={blog.title}>
+                                    {blog.title}
+                                  </div>
+                                  <span className="text-[8px] font-mono text-text-muted opacity-50 block mt-0.5">{blog.date}</span>
+                                </td>
+                                <td className="py-4 px-4 text-xs font-sans text-text-muted">
+                                  {blog.category}
+                                </td>
+                                <td className="py-4 px-4 text-xs font-sans text-text-muted font-mono opacity-80">
+                                  {blog.sourceName || 'Static Seed'}
+                                </td>
+                                <td className="py-4 px-4 text-right">
+                                  <div className="flex gap-1.5 justify-end">
+                                    <button
+                                      onClick={() => setViewingBlog(blog)}
+                                      className="p-1.5 rounded-lg border border-border-strong/30 text-text-muted hover:text-[rgb(var(--accent-blue))] hover:border-border-strong transition-colors"
+                                      title="Inspect Content"
+                                    >
+                                      <Eye size={12} />
+                                    </button>
+                                    <button
+                                      onClick={() => handleStartEditBlog(blog)}
+                                      className="p-1.5 rounded-lg border border-border-strong/30 text-text-muted hover:text-[rgb(var(--accent-blue))] hover:border-border-strong transition-colors"
+                                      title="Edit Article"
+                                    >
+                                      <Edit3 size={12} />
+                                    </button>
+                                    <button
+                                      onClick={() => handleDeleteBlog(blog.slug, blog.title)}
+                                      className="p-1.5 rounded-lg border border-rose-500/30 text-rose-500 hover:bg-rose-500/10 transition-colors"
+                                      title="Delete Article"
+                                    >
+                                      <Trash2 size={12} />
+                                    </button>
+                                  </div>
+                                </td>
+                              </tr>
+                            ))}
+
+                            {blogs.length === 0 && (
+                              <tr>
+                                <td colSpan={4} className="py-12 text-center text-xs text-text-muted/60 font-sans">
+                                  No article modules exist in database.
+                                </td>
+                              </tr>
+                            )}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             ) : (
               /* Customers list table */
@@ -2322,6 +2809,569 @@ export default function AdminClient() {
         )}
       </AnimatePresence>
 
+      {/* ADD NEWS SOURCE MODAL */}
+      <AnimatePresence>
+        {isAddingSource && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsAddingSource(false)}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            />
+            
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              className="relative w-full max-w-lg bg-surface-1 border border-border-strong/50 rounded-[28px] overflow-hidden shadow-2xl p-6 md:p-8"
+            >
+              <div className="flex justify-between items-start mb-6">
+                <div>
+                  <span className="text-[9px] font-black tracking-[0.3em] text-[rgb(var(--accent-blue))] uppercase font-mono">AI BLOG ENGINE</span>
+                  <h3 className="text-xl font-sans font-black text-text-primary uppercase tracking-tight mt-1">Add AI News Feed Channel</h3>
+                </div>
+                <button 
+                  onClick={() => setIsAddingSource(false)}
+                  className="w-8 h-8 rounded-full border border-border-strong/30 flex items-center justify-center hover:bg-background/20 text-text-muted hover:text-text-primary transition-all"
+                >
+                  <X size={14} />
+                </button>
+              </div>
+
+              <form onSubmit={handleAddSource} className="space-y-4">
+                
+                {/* Source Name */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-[9px] font-black text-text-muted/80 uppercase tracking-widest font-mono">Channel / Source Name</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. OpenAI Newsroom"
+                    value={newSourceName}
+                    onChange={(e) => setNewSourceName(e.target.value)}
+                    className="w-full px-4 py-3 bg-background border border-border-strong/30 rounded-xl text-xs text-text-primary focus:outline-none focus:border-[rgb(var(--accent-blue))] font-sans"
+                  />
+                </div>
+
+                {/* RSS URL */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-[9px] font-black text-text-muted/80 uppercase tracking-widest font-mono">RSS Feed URL (XML/Atom)</label>
+                  <input
+                    type="url"
+                    required
+                    placeholder="https://openai.com/news/rss.xml"
+                    value={newSourceUrl}
+                    onChange={(e) => setNewSourceUrl(e.target.value)}
+                    className="w-full px-4 py-3 bg-background border border-border-strong/30 rounded-xl text-xs text-text-primary focus:outline-none focus:border-[rgb(var(--accent-blue))] font-mono"
+                  />
+                </div>
+
+                {/* Actions */}
+                <div className="flex gap-3 justify-end pt-3">
+                  <button
+                    type="button"
+                    onClick={() => setIsAddingSource(false)}
+                    className="px-5 py-3 rounded-xl border border-border-strong/30 text-xs font-black uppercase tracking-widest text-text-muted hover:text-text-primary transition-colors font-sans"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-6 py-3 rounded-xl bg-[rgb(var(--accent-blue))] hover:bg-[rgb(var(--accent-blue-hover))] text-white text-xs font-black uppercase tracking-widest transition-colors shadow-glow-sm font-sans"
+                  >
+                    Add Channel
+                  </button>
+                </div>
+
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* VIEW BLOG ARTICLE PREVIEW MODAL */}
+      <AnimatePresence>
+        {viewingBlog && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setViewingBlog(null)}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            />
+            
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              className="relative w-full max-w-3xl bg-surface-1 border border-border-strong/50 rounded-[28px] overflow-hidden shadow-2xl p-6 md:p-8 max-h-[90vh] overflow-y-auto"
+            >
+              <div className="flex justify-between items-start mb-6">
+                <div>
+                  <span 
+                    className="text-[9px] font-black tracking-[0.3em] uppercase font-mono px-2 py-0.5 rounded border"
+                    style={{ 
+                      color: viewingBlog.color || 'rgb(var(--accent-blue))',
+                      borderColor: `${viewingBlog.color || 'rgb(var(--accent-blue))'}33`
+                    }}
+                  >
+                    {viewingBlog.category}
+                  </span>
+                  <h3 className="text-xl font-sans font-black text-text-primary uppercase tracking-tight mt-2">{viewingBlog.title}</h3>
+                  <div className="flex items-center gap-3 text-[10px] text-text-muted font-mono uppercase mt-1 opacity-80">
+                    <span>{viewingBlog.date}</span>
+                    <span>•</span>
+                    <span>{viewingBlog.readTime}</span>
+                    {viewingBlog.sourceName && (
+                      <>
+                        <span>•</span>
+                        <span>Source: {viewingBlog.sourceName}</span>
+                      </>
+                    )}
+                  </div>
+                </div>
+                <button 
+                  onClick={() => setViewingBlog(null)}
+                  className="w-8 h-8 rounded-full border border-border-strong/30 flex items-center justify-center hover:bg-background/20 text-text-muted hover:text-text-primary transition-all"
+                >
+                  <X size={14} />
+                </button>
+              </div>
+
+              <div className="p-6 bg-background/55 border border-border-strong/30 rounded-2xl overflow-hidden max-h-[55vh] overflow-y-auto mb-6">
+                <article className="prose prose-invert max-w-none text-left">
+                  {renderMarkdown(viewingBlog.content)}
+                </article>
+              </div>
+
+              <div className="flex justify-end">
+                <button
+                  onClick={() => setViewingBlog(null)}
+                  className="px-6 py-3 rounded-xl bg-background border border-border-strong/30 text-xs font-black uppercase tracking-widest text-text-muted hover:text-text-primary transition-colors font-sans"
+                >
+                  Close Preview
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* EDIT BLOG POST MODAL */}
+      <AnimatePresence>
+        {editingBlog && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setEditingBlog(null)}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            />
+            
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              className="relative w-full max-w-2xl bg-surface-1 border border-border-strong/50 rounded-[28px] overflow-hidden shadow-2xl p-6 md:p-8 max-h-[90vh] overflow-y-auto"
+            >
+              <div className="flex justify-between items-start mb-6">
+                <div>
+                  <span className="text-[9px] font-black tracking-[0.3em] text-[rgb(var(--accent-blue))] uppercase font-mono">AI BLOG ENGINE</span>
+                  <h3 className="text-xl font-sans font-black text-text-primary uppercase tracking-tight mt-1">Edit Article Module</h3>
+                </div>
+                <button 
+                  onClick={() => setEditingBlog(null)}
+                  className="w-8 h-8 rounded-full border border-border-strong/30 flex items-center justify-center hover:bg-background/20 text-text-muted hover:text-text-primary transition-all"
+                >
+                  <X size={14} />
+                </button>
+              </div>
+
+              <form onSubmit={handleUpdateBlog} className="space-y-4 text-left">
+                
+                {/* Title */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-[9px] font-black text-text-muted/80 uppercase tracking-widest font-mono">Article Title</label>
+                  <input
+                    type="text"
+                    required
+                    value={editBlogTitle}
+                    onChange={(e) => setEditBlogTitle(e.target.value)}
+                    className="w-full px-4 py-3 bg-background border border-border-strong/30 rounded-xl text-xs text-text-primary focus:outline-none focus:border-[rgb(var(--accent-blue))] font-sans"
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {/* Category */}
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[9px] font-black text-text-muted/80 uppercase tracking-widest font-mono">Category</label>
+                    <select
+                      value={editBlogCategory}
+                      onChange={(e) => setEditBlogCategory(e.target.value)}
+                      className="w-full px-4 py-3 bg-background border border-border-strong/30 rounded-xl text-xs text-text-primary focus:outline-none focus:border-[rgb(var(--accent-blue))] font-sans"
+                    >
+                      <option value="AI Strategy">AI Strategy</option>
+                      <option value="Industry News">Industry News</option>
+                      <option value="Tool Comparison">Tool Comparison</option>
+                      <option value="Case Study">Case Study</option>
+                      <option value="Getting Started">Getting Started</option>
+                      <option value="AI Skills">AI Skills</option>
+                    </select>
+                  </div>
+
+                  {/* Read Time */}
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[9px] font-black text-text-muted/80 uppercase tracking-widest font-mono">Read Time</label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. 5 min read"
+                      value={editBlogReadTime}
+                      onChange={(e) => setEditBlogReadTime(e.target.value)}
+                      className="w-full px-4 py-3 bg-background border border-border-strong/30 rounded-xl text-xs text-text-primary focus:outline-none focus:border-[rgb(var(--accent-blue))] font-sans"
+                    />
+                  </div>
+
+                  {/* Theme Color */}
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[9px] font-black text-text-muted/80 uppercase tracking-widest font-mono">Theme Color (Hex)</label>
+                    <select
+                      value={editBlogColor}
+                      onChange={(e) => setEditBlogColor(e.target.value)}
+                      className="w-full px-4 py-3 bg-background border border-border-strong/30 rounded-xl text-xs text-text-primary focus:outline-none focus:border-[rgb(var(--accent-blue))] font-mono"
+                    >
+                      <option value="#6366F1">Indigo (#6366F1)</option>
+                      <option value="#06B6D4">Cyan (#06B6D4)</option>
+                      <option value="#4ADE80">Emerald (#4ADE80)</option>
+                      <option value="#F59E0B">Amber (#F59E0B)</option>
+                      <option value="#EC4899">Rose Pink (#EC4899)</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Excerpt */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-[9px] font-black text-text-muted/80 uppercase tracking-widest font-mono">Excerpt / Abstract</label>
+                  <textarea
+                    rows={2}
+                    required
+                    value={editBlogExcerpt}
+                    onChange={(e) => setEditBlogExcerpt(e.target.value)}
+                    className="w-full px-4 py-3 bg-background border border-border-strong/30 rounded-xl text-xs text-text-primary focus:outline-none focus:border-[rgb(var(--accent-blue))] font-sans resize-none"
+                  />
+                </div>
+
+                {/* Content (Markdown) */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-[9px] font-black text-text-muted/80 uppercase tracking-widest font-mono">Article Markdown Content</label>
+                  <textarea
+                    rows={12}
+                    required
+                    value={editBlogContent}
+                    onChange={(e) => setEditBlogContent(e.target.value)}
+                    className="w-full px-4 py-3 bg-background border border-border-strong/30 rounded-xl text-xs text-text-primary focus:outline-none focus:border-[rgb(var(--accent-blue))] font-mono resize-y"
+                  />
+                </div>
+
+                {/* Actions */}
+                <div className="flex gap-3 justify-end pt-3">
+                  <button
+                    type="button"
+                    onClick={() => setEditingBlog(null)}
+                    className="px-5 py-3 rounded-xl border border-border-strong/30 text-xs font-black uppercase tracking-widest text-text-muted hover:text-text-primary transition-colors font-sans"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-6 py-3 rounded-xl bg-[rgb(var(--accent-blue))] hover:bg-[rgb(var(--accent-blue-hover))] text-white text-xs font-black uppercase tracking-widest transition-colors shadow-glow-sm font-sans"
+                  >
+                    Save Changes
+                  </button>
+                </div>
+
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* CREATE BLOG POST MODAL */}
+      <AnimatePresence>
+        {isCreatingBlog && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsCreatingBlog(false)}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            />
+            
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              className="relative w-full max-w-2xl bg-surface-1 border border-border-strong/50 rounded-[28px] overflow-hidden shadow-2xl p-6 md:p-8 max-h-[90vh] overflow-y-auto"
+            >
+              <div className="flex justify-between items-start mb-6">
+                <div>
+                  <span className="text-[9px] font-black tracking-[0.3em] text-[rgb(var(--accent-blue))] uppercase font-mono">AI BLOG ENGINE</span>
+                  <h3 className="text-xl font-sans font-black text-text-primary uppercase tracking-tight mt-1">Create New Article Module</h3>
+                </div>
+                <button 
+                  onClick={() => setIsCreatingBlog(false)}
+                  className="w-8 h-8 rounded-full border border-border-strong/30 flex items-center justify-center hover:bg-background/20 text-text-muted hover:text-text-primary transition-all"
+                >
+                  <X size={14} />
+                </button>
+              </div>
+
+              <form onSubmit={handleCreateBlog} className="space-y-4 text-left">
+                
+                {/* Title */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-[9px] font-black text-text-muted/80 uppercase tracking-widest font-mono">Article Title</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. Scaling LLM Agents in Enterprise Workflows"
+                    value={newBlogTitle}
+                    onChange={(e) => setNewBlogTitle(e.target.value)}
+                    className="w-full px-4 py-3 bg-background border border-border-strong/30 rounded-xl text-xs text-text-primary focus:outline-none focus:border-[rgb(var(--accent-blue))] font-sans"
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {/* Category */}
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[9px] font-black text-text-muted/80 uppercase tracking-widest font-mono">Category</label>
+                    <select
+                      value={newBlogCategory}
+                      onChange={(e) => setNewBlogCategory(e.target.value)}
+                      className="w-full px-4 py-3 bg-background border border-border-strong/30 rounded-xl text-xs text-text-primary focus:outline-none focus:border-[rgb(var(--accent-blue))] font-sans"
+                    >
+                      <option value="AI Strategy">AI Strategy</option>
+                      <option value="Industry News">Industry News</option>
+                      <option value="Tool Comparison">Tool Comparison</option>
+                      <option value="Case Study">Case Study</option>
+                      <option value="Getting Started">Getting Started</option>
+                      <option value="AI Skills">AI Skills</option>
+                    </select>
+                  </div>
+
+                  {/* Read Time */}
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[9px] font-black text-text-muted/80 uppercase tracking-widest font-mono">Read Time</label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. 5 min read"
+                      value={newBlogReadTime}
+                      onChange={(e) => setNewBlogReadTime(e.target.value)}
+                      className="w-full px-4 py-3 bg-background border border-border-strong/30 rounded-xl text-xs text-text-primary focus:outline-none focus:border-[rgb(var(--accent-blue))] font-sans"
+                    />
+                  </div>
+
+                  {/* Theme Color */}
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[9px] font-black text-text-muted/80 uppercase tracking-widest font-mono">Theme Color (Hex)</label>
+                    <select
+                      value={newBlogColor}
+                      onChange={(e) => setNewBlogColor(e.target.value)}
+                      className="w-full px-4 py-3 bg-background border border-border-strong/30 rounded-xl text-xs text-text-primary focus:outline-none focus:border-[rgb(var(--accent-blue))] font-mono"
+                    >
+                      <option value="#6366F1">Indigo (#6366F1)</option>
+                      <option value="#06B6D4">Cyan (#06B6D4)</option>
+                      <option value="#4ADE80">Emerald (#4ADE80)</option>
+                      <option value="#F59E0B">Amber (#F59E0B)</option>
+                      <option value="#EC4899">Rose Pink (#EC4899)</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Excerpt */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-[9px] font-black text-text-muted/80 uppercase tracking-widest font-mono">Excerpt / Abstract</label>
+                  <textarea
+                    rows={2}
+                    required
+                    placeholder="Provide a 2-3 sentence overview for the cards list..."
+                    value={newBlogExcerpt}
+                    onChange={(e) => setNewBlogExcerpt(e.target.value)}
+                    className="w-full px-4 py-3 bg-background border border-border-strong/30 rounded-xl text-xs text-text-primary focus:outline-none focus:border-[rgb(var(--accent-blue))] font-sans resize-none"
+                  />
+                </div>
+
+                {/* Content (Markdown) */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-[9px] font-black text-text-muted/80 uppercase tracking-widest font-mono">Article Markdown Content</label>
+                  <textarea
+                    rows={12}
+                    required
+                    placeholder="# Heading 1&#10;Some markdown text..."
+                    value={newBlogContent}
+                    onChange={(e) => setNewBlogContent(e.target.value)}
+                    className="w-full px-4 py-3 bg-background border border-border-strong/30 rounded-xl text-xs text-text-primary focus:outline-none focus:border-[rgb(var(--accent-blue))] font-mono resize-y"
+                  />
+                </div>
+
+                {/* Actions */}
+                <div className="flex gap-3 justify-end pt-3">
+                  <button
+                    type="button"
+                    onClick={() => setIsCreatingBlog(false)}
+                    className="px-5 py-3 rounded-xl border border-border-strong/30 text-xs font-black uppercase tracking-widest text-text-muted hover:text-text-primary transition-colors font-sans"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-6 py-3 rounded-xl bg-[rgb(var(--accent-blue))] hover:bg-[rgb(var(--accent-blue-hover))] text-white text-xs font-black uppercase tracking-widest transition-colors shadow-glow-sm font-sans"
+                  >
+                    Create Article
+                  </button>
+                </div>
+
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
     </div>
   );
+}
+
+// Markdown parser helpers for local admin blog article previews
+function renderMarkdown(content: string) {
+  if (!content) return null;
+  const lines = content.split('\n');
+  const elements: React.ReactNode[] = [];
+  let currentList: React.ReactNode[] = [];
+  let keyCounter = 0;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+
+    // Handle Unordered Lists
+    if (line.startsWith('- ') || line.startsWith('* ')) {
+      const text = line.substring(2);
+      currentList.push(
+        <li key={`li-${keyCounter++}`} className="text-text-muted text-xs md:text-sm leading-relaxed mb-2 list-disc ml-6">
+          {parseInlineMarkdown(text)}
+        </li>
+      );
+      continue;
+    } else if (currentList.length > 0) {
+      elements.push(<ul key={`ul-${keyCounter++}`} className="my-4">{[...currentList]}</ul>);
+      currentList = [];
+    }
+
+    // Handle Headers
+    if (line.startsWith('### ')) {
+      elements.push(
+        <h3 key={`h3-${keyCounter++}`} className="text-sm md:text-base font-bold text-text-primary mt-5 mb-2.5 font-sans tracking-tight uppercase">
+          {parseInlineMarkdown(line.substring(4))}
+        </h3>
+      );
+    } else if (line.startsWith('## ')) {
+      elements.push(
+        <h2 key={`h2-${keyCounter++}`} className="text-base md:text-lg font-black text-text-primary mt-6 mb-3 font-sans tracking-tight border-b border-border-strong/30 pb-1.5 uppercase">
+          {parseInlineMarkdown(line.substring(3))}
+        </h2>
+      );
+    } else if (line.startsWith('# ')) {
+      elements.push(
+        <h1 key={`h1-${keyCounter++}`} className="text-lg md:text-xl font-black text-text-primary mt-8 mb-4 font-sans tracking-tighter uppercase">
+          {parseInlineMarkdown(line.substring(2))}
+        </h1>
+      );
+    } 
+    // Handle Blockquotes / Highlights
+    else if (line.startsWith('> ')) {
+      elements.push(
+        <blockquote key={`bq-${keyCounter++}`} className="my-5 p-4 rounded-xl border-l-4 border-[rgb(var(--accent-blue))] bg-[rgba(var(--accent-blue),0.03)] text-text-primary text-xs md:text-sm font-sans font-bold leading-relaxed opacity-95">
+          {parseInlineMarkdown(line.substring(2))}
+        </blockquote>
+      );
+    }
+    // Handle Empty Lines
+    else if (line === '') {
+      continue;
+    } 
+    // Handle Standard Paragraphs
+    else {
+      elements.push(
+        <p key={`p-${keyCounter++}`} className="text-text-muted text-xs md:text-sm leading-relaxed mb-3 opacity-90">
+          {parseInlineMarkdown(line)}
+        </p>
+      );
+    }
+  }
+
+  // Push remaining list items
+  if (currentList.length > 0) {
+    elements.push(<ul key={`ul-${keyCounter++}`} className="my-4">{currentList}</ul>);
+  }
+
+  return <div className="markdown-body">{elements}</div>;
+}
+
+function parseInlineMarkdown(text: string): React.ReactNode {
+  const parts: React.ReactNode[] = [];
+  let currentText = text;
+  let key = 0;
+
+  while (currentText.length > 0) {
+    const boldIndex = currentText.indexOf('**');
+    const codeIndex = currentText.indexOf('`');
+
+    if (boldIndex === -1 && codeIndex === -1) {
+      parts.push(<span key={key++}>{currentText}</span>);
+      break;
+    }
+
+    if (boldIndex !== -1 && (codeIndex === -1 || boldIndex < codeIndex)) {
+      if (boldIndex > 0) {
+        parts.push(<span key={key++}>{currentText.substring(0, boldIndex)}</span>);
+      }
+      const rest = currentText.substring(boldIndex + 2);
+      const endBoldIndex = rest.indexOf('**');
+      if (endBoldIndex !== -1) {
+        parts.push(
+          <strong key={key++} className="font-extrabold text-text-primary">
+            {rest.substring(0, endBoldIndex)}
+          </strong>
+        );
+        currentText = rest.substring(endBoldIndex + 2);
+      } else {
+        parts.push(<span key={key++}>**</span>);
+        currentText = rest;
+      }
+    } else {
+      if (codeIndex > 0) {
+        parts.push(<span key={key++}>{currentText.substring(0, codeIndex)}</span>);
+      }
+      const rest = currentText.substring(codeIndex + 1);
+      const endCodeIndex = rest.indexOf('`');
+      if (endCodeIndex !== -1) {
+        parts.push(
+          <code key={key++} className="bg-surface-2 px-1.5 py-0.5 rounded text-[10px] font-mono border border-border-strong text-[rgb(var(--accent-blue))]">
+            {rest.substring(0, endCodeIndex)}
+          </code>
+        );
+        currentText = rest.substring(endCodeIndex + 1);
+      } else {
+        parts.push(<span key={key++}>`</span>);
+        currentText = rest;
+      }
+    }
+  }
+
+  return <>{parts}</>;
 }

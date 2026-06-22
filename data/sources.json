@@ -1,0 +1,26 @@
+[
+  {
+    "id": "openai",
+    "name": "OpenAI Newsroom",
+    "feedUrl": "https://openai.com/news/rss.xml",
+    "enabled": true
+  },
+  {
+    "id": "google-ai",
+    "name": "Google AI News",
+    "feedUrl": "https://news.google.com/rss/search?q=Google+AI+artificial+intelligence&hl=en-US&gl=US&ceid=US:en",
+    "enabled": true
+  },
+  {
+    "id": "anthropic",
+    "name": "Anthropic AI News",
+    "feedUrl": "https://news.google.com/rss/search?q=Anthropic+Claude+artificial+intelligence&hl=en-US&gl=US&ceid=US:en",
+    "enabled": true
+  },
+  {
+    "id": "100x-engineers",
+    "name": "100x Engineers / General AI Tech",
+    "feedUrl": "https://news.google.com/rss/search?q=100x+engineers+AI+OR+artificial+intelligence+engineering&hl=en-US&gl=US&ceid=US:en",
+    "enabled": true
+  }
+]
