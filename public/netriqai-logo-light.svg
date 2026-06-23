@@ -1,0 +1,46 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 150" width="1000" height="300">
+  <defs>
+    <!-- Mask to create the perfectly circular structural cutout through the 'N' -->
+    <mask id="cutout">
+      <rect x="0" y="0" width="150" height="150" fill="white" />
+      <circle cx="75" cy="75" r="36" fill="black" />
+    </mask>
+
+    <!-- Vibrant cyan to deep teal gradient for the eye iris -->
+    <linearGradient id="irisGrad" x1="10%" y1="10%" x2="90%" y2="90%">
+      <stop offset="0%" stop-color="#4BF0CD" />
+      <stop offset="100%" stop-color="#14A083" />
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(0, 0)">
+    <!-- The Architectural 'N' Base -->
+    <path fill="#069494" d="M 30,15 
+                            L 60,15 
+                            L 90,75 
+                            L 120,15 
+                            L 120,135 
+                            L 90,135 
+                            L 60,75 
+                            L 30,135 Z" mask="url(#cutout)" />
+
+    <!-- The Cybernetic Iris -->
+    <circle cx="75" cy="75" r="27" fill="url(#irisGrad)" />
+
+    <!-- The Dark Pupil -->
+    <circle cx="75" cy="75" r="10.5" fill="#162124" />
+
+    <!-- The Luminous Highlight offset to the top-right -->
+    <circle cx="80" cy="70" r="3.4" fill="#FFFFFF" />
+  </g>
+
+  <!-- Text: etriqAI -->
+  <text x="135" y="98" 
+        font-family="system-ui, -apple-system, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif" 
+        font-weight="bold" 
+        font-size="68" 
+        letter-spacing="-3">
+    <tspan fill="#0a0a0a">etriq</tspan><tspan fill="#069494" font-style="italic">AI</tspan>
+  </text>
+</svg>
