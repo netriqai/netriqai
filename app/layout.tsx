@@ -98,7 +98,7 @@ export default function RootLayout({
 }) {
   return (
     <html
-      lang="en"
+      lang="en-AU"
       className={`${inter.variable} ${robotoMono.variable}`}
       data-theme="dark"
       suppressHydrationWarning
@@ -136,13 +136,18 @@ export default function RootLayout({
                   {
                     "@context": "https://schema.org",
                     "@type": ["LocalBusiness", "ProfessionalService"],
-                    "name": "Netriq AI",
-                    "description": "Netriq AI is a premium AI automation consultancy for Australian small and medium businesses (SMBs). We design custom AI pipelines, sales automation, and intelligent support systems. Services start at AUD $2,500.",
+                    "name": "Netriq AI Consulting",
+                    "alternateName": "Netriq AI",
+                    "description": "Netriq AI Consulting is a premium AI automation consultancy for Australian small and medium businesses (SMBs). We design custom AI pipelines, sales automation, and intelligent support systems. Services start at AUD $2,500.",
                     "url": "https://netriq.com.au",
                     "logo": "https://netriq.com.au/icon.svg",
                     "image": "https://netriq.com.au/og-image.png",
                     "telephone": "",
                     "email": "hello@netriq.com.au",
+                    // Service-area business (no public storefront): we intentionally
+                    // omit streetAddress/postalCode and define reach via areaServed.
+                    // This must match the Google Business Profile being set to a
+                    // service-area business with its address hidden.
                     "address": {
                       "@type": "PostalAddress",
                       "addressLocality": "Melbourne",
@@ -151,17 +156,18 @@ export default function RootLayout({
                     },
                     "geo": {
                       "@type": "GeoCoordinates",
-                      "latitude": "-37.8136",
-                      "longitude": "144.9631"
+                      "latitude": "-37.8101839",
+                      "longitude": "144.9686511"
                     },
+                    "hasMap": "https://maps.app.goo.gl/YzuYWFzFVLWMHRtu7",
                     "areaServed": [
                       { "@type": "Country", "name": "Australia" },
                       { "@type": "State", "name": "Victoria" },
                       { "@type": "City", "name": "Melbourne" }
                     ],
                     "serviceArea": {
-                      "@type": "GeoShape",
-                      "name": "Australia-wide"
+                      "@type": "Country",
+                      "name": "Australia"
                     },
                     "knowsAbout": [
                       "AI Automation",
@@ -215,16 +221,11 @@ export default function RootLayout({
                         }
                       ]
                     },
-                    "aggregateRating": {
-                      "@type": "AggregateRating",
-                      "ratingValue": "5",
-                      "ratingCount": "12",
-                      "bestRating": "5"
-                    },
                     "priceRange": "$$$",
                     "openingHours": "Mo-Fr 09:00-17:00",
                     "sameAs": [
-                      "https://www.linkedin.com/company/netriqai"
+                      "https://www.linkedin.com/company/netriqai",
+                      "https://maps.app.goo.gl/YzuYWFzFVLWMHRtu7"
                     ]
                   }
                 ])

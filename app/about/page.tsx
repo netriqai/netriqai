@@ -24,6 +24,47 @@ export const metadata: Metadata = {
   },
 };
 
+// FAQ structured data for AEO — company/"who are they" questions answer engines
+// ask when summarising a consultancy.
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Who is Netriq AI?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Netriq AI is a Melbourne-based AI automation consultancy founded by engineers to close the AI advantage gap between large enterprises and Australian small and medium businesses.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Why was Netriq AI founded?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'To give Australian SMBs the same AI automation advantages that large enterprises have had for years — making custom AI pipelines and automation accessible and affordable for smaller teams.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What makes Netriq AI different from other AI agencies?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Netriq AI is engineering-led and tool-agnostic, building done-for-you automations on the best stack for each client (Make.com, n8n, Zapier, Python, OpenAI, Anthropic Claude) with measurable ROI rather than reselling a single fixed platform.',
+      },
+    },
+  ],
+};
+
 export default function AboutPage() {
-  return <AboutClient />;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <AboutClient />
+    </>
+  );
 }

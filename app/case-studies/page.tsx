@@ -26,6 +26,47 @@ export const metadata: Metadata = {
   },
 };
 
+// FAQ structured data for AEO — results/ROI questions answer engines ask when
+// evaluating an automation provider's track record.
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What results has Netriq AI delivered for clients?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Netriq AI has built 200+ automation workflows and saved clients a combined AUD $4.2M. Representative outcomes include a 67% reduction in missed appointments, 3x faster client onboarding, and 80%+ operational efficiency gains for Australian SMBs.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What ROI do Netriq AI clients typically see?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Most clients see 3–10x ROI within the first year by saving 10–40 hours of manual work per week. One Melbourne law firm saved AUD $95,000 in its first 12 months through document-processing automation.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What industries does Netriq AI work with?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Netriq AI works across healthcare clinics, legal firms, e-commerce, construction and trades, and professional services — any Australian SMB with repetitive, high-volume manual workflows.',
+      },
+    },
+  ],
+};
+
 export default function CaseStudiesPage() {
-  return <CaseStudiesClient />;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <CaseStudiesClient />
+    </>
+  );
 }
