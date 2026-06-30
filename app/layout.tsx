@@ -151,9 +151,10 @@ export default function RootLayout({
                     },
                     "geo": {
                       "@type": "GeoCoordinates",
-                      "latitude": "-37.8136",
-                      "longitude": "144.9631"
+                      "latitude": "-37.8101839",
+                      "longitude": "144.9686511"
                     },
+                    "hasMap": "https://maps.app.goo.gl/YzuYWFzFVLWMHRtu7",
                     "areaServed": [
                       { "@type": "Country", "name": "Australia" },
                       { "@type": "State", "name": "Victoria" },
@@ -218,7 +219,8 @@ export default function RootLayout({
                     "priceRange": "$$$",
                     "openingHours": "Mo-Fr 09:00-17:00",
                     "sameAs": [
-                      "https://www.linkedin.com/company/netriqai"
+                      "https://www.linkedin.com/company/netriqai",
+                      "https://maps.app.goo.gl/YzuYWFzFVLWMHRtu7"
                     ]
                   }
                 ])
