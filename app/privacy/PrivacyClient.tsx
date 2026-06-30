@@ -125,7 +125,7 @@ export default function PrivacyClient() {
                   </p>
                   <div className="p-6 rounded-2xl bg-surface-2/40 border border-border-strong/30 inline-block">
                     <p className="font-mono text-sm font-bold text-text-primary">
-                      Email: hello@netriq.com.au <br />
+                      Email: hello@netriqai.com.au <br />
                       Location: Melbourne, VIC, Australia
                     </p>
                   </div>

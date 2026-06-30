@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    metadataBase: new URL('https://netriq.com.au'),
+    metadataBase: new URL('https://netriqai.com.au'),
     title: `${blog.title} — Netriq AI Australia`,
     description: blog.excerpt,
     openGraph: {
@@ -57,32 +57,32 @@ export default async function BlogDetailsPage({ params }: Props) {
           articleSection: blog.category,
           datePublished: isoOrUndefined(blog.date),
           dateModified: isoOrUndefined(blog.date),
-          image: 'https://netriq.com.au/og-image.png',
+          image: 'https://netriqai.com.au/og-image.png',
           author: {
             '@type': 'Organization',
             name: 'Netriq AI Consulting',
-            url: 'https://netriq.com.au',
+            url: 'https://netriqai.com.au',
           },
           publisher: {
             '@type': 'Organization',
             name: 'Netriq AI Consulting',
             logo: {
               '@type': 'ImageObject',
-              url: 'https://netriq.com.au/icon.svg',
+              url: 'https://netriqai.com.au/icon.svg',
             },
           },
           mainEntityOfPage: {
             '@type': 'WebPage',
-            '@id': `https://netriq.com.au/resources/${blog.slug}`,
+            '@id': `https://netriqai.com.au/resources/${blog.slug}`,
           },
         },
         {
           '@context': 'https://schema.org',
           '@type': 'BreadcrumbList',
           itemListElement: [
-            { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://netriq.com.au' },
-            { '@type': 'ListItem', position: 2, name: 'Resources', item: 'https://netriq.com.au/resources' },
-            { '@type': 'ListItem', position: 3, name: blog.title, item: `https://netriq.com.au/resources/${blog.slug}` },
+            { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://netriqai.com.au' },
+            { '@type': 'ListItem', position: 2, name: 'Resources', item: 'https://netriqai.com.au/resources' },
+            { '@type': 'ListItem', position: 3, name: blog.title, item: `https://netriqai.com.au/resources/${blog.slug}` },
           ],
         },
       ]

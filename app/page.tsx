@@ -43,7 +43,7 @@ const faqSchema = {
       name: 'How do I get started with Netriq AI?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Book a free 30-minute consultation at netriq.com.au/contact. We map your operational bottlenecks and deliver an implementation roadmap before you commit any budget.',
+        text: 'Book a free 30-minute consultation at netriqai.com.au/contact. We map your operational bottlenecks and deliver an implementation roadmap before you commit any budget.',
       },
     },
   ],

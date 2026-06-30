@@ -21,10 +21,10 @@ export const metadata: Metadata = {
     title: 'AI Automation Services — Netriq AI | From AUD $2,500',
     description:
       'Custom AI automation for Australian SMBs. Discovery Consultation, Done-For-You Builds, Ongoing Support & Team Training. Transparent pricing, measurable ROI.',
-    url: 'https://netriq.com.au/services',
+    url: 'https://netriqai.com.au/services',
   },
   alternates: {
-    canonical: 'https://netriq.com.au/services',
+    canonical: 'https://netriqai.com.au/services',
   },
 };
 

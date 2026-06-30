@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 import { readBlogsLocal } from '@/lib/blogDb';
 
-const baseUrl = 'https://netriq.com.au';
+const baseUrl = 'https://netriqai.com.au';
 
 // Parse human-readable post dates (e.g. "June 8, 2026") into YYYY-MM-DD.
 // Falls back to a stable static date if parsing fails, so the sitemap never

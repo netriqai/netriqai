@@ -17,10 +17,10 @@ export const metadata: Metadata = {
     title: 'About Netriq AI — We Build The Intelligence Layer',
     description:
       'Founded by engineers from top-tier AI platforms. Netriq AI exists to give Australian SMBs the same AI advantages that large enterprises have had for years.',
-    url: 'https://netriq.com.au/about',
+    url: 'https://netriqai.com.au/about',
   },
   alternates: {
-    canonical: 'https://netriq.com.au/about',
+    canonical: 'https://netriqai.com.au/about',
   },
 };
 
