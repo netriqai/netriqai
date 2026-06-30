@@ -9,7 +9,7 @@ Netriq AI helps Australian SMBs adopt AI without an in-house engineering team. W
 - **Location:** Melbourne, Victoria, Australia. Serves clients Australia-wide.
 - **Founded by:** engineers, to close the AI advantage gap between large enterprises and SMBs.
 - **Best for:** SMBs that want done-for-you AI automation with measurable ROI, from a single project through to an ongoing automation partner.
-- **Contact:** hello@netriq.com.au · https://netriq.com.au/contact (free 30-minute consultation)
+- **Contact:** hello@netriqai.com.au · https://netriqai.com.au/contact (free 30-minute consultation)
 
 ## Services and pricing (AUD)
 
@@ -27,9 +27,9 @@ Netriq AI helps Australian SMBs adopt AI without an in-house engineering team. W
 
 ## Key pages
 
-- Home: https://netriq.com.au
-- Services & pricing: https://netriq.com.au/services
-- Case studies: https://netriq.com.au/case-studies
-- About: https://netriq.com.au/about
-- Resources & guides: https://netriq.com.au/resources
-- Contact: https://netriq.com.au/contact
+- Home: https://netriqai.com.au
+- Services & pricing: https://netriqai.com.au/services
+- Case studies: https://netriqai.com.au/case-studies
+- About: https://netriqai.com.au/about
+- Resources & guides: https://netriqai.com.au/resources
+- Contact: https://netriqai.com.au/contact

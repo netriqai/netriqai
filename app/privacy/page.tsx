@@ -15,10 +15,10 @@ export const metadata: Metadata = {
     title: 'Privacy Policy | Netriq AI',
     description:
       'Our data protection protocols and privacy guidelines. We ensure your business logic and automation data remain secure.',
-    url: 'https://netriq.com.au/privacy',
+    url: 'https://netriqai.com.au/privacy',
   },
   alternates: {
-    canonical: 'https://netriq.com.au/privacy',
+    canonical: 'https://netriqai.com.au/privacy',
   },
 };
 

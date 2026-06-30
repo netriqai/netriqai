@@ -18,10 +18,10 @@ export const metadata: Metadata = {
     title: 'AI Academy & Gamified Learning | Netriq AI',
     description:
       'Level up your business automation skills. Complete video lessons and quizzes, earn XP, and unlock certifications for your SMB.',
-    url: 'https://netriq.com.au/education',
+    url: 'https://netriqai.com.au/education',
   },
   alternates: {
-    canonical: 'https://netriq.com.au/education',
+    canonical: 'https://netriqai.com.au/education',
   },
 };
 

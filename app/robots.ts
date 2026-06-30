@@ -26,6 +26,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/admin'],
       },
     ],
-    sitemap: 'https://netriq.com.au/sitemap.xml',
+    sitemap: 'https://netriqai.com.au/sitemap.xml',
   };
 }

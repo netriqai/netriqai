@@ -15,10 +15,10 @@ export const metadata: Metadata = {
     title: 'Terms of Service | Netriq AI',
     description:
       'Service terms, consulting agreements, and operational policies for working with Netriq AI.',
-    url: 'https://netriq.com.au/terms',
+    url: 'https://netriqai.com.au/terms',
   },
   alternates: {
-    canonical: 'https://netriq.com.au/terms',
+    canonical: 'https://netriqai.com.au/terms',
   },
 };
 

@@ -46,14 +46,14 @@ export const metadata: Metadata = {
     'intelligent automation for SMBs',
     'AI implementation services',
   ],
-  authors: [{ name: 'Netriq AI', url: 'https://netriq.com.au' }],
+  authors: [{ name: 'Netriq AI', url: 'https://netriqai.com.au' }],
   creator: 'Netriq AI',
   publisher: 'Netriq AI',
-  metadataBase: new URL('https://netriq.com.au'),
+  metadataBase: new URL('https://netriqai.com.au'),
   openGraph: {
     type: 'website',
     locale: 'en_AU',
-    url: 'https://netriq.com.au',
+    url: 'https://netriqai.com.au',
     siteName: 'Netriq AI',
     title: 'Netriq AI — We Rewire Your Business With AI',
     description:
@@ -87,7 +87,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://netriq.com.au',
+    canonical: 'https://netriqai.com.au',
   },
 };
 
@@ -122,13 +122,13 @@ export default function RootLayout({
                     "@context": "https://schema.org",
                     "@type": "WebSite",
                     "name": "Netriq AI",
-                    "url": "https://netriq.com.au",
+                    "url": "https://netriqai.com.au",
                     "description": "AI automation consulting for Australian small and medium businesses.",
                     "potentialAction": {
                       "@type": "SearchAction",
                       "target": {
                         "@type": "EntryPoint",
-                        "urlTemplate": "https://netriq.com.au/search?q={search_term_string}"
+                        "urlTemplate": "https://netriqai.com.au/search?q={search_term_string}"
                       },
                       "query-input": "required name=search_term_string"
                     }
@@ -139,11 +139,11 @@ export default function RootLayout({
                     "name": "Netriq AI Consulting",
                     "alternateName": "Netriq AI",
                     "description": "Netriq AI Consulting is a premium AI automation consultancy for Australian small and medium businesses (SMBs). We design custom AI pipelines, sales automation, and intelligent support systems. Services start at AUD $2,500.",
-                    "url": "https://netriq.com.au",
-                    "logo": "https://netriq.com.au/icon.svg",
-                    "image": "https://netriq.com.au/og-image.png",
+                    "url": "https://netriqai.com.au",
+                    "logo": "https://netriqai.com.au/icon.svg",
+                    "image": "https://netriqai.com.au/og-image.png",
                     "telephone": "",
-                    "email": "hello@netriq.com.au",
+                    "email": "hello@netriqai.com.au",
                     // Service-area business (no public storefront): we intentionally
                     // omit streetAddress/postalCode and define reach via areaServed.
                     // This must match the Google Business Profile being set to a
