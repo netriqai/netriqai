@@ -144,6 +144,10 @@ export default function RootLayout({
                     "image": "https://netriq.com.au/og-image.png",
                     "telephone": "",
                     "email": "hello@netriq.com.au",
+                    // Service-area business (no public storefront): we intentionally
+                    // omit streetAddress/postalCode and define reach via areaServed.
+                    // This must match the Google Business Profile being set to a
+                    // service-area business with its address hidden.
                     "address": {
                       "@type": "PostalAddress",
                       "addressLocality": "Melbourne",
@@ -162,8 +166,8 @@ export default function RootLayout({
                       { "@type": "City", "name": "Melbourne" }
                     ],
                     "serviceArea": {
-                      "@type": "GeoShape",
-                      "name": "Australia-wide"
+                      "@type": "Country",
+                      "name": "Australia"
                     },
                     "knowsAbout": [
                       "AI Automation",
