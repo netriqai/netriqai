@@ -136,8 +136,9 @@ export default function RootLayout({
                   {
                     "@context": "https://schema.org",
                     "@type": ["LocalBusiness", "ProfessionalService"],
-                    "name": "Netriq AI",
-                    "description": "Netriq AI is a premium AI automation consultancy for Australian small and medium businesses (SMBs). We design custom AI pipelines, sales automation, and intelligent support systems. Services start at AUD $2,500.",
+                    "name": "Netriq AI Consulting",
+                    "alternateName": "Netriq AI",
+                    "description": "Netriq AI Consulting is a premium AI automation consultancy for Australian small and medium businesses (SMBs). We design custom AI pipelines, sales automation, and intelligent support systems. Services start at AUD $2,500.",
                     "url": "https://netriq.com.au",
                     "logo": "https://netriq.com.au/icon.svg",
                     "image": "https://netriq.com.au/og-image.png",
