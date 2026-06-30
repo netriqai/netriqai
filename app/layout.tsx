@@ -98,7 +98,7 @@ export default function RootLayout({
 }) {
   return (
     <html
-      lang="en"
+      lang="en-AU"
       className={`${inter.variable} ${robotoMono.variable}`}
       data-theme="dark"
       suppressHydrationWarning
@@ -214,12 +214,6 @@ export default function RootLayout({
                           "priceCurrency": "AUD"
                         }
                       ]
-                    },
-                    "aggregateRating": {
-                      "@type": "AggregateRating",
-                      "ratingValue": "5",
-                      "ratingCount": "12",
-                      "bestRating": "5"
                     },
                     "priceRange": "$$$",
                     "openingHours": "Mo-Fr 09:00-17:00",

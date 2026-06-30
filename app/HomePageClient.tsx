@@ -3,20 +3,19 @@
 import dynamic from 'next/dynamic';
 import Hero from '@/components/home/Hero/index';
 
-// Dynamically import below-the-fold components with ssr: false.
-// This defers their JS from the initial bundle, improving FCP/LCP.
-// ssr: false is permitted here since this is a Client Component.
-const ProblemSection = dynamic(() => import('@/components/home/ProblemSection'), { 
-  ssr: false,
-  loading: () => <div className="h-screen bg-background" aria-hidden="true" />
-});
-
-const ServicesOverview = dynamic(() => import('@/components/home/ServicesOverview'), { ssr: false });
-const AIDemoWidget = dynamic(() => import('@/components/home/AIDemoWidget'), { ssr: false });
-const CaseStudiesTeaser = dynamic(() => import('@/components/home/CaseStudiesTeaser'), { ssr: false });
-const ProcessSection = dynamic(() => import('@/components/home/ProcessSection'), { ssr: false });
-const SocialProof = dynamic(() => import('@/components/home/SocialProof'), { ssr: false });
-const CTABanner = dynamic(() => import('@/components/home/CTABanner'), { ssr: false });
+// Dynamically import below-the-fold components for code-splitting (this defers
+// their JS from the initial bundle), but keep SSR enabled so the text content
+// is present in the server-rendered HTML. This is critical for SEO/GEO/AEO:
+// search and AI crawlers that don't execute JavaScript must still see services,
+// pricing, case studies, and social proof. Do NOT re-add `ssr: false` here —
+// doing so ships an almost-empty document to crawlers.
+const ProblemSection = dynamic(() => import('@/components/home/ProblemSection'));
+const ServicesOverview = dynamic(() => import('@/components/home/ServicesOverview'));
+const AIDemoWidget = dynamic(() => import('@/components/home/AIDemoWidget'));
+const CaseStudiesTeaser = dynamic(() => import('@/components/home/CaseStudiesTeaser'));
+const ProcessSection = dynamic(() => import('@/components/home/ProcessSection'));
+const SocialProof = dynamic(() => import('@/components/home/SocialProof'));
+const CTABanner = dynamic(() => import('@/components/home/CTABanner'));
 
 export default function HomePageClient() {
   return (
@@ -24,7 +23,7 @@ export default function HomePageClient() {
       {/* Hero is server-rendered immediately as it is above the fold */}
       <Hero />
       
-      {/* These sections are truly lazy-loaded (ssr: false) to reduce initial JS payload */}
+      {/* Code-split but server-rendered so content is crawlable (see note above) */}
       <ProblemSection />
       <ServicesOverview />
       <AIDemoWidget />

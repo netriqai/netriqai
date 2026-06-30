@@ -1,0 +1,35 @@
+# Netriq AI
+
+> Netriq AI is a Melbourne-based AI automation consultancy for Australian small and medium businesses (SMBs). We design and build custom AI pipelines, sales automation, and intelligent customer-support systems. Engagements start at AUD $2,500.
+
+Netriq AI helps Australian SMBs adopt AI without an in-house engineering team. We are tool-agnostic and build on Make.com, n8n, Zapier, Python, OpenAI, and Anthropic Claude. Clients typically save 10–40 hours of manual work per week and see 3–10× ROI within the first year. To date we have built 200+ workflows and saved clients a combined AUD $4.2M.
+
+## Key facts
+
+- **Location:** Melbourne, Victoria, Australia. Serves clients Australia-wide.
+- **Founded by:** engineers, to close the AI advantage gap between large enterprises and SMBs.
+- **Best for:** SMBs that want done-for-you AI automation with measurable ROI, from a single project through to an ongoing automation partner.
+- **Contact:** hello@netriq.com.au · https://netriq.com.au/contact (free 30-minute consultation)
+
+## Services and pricing (AUD)
+
+- **AI Discovery Consultation — from $2,500.** Workflow mapping to identify the highest-ROI automation opportunities. Includes a 30+ page report and a 90-day roadmap.
+- **Done-For-You AI Implementation — from $8,000.** Custom AI automation build, API integrations, and secure installation into your existing business tools.
+- **Ongoing AI Support Retainer — from $1,500/month.** 24/7 monitoring, continuous upgrades, and monthly ROI reporting.
+- **AI Team Training — from $3,000.** Staff workshops, practical AI tool guides, and post-workshop resource packs.
+
+## Common questions
+
+- **How much does AI automation consulting cost in Australia?** Netriq AI services start at AUD $2,500 for an AI Discovery Consultation; done-for-you implementations start at AUD $8,000.
+- **How long does implementation take?** Most projects go live within 30 days. Simple automations take 1–2 weeks; complex multi-system builds take 6–8 weeks.
+- **Do I need technical knowledge?** No. Netriq AI handles 100% of the build.
+- **Which tools do you use?** Make.com, n8n, Zapier, Python, OpenAI, and Anthropic Claude — chosen per budget and need.
+
+## Key pages
+
+- Home: https://netriq.com.au
+- Services & pricing: https://netriq.com.au/services
+- Case studies: https://netriq.com.au/case-studies
+- About: https://netriq.com.au/about
+- Resources & guides: https://netriq.com.au/resources
+- Contact: https://netriq.com.au/contact
