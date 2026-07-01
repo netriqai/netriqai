@@ -70,7 +70,15 @@ const faqSchema = {
       name: 'How much does AI automation consulting cost in Australia?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Netriq AI services start at AUD $2,500 for an AI Discovery Consultation. Done-For-You implementations start at AUD $8,000. Ongoing support retainers start at AUD $1,500 per month. Team training starts at AUD $3,000.',
+        text: 'Netriq AI services start at AUD $2,500 for an AI Discovery Consultation. Done-For-You implementations start at AUD $8,000. Ongoing support retainers start at AUD $1,500 per month. Team training starts at AUD $3,000. Website development is priced per project on a custom quote.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does Netriq AI build websites optimised for search and AI?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. Netriq AI designs and builds fast, custom websites with SEO, AEO (Answer Engine Optimisation) and GEO (Generative Engine Optimisation) built in — structured data, LLM-readable content, and clean performance so you rank on Google and get surfaced by AI assistants like ChatGPT, Gemini and Perplexity. Website development is priced per project on a custom quote.',
       },
     },
   ],
