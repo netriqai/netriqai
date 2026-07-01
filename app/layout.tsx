@@ -179,7 +179,11 @@ export default function RootLayout({
                       "CRM Automation",
                       "Sales Automation",
                       "Customer Support AI",
-                      "Small Business AI Consulting"
+                      "Small Business AI Consulting",
+                      "Website Development",
+                      "Search Engine Optimisation (SEO)",
+                      "Answer Engine Optimisation (AEO)",
+                      "Generative Engine Optimisation (GEO)"
                     ],
                     "hasOfferCatalog": {
                       "@type": "OfferCatalog",
@@ -218,6 +222,11 @@ export default function RootLayout({
                           "description": "Staff training workshops, practical AI tool guides, and post-workshop resource packs.",
                           "price": "3000",
                           "priceCurrency": "AUD"
+                        },
+                        {
+                          "@type": "Offer",
+                          "name": "Website Development (SEO, AEO & GEO optimised)",
+                          "description": "Custom, high-performance website design and development with SEO, Answer Engine Optimisation (AEO) and Generative Engine Optimisation (GEO) built in — structured data, LLM-readable content, and fast, secure delivery. Priced per project on a custom quote."
                         }
                       ]
                     },

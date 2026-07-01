@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check, ChevronDown, ChevronUp, Search, Cpu, RefreshCw, GraduationCap, ArrowRight } from 'lucide-react';
+import { Check, ChevronDown, ChevronUp, Search, Cpu, RefreshCw, GraduationCap, Globe, ArrowRight } from 'lucide-react';
 import GlowButton from '@/components/ui/GlowButton';
 import SectionReveal from '@/components/ui/SectionReveal';
 import NeuralBackground from '@/components/ui/NeuralBackground';
@@ -78,6 +78,22 @@ const services = [
     badge: null,
     cta: 'Book Training',
   },
+  {
+    id: 'web',
+    icon: Globe,
+    name: 'Website Development',
+    tagline: 'High-performance websites engineered to convert — and built to be found by Google and AI search from day one.',
+    price: 'Custom Quote',
+    color: 'var(--accent-blue)',
+    features: [
+      'Custom design & responsive build',
+      'SEO, AEO & GEO optimisation built-in',
+      'Structured data & LLM-readable content',
+      'Fast, secure & analytics-ready',
+    ],
+    badge: null,
+    cta: 'Request a Quote',
+  },
 ];
 
 const faqs = [
@@ -96,6 +112,10 @@ const faqs = [
   {
     question: 'What ROI can I expect?',
     answer: 'Most clients see 3–10× ROI within the first year by saving 10-40 hours of manual labor per week.',
+  },
+  {
+    question: 'Do you build websites, and are they optimised for search and AI?',
+    answer: 'Yes. We design and build fast, custom websites with SEO, AEO (Answer Engine Optimisation) and GEO (Generative Engine Optimisation) built in from the start — structured data, LLM-readable content, and clean performance so you rank on Google and get surfaced by AI assistants like ChatGPT, Gemini and Perplexity.',
   },
 ];
 

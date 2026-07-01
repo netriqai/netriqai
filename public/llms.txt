@@ -17,6 +17,7 @@ Netriq AI helps Australian SMBs adopt AI without an in-house engineering team. W
 - **Done-For-You AI Implementation — from $8,000.** Custom AI automation build, API integrations, and secure installation into your existing business tools.
 - **Ongoing AI Support Retainer — from $1,500/month.** 24/7 monitoring, continuous upgrades, and monthly ROI reporting.
 - **AI Team Training — from $3,000.** Staff workshops, practical AI tool guides, and post-workshop resource packs.
+- **Website Development — custom quote.** Custom, high-performance website design and build with SEO, AEO (Answer Engine Optimisation) and GEO (Generative Engine Optimisation) built in — structured data, LLM-readable content, and fast, secure delivery.
 
 ## Common questions
 
@@ -24,6 +25,7 @@ Netriq AI helps Australian SMBs adopt AI without an in-house engineering team. W
 - **How long does implementation take?** Most projects go live within 30 days. Simple automations take 1–2 weeks; complex multi-system builds take 6–8 weeks.
 - **Do I need technical knowledge?** No. Netriq AI handles 100% of the build.
 - **Which tools do you use?** Make.com, n8n, Zapier, Python, OpenAI, and Anthropic Claude — chosen per budget and need.
+- **Do you build websites?** Yes — custom websites with SEO, AEO and GEO optimisation built in, so you rank on Google and get surfaced by AI assistants like ChatGPT, Gemini and Perplexity. Priced per project on a custom quote.
 
 ## Key pages
 

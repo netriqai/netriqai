@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Terminal, Database, ShieldAlert, Cpu, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Terminal, Database, ShieldAlert, Cpu, Globe, ArrowRight, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
 import GlowButton from '@/components/ui/GlowButton';
 import clsx from 'clsx';
@@ -47,6 +47,16 @@ const services = [
     price: 'AUD $3,000',
     id: 'training',
     tags: ['Live Coaching', 'Guides', 'Q&A'],
+  },
+  {
+    icon: Globe,
+    code: 'Service 05',
+    name: 'Website Development',
+    tagline: 'Websites built to convert and to be found by Google and AI.',
+    description: 'We design and build fast, custom websites with SEO, AEO and GEO optimisation built in — so you rank on Google and get surfaced by AI assistants.',
+    price: 'Custom Quote',
+    id: 'web',
+    tags: ['Web Design', 'SEO / AEO / GEO', 'Performance'],
   },
 ];
 
