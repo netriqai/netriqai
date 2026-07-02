@@ -39,41 +39,65 @@ const clientLogoMap: Record<string, React.ReactNode> = {
   'itbeyourownmind.com': <ITBYOMLogo />,
 };
 
-const featuredClients = [
-  { 
-    name: 'HR Finance', 
-    domain: 'hrfinance.com.au', 
+interface FeaturedClient {
+  name: string;
+  domain: string;
+  url: string;
+  description: string;
+  results: string;
+  // Path to a website preview screenshot in /public. When null, the card falls
+  // back to the brand logo (e.g. for login-gated apps with no public page).
+  preview: string | null;
+}
+
+const featuredClients: FeaturedClient[] = [
+  {
+    name: 'Prime Lending Experts',
+    domain: 'primelendingexperts.com.au',
+    url: 'https://primelendingexperts.com.au',
+    description: 'Melbourne Mortgage Brokers',
+    results: 'Website Development & SEO',
+    preview: '/images/previews/primelendingexperts.webp',
+  },
+  {
+    name: 'HR Finance',
+    domain: 'hrfinance.com.au',
     url: 'https://hrfinance.com.au',
     description: 'Finance & Mortgage Specialists',
-    results: 'Automated Loan Processing'
+    results: 'Automated Loan Processing',
+    preview: '/images/previews/hrfinance.webp',
   },
-  { 
-    name: 'Taxbud', 
-    domain: 'taxbud.com.au', 
+  {
+    name: 'Taxbud',
+    domain: 'taxbud.com.au',
     url: 'https://taxbud.com.au',
     description: 'Digital Taxation Services',
-    results: 'AI Tax Workflow Automation'
+    results: 'AI Tax Workflow Automation',
+    preview: '/images/previews/taxbud.webp',
   },
-  { 
-    name: 'Finvue', 
-    domain: 'finvue.com.au', 
+  {
+    name: 'Finvue',
+    domain: 'finvue.com.au',
     url: 'https://finvue.com.au',
     description: 'Wealth Management Platform',
-    results: 'Data Aggregation & Reporting'
+    results: 'Data Aggregation & Reporting',
+    preview: null,
   },
   {
     name: 'ASR Interiors',
     domain: 'asrinteriors.com.au',
     url: 'https://www.asrinteriors.com.au/',
     description: 'Luxury Interior Design & Renovation',
-    results: 'Client Pipeline Automation'
+    results: 'Client Pipeline Automation',
+    preview: '/images/previews/asrinteriors.webp',
   },
   {
     name: 'itBYOM',
     domain: 'itbeyourownmind.com',
     url: 'https://itbeyourownmind.com',
     description: 'Psychotherapy & Mentorship Space',
-    results: 'Interactive Clinical Platform'
+    results: 'Interactive Clinical Platform',
+    preview: '/images/previews/itbyom.webp',
   },
 ];
 
@@ -204,31 +228,43 @@ export default function CaseStudiesClient() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {featuredClients.map((client, i) => (
               <SectionReveal key={client.domain} delay={i * 100}>
-                <a 
-                  href={client.url} 
-                  target="_blank" 
+                <a
+                  href={client.url}
+                  target="_blank"
                   rel="noopener noreferrer"
-                  className="group block p-8 rounded-[32px] bg-surface-1 border border-border-strong hover:border-accent-blue/40 transition-all duration-500 hover:shadow-2xl hover:shadow-accent-blue/5"
+                  className="group block rounded-[24px] overflow-hidden bg-surface-1 border border-border-strong hover:border-accent-blue/40 transition-all duration-500 hover:shadow-2xl hover:shadow-accent-blue/5"
                 >
-                  <div className="flex items-center justify-between mb-8">
-                    <div className="flex items-center justify-center p-4 rounded-[20px] bg-text-primary/[0.03] backdrop-blur-md border border-text-primary/10 group-hover:border-accent-blue/50 group-hover:bg-accent-blue/5 transition-all duration-500 shadow-xl shadow-black/5 dark:shadow-black/20">
-                      {clientLogoMap[client.domain]}
-                    </div>
-                    <div className="text-text-muted group-hover:text-accent-blue transition-colors">
-                      <ExternalLink size={20} />
+                  {/* Website preview (falls back to logo for login-gated sites) */}
+                  <div className="relative aspect-[16/10] overflow-hidden bg-text-primary/[0.03] border-b border-border-strong/50">
+                    {client.preview ? (
+                      <img
+                        src={client.preview}
+                        alt={`${client.name} website preview`}
+                        width={900}
+                        height={563}
+                        loading="lazy"
+                        className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center p-10 opacity-90">
+                        {clientLogoMap[client.domain]}
+                      </div>
+                    )}
+                    <div className="absolute top-3 right-3 w-9 h-9 rounded-full bg-background/70 backdrop-blur-md border border-border-strong/50 flex items-center justify-center text-text-muted opacity-0 group-hover:opacity-100 group-hover:text-accent-blue group-hover:border-accent-blue/50 transition-all duration-300">
+                      <ExternalLink size={16} />
                     </div>
                   </div>
-                  
-                  <h3 className="text-xl font-sans font-black text-text-primary mb-2 uppercase tracking-tight">
-                    {client.name}
-                  </h3>
-                  <p className="text-text-muted text-xs font-mono tracking-widest uppercase mb-6 opacity-60">
-                    {client.description}
-                  </p>
-                  
-                  <div className="pt-6 border-t border-border-strong/40">
-                    <div className="flex items-center gap-3">
-                      <ShieldCheck size={16} className="text-accent-blue" />
+
+                  {/* Body */}
+                  <div className="p-6">
+                    <h3 className="text-lg font-sans font-black text-text-primary mb-1 uppercase tracking-tight">
+                      {client.name}
+                    </h3>
+                    <p className="text-text-muted text-xs font-mono tracking-widest uppercase mb-4 opacity-60">
+                      {client.description}
+                    </p>
+                    <div className="pt-4 border-t border-border-strong/40 flex items-center gap-3">
+                      <ShieldCheck size={16} className="text-accent-blue shrink-0" />
                       <span className="text-[10px] font-black text-text-primary tracking-widest uppercase">
                         {client.results}
                       </span>
