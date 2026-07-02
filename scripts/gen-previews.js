@@ -8,7 +8,8 @@ const https = require('https');
 const sites = [
   { key: 'hrfinance', url: 'https://hrfinance.com.au' },
   { key: 'taxbud', url: 'https://taxbud.com.au' },
-  { key: 'finvue', url: 'https://finvue.com.au' },
+  // finvue omitted: its root redirects bots to a Google login, so it can't be
+  // auto-captured. public/images/previews/finvue.webp is a manual screenshot.
   { key: 'asrinteriors', url: 'https://www.asrinteriors.com.au/' },
   { key: 'itbyom', url: 'https://itbeyourownmind.com' },
   { key: 'primelendingexperts', url: 'https://primelendingexperts.com.au' },
