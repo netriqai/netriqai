@@ -81,7 +81,9 @@ const featuredClients: FeaturedClient[] = [
     url: 'https://finvue.com.au',
     description: 'Wealth Management Platform',
     results: 'Data Aggregation & Reporting',
-    preview: null,
+    // Manually captured — the live root redirects bots to a Google login, so
+    // this can't be auto-captured via scripts/gen-previews.js.
+    preview: '/images/previews/finvue.webp',
   },
   {
     name: 'ASR Interiors',
